@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-onSurface text-[32px] font-normal font-['Roboto'] leading-10;
+  }
+  h2 {
+    @apply text-onSurface text-[28px] font-normal font-['Roboto'] leading-9;
+  }
+  h3 {
+    @apply text-onSurface text-2xl font-normal font-['Roboto'] leading-loose;
+  }
+  h4 {
+    @apply text-onSurface text-[22px] font-normal font-['Roboto'] leading-7;
+  }
+  h5 {
+    @apply text-onSurface text-base font-medium font-['Roboto'] leading-normal tracking-tight;
+  }
+  h6 {
+    @apply text-onSurface text-sm font-medium font-['Roboto'] leading-tight tracking-tight;
+  }
+  p {
+    @apply text-onSurface text-base font-normal font-['Roboto'] leading-normal tracking-wide;
+  }
+  pm {
+    @apply text-onSurface text-sm font-normal font-['Roboto'] leading-tight tracking-tight;
+  }
+  ps {
+    @apply text-onSurface text-xs font-normal font-['Roboto'] leading-none tracking-wide;
+  }
+  /* a {
+    @apply underline text-[#2563eb] hover:text-[#a855f7] transition;
+  } */
+
+  .p-screen {
+    @apply md:px-6 lg:px-[156px] xl:px-[200px] px-8;
+  }
+
+  .labelsm {
+    @apply text-onPrimary text-[11px] font-medium font-['Roboto'] leading-none tracking-wide;
+  }
+  .labelmd {
+    @apply text-onPrimary text-[12px] font-medium font-['Roboto'] leading-none tracking-wide;
+  }
+  .labellg {
+    @apply text-onPrimary text-[14px] font-medium font-['Roboto'] leading-tight tracking-tight;
+  }
+}
+
+.btn-primary {
+  @apply inline-block items-center justify-center rounded-full bg-primary px-8 py-[10px] text-sm font-medium text-onPrimary transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50;
+}
+.btn-border {
+  @apply inline-block rounded-full border border-primary px-8 py-[10px] text-sm font-medium text-primary transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50;
+}
+.btn-text {
+  @apply inline-block rounded-full px-8 py-[10px] text-sm font-medium text-primary transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50;
+}
+.btn-icon {
+  @apply flex items-center justify-between gap-4 rounded-full border border-primary bg-primary px-5 py-1 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50;
+}
+
+.swiper-container {
+  /* @apply h-[752px] md:h-[832px] md:px-8 md:relative; */
+  @apply h-[602px] md:h-[666px] md:px-8 md:relative;
+}
+.swiper-button-prev {
+  @apply left-[20%] translate-x-[-20%] md:left-[30%] md:translate-x-[-30%];
+}
+.swiper-button-next {
+  @apply left-[80%] translate-x-[-80%]  md:left-[70%] md:translate-x-[70%];
+}
+.swiper-slide-shadow-left {
+  @apply hidden;
+}
+.swiper-slide-shadow-right {
+  @apply hidden;
+}
+.slider-controler {
+  @apply relative bottom-36 md:bottom-20 flex justify-center items-center;
+}
+.slider-arrow {
+  @apply bg-onPrimary relative w-14 h-14 rounded-[50%] left-[42%] translate-x-[-42%] drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
+}
+.swiper-pagination {
+  @apply relative w-[15rem] bottom-4;
+}
+.swiper-pagination-bullet {
+  @apply drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
+}
+.swiper-pagination-bullet-active {
+  @apply bg-primary;
+}
