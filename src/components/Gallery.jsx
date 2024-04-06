@@ -21,10 +21,10 @@ const Gallery = () => {
   return (
     // <div className="max-w-[124rem] px-8 py-4 mx-0 my-auto">
     <div className="p-screen">
-      <h1 className="font-bold pb-12 md:flex hidden justify-center text-center pt-20">
+      <h1 className="font-bold pb-4 md:flex hidden justify-center text-center pt-20">
         Travaux de Makgraph
       </h1>
-      <h4 className="font-bold pb-12 md:hidden  text-center pt-20">
+      <h4 className="font-bold pb-6 md:hidden  text-center pt-20">
         Travaux de Makgraph
       </h4>
       <Swiper
@@ -48,51 +48,51 @@ const Gallery = () => {
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="swiper-container"
       >
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_1}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_2}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_3}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_4}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_5}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_6}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="sm:w-[322px] sm:h-[415px] md:w-[474px] md:h-[538px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_7}
             alt="slide_image"
           />

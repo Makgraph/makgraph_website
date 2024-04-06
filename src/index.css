@@ -64,7 +64,7 @@
 
 .swiper-container {
   /* @apply h-[752px] md:h-[832px] md:px-8 md:relative; */
-  @apply h-[602px] md:h-[666px] md:px-8 md:relative;
+  @apply h-[350px] md:h-[500px] md:px-8 md:relative;
 }
 .swiper-button-prev {
   @apply left-[20%] translate-x-[-20%] md:left-[30%] md:translate-x-[-30%];
@@ -79,7 +79,7 @@
   @apply hidden;
 }
 .slider-controler {
-  @apply relative bottom-36 md:bottom-20 flex justify-center items-center;
+  @apply relative bottom-9 md:bottom-8 flex justify-center items-center;
 }
 .slider-arrow {
   @apply bg-onPrimary relative w-14 h-14 rounded-[50%] left-[42%] translate-x-[-42%] drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
