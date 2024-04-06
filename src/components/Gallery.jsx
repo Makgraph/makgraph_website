@@ -99,25 +99,13 @@ const Gallery = () => {
         </SwiperSlide>
 
         <div className="slider-controler ">
-          <div className="swiper-button-prev ">
-            <div className="slider-arrow swiper-slide-shadow-left after:content-['']">
-              <ion-icon
-                size="large"
-                color="black"
-                name="arrow-back-outline"
-              ></ion-icon>
-            </div>
+          <div className="swiper-button-prev  after:content-['']">
+            <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+          </div>
+          <div className="swiper-button-next after:content-['']">
+            <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
           </div>
 
-          <div className="swiper-button-next ">
-            <div className="slider-arrow swiper-slide-shadow-right after:content-['']">
-              <ion-icon
-                size="large"
-                color="black"
-                name="arrow-forward-outline"
-              ></ion-icon>
-            </div>
-          </div>
           <div className="swiper-pagination"></div>
         </div>
       </Swiper>

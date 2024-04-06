@@ -66,30 +66,38 @@
   /* @apply h-[752px] md:h-[832px] md:px-8 md:relative; */
   @apply h-[350px] md:h-[500px] md:px-8 md:relative;
 }
-.swiper-button-prev {
-  @apply left-[20%] translate-x-[-20%] md:left-[30%] md:translate-x-[-30%];
-}
-.swiper-button-next {
-  @apply left-[80%] translate-x-[-80%]  md:left-[70%] md:translate-x-[70%];
-}
-.swiper-slide-shadow-left {
-  @apply hidden;
-}
-.swiper-slide-shadow-right {
-  @apply hidden;
-}
 .slider-controler {
   @apply relative bottom-9 md:bottom-8 flex justify-center items-center;
 }
-.slider-arrow {
+.slider-controler .swiper-button-prev {
+  @apply left-[20%] translate-x-[-20%] md:left-[30%] md:translate-x-[-30%];
+}
+.slider-controler .swiper-button-next {
+  @apply left-[80%] translate-x-[-80%]  md:left-[70%] md:translate-x-[70%];
+}
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  @apply hidden;
+}
+
+.slider-controler .slider-arrow {
   @apply bg-onPrimary relative w-14 h-14 rounded-[50%] left-[42%] translate-x-[-42%] drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
 }
+
+.slider-controler .slider-arrow .ion-icon {
+  @apply text-lg text-[#111113];
+}
+
+.slider-controler .slider-arrow {
+  @apply after:content-[""];
+}
+
 .swiper-pagination {
   @apply relative w-[15rem] bottom-4;
 }
-.swiper-pagination-bullet {
+.swiper-pagination .swiper-pagination-bullet {
   @apply drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
 }
-.swiper-pagination-bullet-active {
+.swiper-pagination .swiper-pagination-bullet-active {
   @apply bg-primary;
 }
