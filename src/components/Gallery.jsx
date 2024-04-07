@@ -100,6 +100,24 @@ const Gallery = () => {
 
         <div className="slider-controler ">
           <div className="swiper-button-prev  after:content-['']">
+            <div className="slider-arrow">
+              <div className="ion-icon">
+                <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+              </div>
+            </div>
+          </div>
+          <div className="swiper-button-next after:content-['']">
+            <div className="slider-arrow">
+              <div className="ion-icon">
+                <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+              </div>
+            </div>
+          </div>
+          <div className="swiper-pagination"></div>
+        </div>
+
+        {/* <div className="slider-controler ">
+          <div className="swiper-button-prev  after:content-['']">
             <ion-icon size="large" name="arrow-back-outline"></ion-icon>
           </div>
           <div className="swiper-button-next after:content-['']">
@@ -107,7 +125,7 @@ const Gallery = () => {
           </div>
 
           <div className="swiper-pagination"></div>
-        </div>
+        </div> */}
       </Swiper>
     </div>
   );
