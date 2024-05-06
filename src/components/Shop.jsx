@@ -7,7 +7,7 @@ import whiteTshirt3 from "../assets/white_t-shirt_3.png";
 const Shop = () => {
   return (
     <section>
-      <div className="p-screen">
+      <div className="p-screen" id="shop">
         <header className="mt-20 flex justify-center items-center ">
           <h1>Shop</h1>
         </header>
@@ -18,11 +18,11 @@ const Shop = () => {
           </p>
         </div>
 
-        <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-4 grid gap-4 grid-cols-2 lg:grid-cols-4">
           <li>
             <a href="#" className="group block overflow-hidden">
               <img
-                className="h-[250px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[250px]"
+                className="h-[350px] w-full sm:w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[350px]"
                 src={blackTshirt}
                 alt="slide_image"
               />
@@ -45,7 +45,7 @@ const Shop = () => {
           <li>
             <a href="#" className="group block overflow-hidden">
               <img
-                className="h-[250px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[250px]"
+                className="h-[350px] w-full sm:w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[350px]"
                 src={whiteTshirt}
                 alt="slide_image"
               />
@@ -68,7 +68,7 @@ const Shop = () => {
           <li>
             <a href="#" className="group block overflow-hidden">
               <img
-                className="h-[250px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[250px]"
+                className="h-[350px] w-full sm:w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[350px]"
                 src={blueTshirt}
                 alt="slide_image"
               />
@@ -91,7 +91,7 @@ const Shop = () => {
           <li>
             <a href="#" className="group block overflow-hidden">
               <img
-                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[250px]"
+                className="h-[350px] w-full sm:w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[350px]"
                 src={whiteTshirt3}
                 alt="slide_image"
               />

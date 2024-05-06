@@ -35,7 +35,7 @@
   } */
 
   .p-screen {
-    @apply md:px-6 lg:px-[156px] xl:px-[200px] px-8;
+    @apply md:px-6 md:pt-24 lg:px-[156px] xl:px-[200px] pt-16;
   }
 
   .labelsm {
@@ -64,10 +64,10 @@
 
 .swiper-container {
   /* @apply h-[752px] md:h-[832px] md:px-8 md:relative; */
-  @apply h-[350px] md:h-[500px] md:px-8 md:relative;
+  @apply h-[350px] md:h-[350px] md:px-8 md:relative;
 }
 .slider-controler {
-  @apply relative bottom-9 md:bottom-10 flex justify-center items-center;
+  @apply relative bottom-9 md:bottom-8 flex justify-center items-center;
 }
 .slider-controler .swiper-button-prev {
   @apply left-[20%] translate-x-[-20%] md:left-[30%] md:translate-x-[-30%];
@@ -81,11 +81,11 @@
 }
 
 .slider-arrow {
-  @apply bg-onPrimary relative w-14 h-9 rounded-[50%] left-[42%] md:left-[-20%] translate-x-[-42%] drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
+  @apply bg-onPrimary relative w-5 h-6 md:w-7 md:h-7 rounded-[50%] left-[20%] md:left-[-20%] translate-x-[-42%] drop-shadow-[0_8px_24px_rgba(18,28,53,0.1)];
 }
 
 .ion-icon {
-  @apply text-lg text-primary after:content-[''];
+  @apply md:text-2xl text-xl text-primary after:content-[''];
 }
 
 /* .slider-controler .slider-arrow .ion-icon {

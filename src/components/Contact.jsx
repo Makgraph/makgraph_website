@@ -2,7 +2,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="p-screen">
+    <div className="p-screen" id="contact">
       <div className="grid grid-cols-1 gap-4 md:gap-2 md:grid-cols-2">
         <div className="w-auto h-auto flex-col justify-center items-center pt-20 md:py-2 gap-2 inline-flex">
           <div>
@@ -16,7 +16,8 @@ const Contact = () => {
             </div>
             <div className="inline-flex justify-center items-center gap-2 ">
               <div>
-                <ion-icon size="sm md:hidden" name="logo-whatsapp"></ion-icon>
+                <ion-icon size="sm md:hidden" name="home"></ion-icon>
+                <ion-icon size="sm md:hidden" name="home"></ion-icon>
                 <ion-icon
                   size="large md:flex hidden"
                   name="logo-whatsapp"

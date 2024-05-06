@@ -20,10 +20,13 @@ import slide_image_7 from "../assets/black_t-shirt_4.png";
 const Gallery = () => {
   return (
     // <div className="max-w-[124rem] px-8 py-4 mx-0 my-auto">
-    <div className="p-screen">
+    <div className="p-screen" id="gallerie">
       <h1 className="font-bold pb-4 md:flex hidden justify-center text-center pt-20">
         Travaux de Makgraph
       </h1>
+      {/* <header className="mt-20 flex justify-center items-center ">
+        <h1>Travaux de Makgraph</h1>
+      </header> */}
       <h4 className="font-bold pb-6 md:hidden  text-center pt-20">
         Travaux de Makgraph
       </h4>
@@ -48,51 +51,51 @@ const Gallery = () => {
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="swiper-container"
       >
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_1}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_2}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_3}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_4}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_5}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_6}
             alt="slide_image"
           />
         </SwiperSlide>
-        <SwiperSlide className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] md:relative rounded-2xl md:rounded-2xl">
+        <SwiperSlide className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] md:relative rounded-2xl md:rounded-2xl">
           <img
-            className="w-[230px] h-[277px]  md:w-[390px] md:h-[437px] rounded-2xl md:rounded-2xl md:object-cover"
+            className="w-[230px] h-[277px]  md:w-[254px] md:h-[284px] rounded-2xl md:rounded-2xl md:object-cover"
             src={slide_image_7}
             alt="slide_image"
           />
@@ -102,14 +105,14 @@ const Gallery = () => {
           <div className="swiper-button-prev  after:content-['']">
             <div className="slider-arrow">
               <div className="ion-icon">
-                <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+                <ion-icon name="arrow-back-outline"></ion-icon>
               </div>
             </div>
           </div>
           <div className="swiper-button-next after:content-['']">
             <div className="slider-arrow">
               <div className="ion-icon">
-                <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
               </div>
             </div>
           </div>

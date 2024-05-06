@@ -3,7 +3,7 @@ import logoMakgraph from "../assets/logo_Makgraph.png";
 
 const About = () => {
   return (
-    <div className="p-screen">
+    <div className="p-screen" id="à propos">
       <div className="grid grid-cols-1 gap-4 md:gap-2 md:grid-cols-2">
         <div className="w-auto h-auto pt-20 flex justify-center md:justify-center items-center ">
           <div>
