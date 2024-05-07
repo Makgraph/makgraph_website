@@ -11,8 +11,8 @@ const Home = () => {
     <section>
       <div>
         <div className="p-screen" id="home">
-          <div className="grid grid-cols-1 gap-4 md:gap-2 md:grid-cols-2">
-            <div className="w-auto h-auto  pt-10 md:pt-0 flex-col justify-center gap-6 items-center inline-flex  md:px-2">
+          <div className="grid grid-cols-1 gap-4 md:max-h-[520px] md:gap-2 md:grid-cols-2">
+            <div className="w-auto h-auto md:max-h-[520px] pt-10 md:pt-0 flex-col justify-center gap-6 items-center inline-flex  md:px-2">
               <div className="self-stretch justify-center items-center inline-flex">
                 <div className="grow shrink basis-0 text-center text-zinc-900 text-xs md:text-sm font-normal font-['Roboto'] leading-none tracking-wide">
                   Bienvenue sur la page web de Makgraph
@@ -57,7 +57,7 @@ const Home = () => {
               </div>
             </div>
             {/* <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-3  md:bg-onSecondary md:flex md:justify-between md:py-8 h-auto w-auto sm:py-2"> */}
-            <div className="grid grid-cols-1 h-auto w-auto gap-4 sm:grid-cols-3 sm:gap-3   md:bg-cover md:bg-center md:flex md:gap-4 justify-center md:py-28 md:px-4 sm:py-2">
+            <div className="grid grid-cols-1 md:max-h-[520px] w-auto gap-4 sm:grid-cols-3 sm:gap-3   md:bg-cover md:bg-center md:flex md:gap-4 justify-center md:py-10 md:px-4 sm:py-2">
               <Slideshow />
               {/* <img
                 className="basis-0 w-full h-[210px] xs:h-auto md:w-[360px] md:h-[400px] rounded-lg border border-[#155e75]"

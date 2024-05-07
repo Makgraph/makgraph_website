@@ -48,7 +48,7 @@ function Slideshow() {
       >
         {colors.map((img, index) => (
           <img
-            className="basis-0 w-full h-[210px] xs:h-auto md:w-[360px] md:h-[400px] inline-block rounded-lg border border-[#155e75]"
+            className="basis-0 w-full h-[210px] xs:h-auto md:w-100% md:h-[400px] inline-block rounded-xl border border-[#155e75]"
             key={index}
             src={img.src}
           />
@@ -58,7 +58,7 @@ function Slideshow() {
         {colors.map((_, idx) => (
           <div
             key={idx}
-            className={`bubble ${index === idx ? " bg-primary" : ""}`}
+            className={`bubble${index === idx ? " bg-primary" : ""}`}
             onClick={() => {
               setIndex(idx);
             }}

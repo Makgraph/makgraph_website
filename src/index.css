@@ -35,7 +35,7 @@
   } */
 
   .p-screen {
-    @apply md:px-6 md:mt-16 lg:px-[156px] xl:px-[200px] pt-16;
+    @apply md:px-6 lg:px-[156px] xl:px-[200px];
   }
 
   .labelsm {

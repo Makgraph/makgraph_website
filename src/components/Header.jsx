@@ -18,7 +18,9 @@ const Header = () => {
         <div
           onClick={() => setOpen(!open)}
           className="md:hidden text-3xl absolute right-8 top-6 cursor-pointer"
-        ></div>
+        >
+          <ion-icon name={open ? "close" : "menu"}></ion-icon>
+        </div>
         <ul
           className={`md:flex md:items-center md:pb-0 pb-12 absolute bg-surfaceContainer  md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all md:transition-none duration-500 ease-in ${
             open ? "top-[81px] opacity-100" : "top-[-490px]"
