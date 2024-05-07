@@ -3,13 +3,12 @@ import black_Tshirt_2 from "../assets/black_t-shirt_2.png";
 import whiteTshirt from "../assets/white_t-shirt_2.png";
 import blueTshirt from "../assets/blue_t-shirt_1.jpg";
 import Header from "./Header.jsx";
+import Slideshow from "./Slideshow.jsx";
 import heroBg from "../assets/hero_bg.png";
 
 const Home = () => {
   return (
     <section>
-      {/* <Header /> */}
-      {/* <section className="justify-center items-center"> */}
       <div>
         <div className="p-screen" id="home">
           <div className="grid grid-cols-1 gap-4 md:gap-2 md:grid-cols-2">
@@ -58,22 +57,23 @@ const Home = () => {
               </div>
             </div>
             {/* <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-3  md:bg-onSecondary md:flex md:justify-between md:py-8 h-auto w-auto sm:py-2"> */}
-            <div className="grid grid-cols-1 h-auto w-auto gap-4 sm:grid-cols-3 sm:gap-3  md:bg-[url('./assets/hero_bg.png')] md:bg-cover md:bg-center md:flex md:gap-4 justify-center md:py-28 md:px-4 sm:py-2">
-              <img
-                className="basis-0 w-full h-[210px] xs:h-auto md:w-[216px] md:h-[270px] rounded-lg border border-[#155e75]"
+            <div className="grid grid-cols-1 h-auto w-auto gap-4 sm:grid-cols-3 sm:gap-3   md:bg-cover md:bg-center md:flex md:gap-4 justify-center md:py-28 md:px-4 sm:py-2">
+              <Slideshow />
+              {/* <img
+                className="basis-0 w-full h-[210px] xs:h-auto md:w-[360px] md:h-[400px] rounded-lg border border-[#155e75]"
                 src={blueTshirt}
                 alt=""
-              />
-              <img
+              /> */}
+              {/* <img
                 className="basis-0 w-full h-[210px] xs:h-auto md:w-[216px] md:h-[270px] rounded-lg border border-[#155e75]"
                 src={black_Tshirt_2}
                 alt=""
-              />
-              <img
+              /> */}
+              {/* <img
                 className="basis-0 w-full h-[210px] xs:h-auto md:hidden  rounded-lg border border-[#155e75]"
                 src={whiteTshirt}
                 alt=""
-              />
+              /> */}
             </div>
           </div>
         </div>

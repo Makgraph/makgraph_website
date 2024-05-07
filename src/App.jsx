@@ -16,10 +16,10 @@ const App = () => (
     {/* <main className="pt-20 md:pt-24 h-full"> */}
     <main className="h-[100%]">
       <Home />
-      <Gallery />
-      <Shop />
-      <About />
-      <Contact />
+      {/* <Gallery /> */}
+      {/* <Shop /> */}
+      {/* <About /> */}
+      {/* <Contact /> */}
     </main>
     {/* <Footer /> */}
   </>

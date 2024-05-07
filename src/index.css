@@ -35,7 +35,7 @@
   } */
 
   .p-screen {
-    @apply md:px-6 md:pt-24 lg:px-[156px] xl:px-[200px] pt-16;
+    @apply md:px-6 md:mt-16 lg:px-[156px] xl:px-[200px] pt-16;
   }
 
   .labelsm {
@@ -104,4 +104,8 @@
 }
 .swiper-pagination .swiper-pagination-bullet-active {
   @apply bg-primary;
+}
+
+.bubble {
+  @apply inline-block h-3 w-3 rounded-[50%] cursor-pointer border border-primary my-4 mr-2 ml-0;
 }
