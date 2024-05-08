@@ -14,7 +14,7 @@ const App = () => (
   <>
     <Header />
     {/* <main className="pt-20 md:pt-24 h-full"> */}
-    <main className="md:mt-24 h-[100%]">
+    <main className="mt-20 md:mt-24 h-[100%]">
       <Home />
       {/* <Gallery /> */}
       {/* <Shop /> */}

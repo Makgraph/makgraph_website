@@ -38,7 +38,34 @@ export default {
     //   7: "28px",
     //   8: "32px",
     // },
-    extend: {},
+    extend: {
+      keyframes: {
+        slideInLeft: {
+          from: { transform: "translateX(-300px)" },
+          to: { transform: "translateX(0)" },
+        },
+        slideInRight: {
+          from: { transform: "translateX(300px)", opacity: "0%" },
+          to: { transform: "translateX(0)" },
+        },
+        scalebtn: {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.2)",
+          },
+        },
+      },
+      animation: {
+        slideInLeftFast: "slideInLeft 1s linear",
+        slideInLeftSlow2: "slideInLeft 1.4s linear",
+        slideInLeftSlow3: "slideInLeft 1.7s linear",
+        slideInLeftSlow4: "slideInLeft 1.9s linear",
+        slideInRight: "slideInRight 1s ease-in",
+        scalebtn: " scalebtn 2s ease-in infinite",
+      },
+    },
+    plugins: [],
   },
-  plugins: [],
 };

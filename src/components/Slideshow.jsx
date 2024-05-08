@@ -41,14 +41,14 @@ function Slideshow() {
   }, [index]);
 
   return (
-    <div className="my-0 mx-auto overflow-hidden max-w-[360px]">
+    <div className="my-0 mx-auto overflow-hidden max-w-[324px] animate-slideInRight">
       <div
         className="whitespace-nowrap transition ease-linear duration-1000"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
         {colors.map((img, index) => (
           <img
-            className="basis-0 w-full h-[210px] xs:h-auto md:w-100% md:h-[400px] inline-block rounded-xl border border-[#155e75]"
+            className="basis-0 w-full h-[210px] xs:h-auto md:w-100% md:h-[405px] inline-block rounded-xl border border-[#155e75]"
             key={index}
             src={img.src}
           />
