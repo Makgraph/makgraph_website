@@ -1,10 +1,11 @@
 import React from "react";
-import black_Tshirt_2 from "../assets/black_t-shirt_2.png";
-import whiteTshirt from "../assets/white_t-shirt_2.png";
-import blueTshirt from "../assets/blue_t-shirt_1.jpg";
-import Header from "./Header.jsx";
+import black_Tshirt_2 from "../../assets/black_t-shirt_2.png";
+import whiteTshirt from "../../assets/white_t-shirt_2.png";
+import blueTshirt from "../../assets/blue_t-shirt_1.jpg";
+import Header from "../Header.jsx";
 import Slideshow from "./Slideshow.jsx";
-import heroBg from "../assets/hero_bg.png";
+import heroBg from "../../assets/hero_bg.png";
+import {} from "../../assets/background_web_2.png";
 
 const Home = () => {
   return (

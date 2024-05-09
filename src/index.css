@@ -19,7 +19,7 @@
     @apply text-onSurface text-base font-medium font-['Roboto'] leading-normal tracking-tight;
   }
   h6 {
-    @apply text-onSurface text-sm font-medium font-['Roboto'] leading-tight tracking-tight;
+    @apply text-onSurface text-sm font-normal font-['Roboto'] leading-tight tracking-tight;
   }
   p {
     @apply text-onSurface text-base font-normal font-['Roboto'] leading-normal tracking-wide;
@@ -109,3 +109,5 @@
 .bubble {
   @apply inline-block h-3 w-3 rounded-[50%] cursor-pointer border border-primary my-4 mr-2 ml-0;
 }
+
+/* Text Animation */
