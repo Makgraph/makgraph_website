@@ -3,7 +3,7 @@ import React from "react";
 const Product = (props) => {
   const { id, productName, price, productImage } = props.data;
   return (
-    <div className="rounded-lg w-[100%] p-[50px] h-[250px]  my-[100px]  flex flex-col justify-center items-center transition hover:transition-[0.3s] hover:ease-in cursor-pointer ">
+    <div className="rounded-lg w-[100%] p-[50px] h-[250px]  md:my-[100px] my-[40px]  flex flex-col justify-center items-center transition hover:transition-[0.3s] hover:ease-in cursor-pointer ">
       <img src={productImage} className="w-[400px] rounded-lg " />
       <div className="text-center w-[100%]  ">
         <p>
