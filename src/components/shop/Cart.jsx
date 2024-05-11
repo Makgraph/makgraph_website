@@ -41,7 +41,10 @@ const Cart = () => {
         </div>
       ) : (
         <div className="m-20">
-          <h1> Votre Panier est vide !</h1>
+          <h1 className="text-[18px] md:text-[32px]">
+            {" "}
+            Votre Panier est vide !
+          </h1>
         </div>
       )}
     </div>
