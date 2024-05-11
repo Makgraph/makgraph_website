@@ -27,7 +27,6 @@ const Cart = () => {
       {totalAmount > 0 ? (
         <div className="checkout">
           <h5 className="ml-[10px]">
-            {" "}
             <b>Sous-total: $ {totalAmount}</b>
           </h5>
           <button
