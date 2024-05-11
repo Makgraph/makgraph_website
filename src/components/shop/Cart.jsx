@@ -13,7 +13,7 @@ const Cart = () => {
   return (
     <div className="flex mx-7 md:mx-6 lg:mx-[156px] xl:px-[200px] border-t border-primary/20 flex-col justify-center items-center">
       <div className="mt-4">
-        <h4>
+        <h4 className="text-[16px] md:text-[22px]">
           <b>Articles de votre panier</b>
         </h4>
       </div>
@@ -25,7 +25,7 @@ const Cart = () => {
         })}
       </div>
       {totalAmount > 0 ? (
-        <div className="checkout">
+        <div className="caisse">
           <h5 className="ml-[10px]">
             <b>Sous-total: $ {totalAmount}</b>
           </h5>
