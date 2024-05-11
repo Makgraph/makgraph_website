@@ -12,31 +12,31 @@ export const PRODUCTS = [
   {
     id: 1,
     productName: "Maillot 1",
-    price: "$30",
+    price: 30,
     productImage: product1,
   },
   {
     id: 2,
     productName: "Maillot 2",
-    price: "$29",
+    price: 29,
     productImage: product2,
   },
   {
     id: 3,
     productName: "Maillot 3",
-    price: "$25",
+    price: 25,
     productImage: product3,
   },
   {
     id: 4,
     productName: "Maillot 4",
-    price: "$37",
+    price: 37,
     productImage: product4,
   },
   {
     id: 5,
     productName: "Maillot 5",
-    price: "$21",
+    price: 21,
     productImage: product5,
   },
   {
@@ -48,7 +48,7 @@ export const PRODUCTS = [
   {
     id: 7,
     productName: "Maillot 7",
-    price: "$33",
+    price: 33,
     productImage: product7,
   },
   {

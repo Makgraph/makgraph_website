@@ -8,17 +8,20 @@ import whiteTshirt3 from "../../assets/white_t-shirt_3.png";
 import NavBarShop from "./NavBarShop.jsx";
 import ShopScreen from "./ShopScreen.jsx";
 import Cart from "./Cart.jsx";
+import ShopContextProvider from "../../context/ShopContext.jsx";
 
 const Shop = () => {
   return (
     <div>
-      <Router>
-        <NavBarShop />
-        <Routes>
-          <Route path="/" element={<ShopScreen />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </Router>
+      <ShopContextProvider>
+        <Router>
+          <NavBarShop />
+          <Routes>
+            <Route path="/" element={<ShopScreen />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </Router>
+      </ShopContextProvider>
     </div>
   );
   // <section>
