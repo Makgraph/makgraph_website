@@ -11,13 +11,13 @@ const Cart = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="  flex border-t border-primary/20 flex-col justify-center items-center">
+    <div className="flex mx-7 md:mx-6 lg:mx-[156px] xl:px-[200px] border-t border-primary/20 flex-col justify-center items-center">
       <div className="mt-4">
         <h4>
           <b>Articles de votre panier</b>
         </h4>
       </div>
-      <div className="cartItems">
+      <div className="w-[100%] flex flex-col items-center justify-center">
         {PRODUCTS.map((product) => {
           if (cartItems[product.id] !== 0) {
             return <CartItem data={product} />;
