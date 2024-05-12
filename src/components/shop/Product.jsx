@@ -20,7 +20,7 @@ const Product = (props) => {
           onClick={() => addToCart(id)}
         >
           <h6 className="text-xs md:text-sm hover:text-white ">
-            Ajouter au panier {cartItemsAmount > 0 && <>({cartItemsAmount})</>}{" "}
+            Ajouter au panier {cartItemsAmount > 0 && <>({cartItemsAmount})</>}
           </h6>
         </button>
       </div>
