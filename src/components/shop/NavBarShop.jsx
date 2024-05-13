@@ -2,16 +2,10 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
 import { ShopContext } from "../../context/ShopContext";
-import { PRODUCTS } from "../../product.js";
-import Product from "./Product";
 
 const NavBarShop = (props) => {
-  const { id, productName, price, productImage } = props.data;
-  const { cartItems, getDefaultCart, getCartAmount, getTotalCarAmount } =
-    useContext(ShopContext);
+  const { getCartAmount } = useContext(ShopContext);
 
-  const cartItemsAmount = cartItems[id];
-  const totalAmount = getTotalCarAmount();
   const cartAmount = getCartAmount();
 
   return (
@@ -22,14 +16,10 @@ const NavBarShop = (props) => {
         </Link>
         <Link to="/cart">
           <div className="relative">
-            {/* {cartItems.length === 0 ? ( */}
             {cartAmount > 0 ? (
-              <div className="bg-error absolute h-5 w-5 rounded-[50%] -right-2 -top-1">
-                <span className="text-white text-[13px] flex justify-center items-center">
+              <div className="bg-error absolute h-4 w-4 md:h-5 md:w-5 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-1">
+                <span className="text-white text-[10px] md:text-[13px] flex justify-center items-center">
                   {cartAmount}
-                  {/* {cartItems.length} */}
-                  {/*  {cartItemsAmount > 0 && <>{cartItemsAmount}</>} */}
-                  {/* {cartItems.lenght === 0 ? "" : cartItems.lenght} */}
                 </span>
               </div>
             ) : (
