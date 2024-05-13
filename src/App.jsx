@@ -16,7 +16,7 @@ const App = () => (
     <Header />
     {/* <main className="pt-20 md:pt-24 h-full"> */}
     <main className="mt-20 md:mt-24 h-[100%]">
-      {/* <Home /> */}
+      <Home />
       {/* <Gallery /> */}
       <Shop />
       {/* <About /> */}
