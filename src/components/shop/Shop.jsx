@@ -9,13 +9,14 @@ import NavBarShop from "./NavBarShop.jsx";
 import ShopScreen from "./ShopScreen.jsx";
 import Cart from "./Cart.jsx";
 import ShopContextProvider from "../../context/ShopContext.jsx";
+import { PRODUCTS } from "../../product.js";
 
 const Shop = () => {
   return (
     <div>
       <ShopContextProvider>
         <Router>
-          <NavBarShop />
+          <NavBarShop data={PRODUCTS} />
           <Routes>
             <Route path="/" element={<ShopScreen />} />
             <Route path="/cart" element={<Cart />} />
