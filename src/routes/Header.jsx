@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logoMakgraph from "../assets/logo_Makgraph.png";
 import facebook from "../assets/facebook_color.png";
 import instagram from "../assets/instagram_color.png";
 import pinterest from "../assets/pinterest_color.png";
 // import { navLinks } from "../constants";
 import { ShoppingCart } from "phosphor-react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, Link } from "react-router-dom";
 import Home from "./home/home";
 import { navLinks } from "./../constants/index";
+import { ShopContext } from "../context/ShopContext";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { getCartAmount } = useContext(ShopContext);
+
+  const cartAmount = getCartAmount();
+
   return (
     <>
       <div id="header">
@@ -78,7 +83,20 @@ export default function Header() {
                   </span>
                 </b>
               </NavLink>
-              <ShoppingCart size={24} />
+              <Link to="/shop/3/cart">
+                <div className="relative">
+                  {cartAmount > 0 ? (
+                    <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
+                      <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                        {cartAmount}
+                      </span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <ShoppingCart size={24} />
+                </div>
+              </Link>
             </div>
           </div>
         </div>

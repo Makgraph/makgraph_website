@@ -17,6 +17,7 @@ import Product from "./routes/shop/Product.jsx";
 import ShopScreen from "./routes/shop/ShopScreen.jsx";
 import ShopContextProvider from "./context/ShopContext";
 import Mainpage from "./routes/Mainpage.jsx";
+import CartItem from "./routes/shop/CartItem.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/shop/3",
     element: <Shop />,
+  },
+  {
+    path: "/shop/3/cart",
+    element: <Cart />,
   },
   {
     path: "/about/4",
