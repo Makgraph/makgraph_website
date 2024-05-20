@@ -7,8 +7,8 @@ export default function root() {
   return (
     <div>
       <Header />
-      {/* <Home /> */}
-      {/* <Footer /> */}
+      <Home />
+      <Footer />
     </div>
   );
 }
