@@ -6,9 +6,9 @@ import Home from "./home/home";
 export default function root() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Home />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
