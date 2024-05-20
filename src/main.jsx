@@ -1,10 +1,56 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+// import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import Root from "./routes/root";
+import ErrorPage from "./error-page";
+import Home from "./routes/home/home.jsx";
+import Slideshow from "./routes/home/Slideshow.jsx";
+import About from "./routes/About.jsx";
+import Gallery from "./routes/Gallery.jsx";
+import Contact from "./routes/Contact.jsx";
+import Shop from "./routes/shop/Shop.jsx";
+import Cart from "./routes/shop/Cart.jsx";
+import NavBarShop from "./routes/shop/NavBarShop.jsx";
+import Product from "./routes/shop/Product.jsx";
+import ShopScreen from "./routes/shop/ShopScreen.jsx";
+import ShopContextProvider from "./context/ShopContext";
+import Mainpage from "./routes/Mainpage.jsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/home/1",
+    element: <Home />,
+  },
+  {
+    path: "/Gallerie/2",
+    element: <Gallery />,
+  },
+  {
+    path: "/shop/3",
+    element: <Shop />,
+  },
+  {
+    path: "/about/4",
+    element: <About />,
+  },
+  {
+    path: "/contact/5",
+    element: <Contact />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <ShopContextProvider>
+      <RouterProvider router={router} />
+    </ShopContextProvider>
   </React.StrictMode>
 );

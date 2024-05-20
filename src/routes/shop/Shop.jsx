@@ -1,29 +1,36 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import blackTshirt from "../../assets/black_t-shirt_2.png";
-import whiteTshirt from "../../assets/white_t-shirt_2.png";
-import blueTshirt from "../../assets/blue_t-shirt_1.jpg";
-import whiteTshirt3 from "../../assets/white_t-shirt_3.png";
-
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBarShop from "./NavBarShop.jsx";
 import ShopScreen from "./ShopScreen.jsx";
 import Cart from "./Cart.jsx";
-import ShopContextProvider from "../../context/ShopContext.jsx";
-import { PRODUCTS } from "../../product.js";
+import Header from "../Header.jsx";
+import Footer from "../Footer.jsx";
+// import ShopContextProvider from "../../context/ShopContext.jsx";
+// import { PRODUCTS } from "../../product.js";
 
 const Shop = () => {
   return (
     <div>
-      <ShopContextProvider>
-        <Router>
-          <NavBarShop data={PRODUCTS} />
-          <Routes>
-            <Route path="/" element={<ShopScreen />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </Router>
-      </ShopContextProvider>
+      <Header />
+      <div className="pt-20">
+        <NavBarShop />
+        <ShopScreen />
+        <Footer />
+      </div>
+      {/* <Cart /> */}
     </div>
+
+    // <div>
+    //   <ShopContextProvider>
+    //     <Router>
+    //       <NavBarShop data={PRODUCTS} />
+    //       <Routes>
+    //         <Route path="/" element={<ShopScreen />} />
+    //         <Route path="/cart" element={<Cart />} />
+    //       </Routes>
+    //     </Router>
+    //   </ShopContextProvider>
+    // </div>
   );
   // <section>
   //   <div className="p-screen " id="shop">

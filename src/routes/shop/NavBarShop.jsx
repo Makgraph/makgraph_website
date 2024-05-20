@@ -9,7 +9,7 @@ const NavBarShop = (props) => {
   const cartAmount = getCartAmount();
 
   return (
-    <div className="w-[100%] h-20 flex justify-center items-center">
+    <div className="w-[100%] h-20 flex justify-center items-center md:py-16">
       <div className="flex gap-4 items-center">
         <Link to="/">
           <h2 className="text-[20px] md:text-[28px]">Makgraph Shop</h2>
