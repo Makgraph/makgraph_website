@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./home/home";
-import Gallery from "./Gallery";
+import Gallery from "../routes/Gallery/Gallery";
 import Shop from "./shop/Shop";
 import About from "./About";
 import Contact from "./Contact";

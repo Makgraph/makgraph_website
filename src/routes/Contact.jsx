@@ -1,14 +1,15 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { WhatsappLogo } from "phosphor-react";
 
 const Contact = () => {
   return (
     <div>
       <Header />
-      <div className="p-screen md:py-16" id="contact">
+      <div className="p-screen py-6 md:py-16" id="contact">
         <div className="grid grid-cols-1 gap-4 md:gap-2 md:grid-cols-2">
-          <div className="w-auto h-auto flex-col justify-center items-center pt-20 md:py-2 gap-2 inline-flex">
+          <div className="w-auto h-auto flex-col justify-center items-center pt-20 py-3 md:py-2 gap-2 inline-flex">
             <div>
               <h4 className="font-bold md:hidden">Pour plus info</h4>
               <h3 className="font-bold md:flex hidden">Pour plus info</h3>
@@ -20,8 +21,10 @@ const Contact = () => {
               </div>
               <div className="inline-flex justify-center items-center gap-2 ">
                 <div>
-                  <ion-icon size="sm md:hidden" name="home"></ion-icon>
-                  <ion-icon size="sm md:hidden" name="home"></ion-icon>
+                  <ion-icon
+                    size="small flex md:hidden"
+                    name="logo-whatsapp"
+                  ></ion-icon>
                   <ion-icon
                     size="large md:flex hidden"
                     name="logo-whatsapp"

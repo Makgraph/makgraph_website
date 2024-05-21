@@ -8,7 +8,7 @@ import ErrorPage from "./error-page";
 import Home from "./routes/home/home.jsx";
 import Slideshow from "./routes/home/Slideshow.jsx";
 import About from "./routes/About.jsx";
-import Gallery from "./routes/Gallery.jsx";
+import Gallery from "./routes/Gallery/Gallery.jsx";
 import Contact from "./routes/Contact.jsx";
 import Shop from "./routes/shop/Shop.jsx";
 import Cart from "./routes/shop/Cart.jsx";
