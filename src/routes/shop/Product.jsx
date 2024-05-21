@@ -19,7 +19,7 @@ const Product = (props) => {
           className="bg-[#fffff] border-2 border-primary hover:bg-primary cursor-pointer min-w-[80px] px-2 py-1 rounded-[50px]"
           onClick={() => addToCart(id)}
         >
-          <h6 className="text-[10px] md:text-sm hover:text-white ">
+          <h6 className="text-xs md:text-sm hover:text-white ">
             Ajouter au panier {cartItemsAmount > 0 && <>({cartItemsAmount})</>}
           </h6>
         </button>
