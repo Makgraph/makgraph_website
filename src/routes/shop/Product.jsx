@@ -11,15 +11,15 @@ const Product = (props) => {
     <div className="rounded-lg w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer ">
       <img src={productImage} className="w-[400px] rounded-lg " />
       <div className="text-center w-[100%]  ">
-        <p className="text-xs md:text-base">
+        <p className="text-sm md:text-base">
           <b>{productName}</b>
         </p>
-        <p className="text-xs md:text-base">$ {price}</p>
+        <p className="text-sm md:text-base">$ {price}</p>
         <button
           className="bg-[#fffff] border-2 border-primary hover:bg-primary cursor-pointer min-w-[80px] px-2 py-1 rounded-[50px]"
           onClick={() => addToCart(id)}
         >
-          <h6 className="text-[8px] md:text-sm hover:text-white ">
+          <h6 className="text-[10px] md:text-sm hover:text-white ">
             Ajouter au panier {cartItemsAmount > 0 && <>({cartItemsAmount})</>}
           </h6>
         </button>

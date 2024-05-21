@@ -12,8 +12,8 @@ const NavBarShop = (props) => {
 
   return (
     <div>
-      <div className="w-[100%] h-20 flex justify-center items-center md:py-16">
-        <div className="flex gap-4 items-center">
+      <div className="w-[100%]  flex justify-center items-center py-3 md:py-8">
+        <div className="flex justify-center">
           <Link to="/">
             <h2 className="text-[20px] md:text-[28px]">Makgraph Shop</h2>
           </Link>
