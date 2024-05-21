@@ -5,7 +5,7 @@ import Product from "./Product";
 const ShopScreen = () => {
   return (
     <div>
-      <div className=" p-screen  py-4 md:py-5 gap-10 md:gap-32  items-center justify-center grid sm:grid-cols-3 md:grid-cols-4 grid-cols-3">
+      <div className=" p-screen  py-4 md:py-5 gap-8 md:gap-28  items-center justify-center grid sm:grid-cols-3 md:grid-cols-4 grid-cols-3">
         {PRODUCTS.map((product) => (
           <Product data={product} />
         ))}

@@ -20,19 +20,38 @@ export default function Header() {
     <>
       <div id="header">
         <div className="shadow-md z-10 fixed top-0 lef-0 w-full">
-          <div className="md:flex items-center justify-between bg-surfaceContainer py-2 md:px-6 lg:px-[156px] xl:px-[200px] sm:px-8 px-7">
+          <div className="flex justify-center items-center md:justify-between bg-surfaceContainer py-2 md:px-6 lg:px-[156px] xl:px-[200px] sm:px-8 px-7">
+            <div
+              onClick={() => setOpen(!open)}
+              className="md:hidden flex text-3xl absolute left-6 top-6 cursor-pointer"
+            >
+              <ion-icon name={open ? "close" : "menu"}></ion-icon>
+            </div>
+
             <div>
               <img
                 className=" flex w-20 h-16 md:w-28 md:h-20"
                 src={logoMakgraph}
               />
             </div>
-            <div
-              onClick={() => setOpen(!open)}
-              className="md:hidden text-3xl absolute right-8 top-6 cursor-pointer"
-            >
-              <ion-icon name={open ? "close" : "menu"}></ion-icon>
+
+            <div className="md:hidden absolute right-6 top-6">
+              <Link to="/shop/3/cart">
+                <div className="relative">
+                  {cartAmount > 0 ? (
+                    <div className="bg-error absolute h-3 w-3 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
+                      <span className="text-white text-[8px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                        {cartAmount}
+                      </span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <ShoppingCart size={24} />
+                </div>
+              </Link>
             </div>
+
             <ul
               className={`md:flex md:items-center md:pb-0 pb-12 absolute bg-surfaceContainer  md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all md:transition-none duration-500 ease-in ${
                 open ? "top-[81px] opacity-100" : "top-[-490px]"
