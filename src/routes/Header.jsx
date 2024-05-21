@@ -41,15 +41,15 @@ export default function Header() {
               <Link to="/shop/3/cart">
                 <div className="relative">
                   {cartAmount > 0 ? (
-                    <div className="bg-error absolute h-3 w-3 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
-                      <span className="text-white text-[8px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                    <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
+                      <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
                         {cartAmount}
                       </span>
                     </div>
                   ) : (
                     ""
                   )}
-                  <ShoppingCart size={24} />
+                  <ShoppingCart size={28} />
                 </div>
               </Link>
             </div>
