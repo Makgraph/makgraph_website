@@ -27,10 +27,15 @@ const Gallery = () => {
     <div>
       <Header />
       <div className="p-screen pt-20 md:pt-24">
-        <div className="flex justify-center py-4 md:py-8 ">
+        <div className="md:flex hidden justify-center py-4 md:py-8 ">
           <h2>
             <b>Travaux de Makgraph</b>
           </h2>
+        </div>
+        <div className="md:hidden flex justify-center py-4 md:py-8 ">
+          <h4>
+            <b>Travaux de Makgraph</b>
+          </h4>
         </div>
         <div>
           <div className=" py-1 gap-5 md:gap-5 items-center justify-center grid sm:grid-cols-3 md:grid-cols-4 grid-cols-2">

@@ -58,7 +58,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          <div className="rounded-lg bg-surfaceContainer p-8 shadow-lg md:mt-20">
+          <div className="rounded-lg p-8 shadow-lg md:mt-20">
             <form action="#" className="space-y-4">
               <div>
                 <label className="sr-only" htmlFor="name">
@@ -76,7 +76,7 @@ const Contact = () => {
                   Name
                 </label>
                 <input
-                  className="w-full rounded-lg border-outline hover:bg-primary/5 p-3 text-sm"
+                  className="w-full rounded-lg border-outline hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
                   placeholder="Email"
                   type="email"
                   id="email"
