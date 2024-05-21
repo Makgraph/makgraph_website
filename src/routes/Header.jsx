@@ -29,10 +29,12 @@ export default function Header() {
             </div>
 
             <div>
-              <img
-                className=" flex w-20 h-16 md:w-28 md:h-20"
-                src={logoMakgraph}
-              />
+              <Link to="/">
+                <img
+                  className=" flex w-20 h-16 md:w-28 md:h-20"
+                  src={logoMakgraph}
+                />
+              </Link>
             </div>
 
             <div className="md:hidden absolute right-6 top-6">

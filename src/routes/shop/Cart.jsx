@@ -2,9 +2,14 @@ import React, { useContext } from "react";
 import { PRODUCTS } from "../../product.js";
 import { ShopContext } from "../../context/ShopContext.jsx";
 import CartItem from "./CartItem.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../Header.jsx";
 import Footer from "../Footer.jsx";
+import {
+  ArrowArcLeft,
+  ArrowCircleDownLeft,
+  ArrowCircleLeft,
+} from "phosphor-react";
 
 const Cart = () => {
   const { cartItems, getTotalCarAmount } = useContext(ShopContext);
@@ -16,6 +21,12 @@ const Cart = () => {
     <div className="">
       <Header />
       <div className="pt-20 md:pt-28 flex mx-7 md:mx-6 lg:mx-[156px] xl:px-[200px] border-t border-primary/20 flex-col justify-center items-center">
+        <div className="absolute top-24 left-6 cursor-pointer">
+          <Link to="/shop/3">
+            <ArrowCircleLeft size={24} />
+          </Link>
+        </div>
+
         {totalAmount > 0 ? (
           <div className="mt-4">
             <h4 className="text-[16px] md:text-[22px]">
