@@ -4,7 +4,7 @@ import facebook from "../assets/facebook_color.png";
 import instagram from "../assets/instagram_color.png";
 import pinterest from "../assets/pinterest_color.png";
 // import { navLinks } from "../constants";
-import { ShoppingCart } from "phosphor-react";
+import { Person, ShoppingCart, SignIn, UserCircle } from "phosphor-react";
 import { Outlet, NavLink, Link } from "react-router-dom";
 import Home from "./home/home";
 import { navLinks } from "./../constants/index";
@@ -39,7 +39,7 @@ export default function Header() {
 
             <div className="md:hidden absolute right-6 top-6">
               <Link to="/shop/3/cart">
-                <div className="relative">
+                <div className="relative ">
                   {cartAmount > 0 ? (
                     <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
                       <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
@@ -80,34 +80,28 @@ export default function Header() {
             </ul>
 
             <div className="h-6 items-center md:flex hidden gap-2 ">
-              <a href="#home">
-                <b>
-                  <span className="text-[14px] hover:bg-primary/10 duration-300">
-                    S'inscrire
-                  </span>
-                </b>
-              </a>
-              ou
               <NavLink
-                to={`/home/1`}
-                // onClick={() => setActiveNav("#home")}
+                to={`/home/login/1`}
                 className={({ isActive }) => {
                   return isActive ? " text-primary" : "";
                 }}
-                // href="#contact"
-                // onClick={() => setActiveNav("#contact")}
-                // className={activeNav === "#contact" ? "text-primary" : ""}
               >
-                <b>
-                  <span className="text-[14px] hover:bg-primary/10 duration-300">
+                <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                  <UserCircle size={24} />
+
+                  <span className="text-[14px] px-1 hover:text-primary duration-300">
                     Se Connecter
                   </span>
-                </b>
+                </div>
               </NavLink>
-              <Link to="/shop/3/cart">
-                <div className="relative">
+              <NavLink to="/shop/3/cart">
+                <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                  <ShoppingCart size={24} />
+                  <span className="text-[14px] px-1 hover:text-primary duration-300">
+                    Panier
+                  </span>
                   {cartAmount > 0 ? (
-                    <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
+                    <div className="bg-error h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
                       <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
                         {cartAmount}
                       </span>
@@ -115,9 +109,8 @@ export default function Header() {
                   ) : (
                     ""
                   )}
-                  <ShoppingCart size={24} />
                 </div>
-              </Link>
+              </NavLink>
             </div>
           </div>
         </div>

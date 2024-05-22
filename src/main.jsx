@@ -18,6 +18,8 @@ import ShopScreen from "./routes/shop/ShopScreen.jsx";
 import ShopContextProvider from "./context/ShopContext";
 import Mainpage from "./routes/Mainpage.jsx";
 import CartItem from "./routes/shop/CartItem.jsx";
+import Login from "./routes/Login/Login.jsx";
+import SignUp from "./routes/Login/SignUp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/home/1",
     element: <Home />,
+  },
+  {
+    path: "/home/login/1",
+    element: <Login />,
+  },
+  {
+    path: "/home/SignUp/1",
+    element: <SignUp />,
   },
   {
     path: "/Gallerie/2",
