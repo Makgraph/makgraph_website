@@ -11,9 +11,15 @@ export default function SignUp() {
         <div className="px-auto md:px-[250px] pb-12 ">
           <div className="rounded-lg border border-primary p-8 shadow-xl ">
             <div className="flex flex-col items-center justify-center pb-4">
-              <h3 className="text-primary">Créez votre compte</h3>
+              <h3 className="md:flex hidden text-primary">
+                Créez votre compte
+              </h3>
+              <h4 className="md:hidden text-primary">Créez votre compte</h4>
               <Link to={`/home/Login/1`}>
-                <p className="text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
+                <p className="md:flex hidden text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
+                  Vous avez déjà un compte ? Connectez-vous !
+                </p>
+                <p className="md:hidden text-[14px] text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
                   Vous avez déjà compte ? Connectez-vous !
                 </p>
               </Link>
@@ -54,8 +60,10 @@ export default function SignUp() {
               </div>
 
               <div className="mt-4 p-4 flex justify-center">
-                <button className="btn-primary w-[45%]">
-                  <span className="labellg ">Enregistrer</span>
+                <button className=" flex justify-center items-center btn-primary w-[45%]">
+                  <span className="labellg flex justify-center items-center ">
+                    Enregistrer
+                  </span>
                 </button>
               </div>
             </form>

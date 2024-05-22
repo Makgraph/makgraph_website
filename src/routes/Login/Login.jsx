@@ -11,9 +11,19 @@ export default function Login() {
         <div className="px-auto md:px-[250px] pb-12 ">
           <div className="rounded-lg border border-primary p-8 shadow-xl ">
             <div className="flex flex-col items-center justify-center pb-4">
-              <h3 className="text-primary">Connectez-vous à votre compte</h3>
+              <h3 className="text-primary md:flex hidden">
+                Connectez-vous à votre compte
+              </h3>
+              <h5 className="text-primary md:hidden">
+                Connectez-vous à votre compte
+              </h5>
               <Link to={`/home/SignUp/1`}>
-                <p className="text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
+                <p className="md:flex hidden text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
+                  Pas de compte ? Créez-en un
+                </p>
+              </Link>
+              <Link to={`/home/SignUp/1`}>
+                <p className="md:hidden text-error text-[14px] p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
                   Pas de compte ? Créez-en un
                 </p>
               </Link>
@@ -41,15 +51,22 @@ export default function Login() {
                   id="email"
                 />
               </div>
+              <div className=" md:flex hidden justify-center p-4">
+                <p className=" text-error underline underline-offset-4 cursor-pointer hover:text-primary ">
+                  Mot de passe Oublié ?
+                </p>
+              </div>
               <div className="flex justify-center p-4">
-                <p className="text-error underline underline-offset-4 cursor-pointer hover:text-primary ">
+                <p className="md:hidden text-[14px] text-error underline underline-offset-4 cursor-pointer hover:text-primary ">
                   Mot de passe Oublié ?
                 </p>
               </div>
 
               <div className="mt-4 flex justify-center">
-                <button className="btn-primary w-[45%]">
-                  <span className="labellg ">Connexion</span>
+                <button className="flex justify-center items-center btn-primary w-[45%]">
+                  <span className="labellg flex justify-center items-center">
+                    Connexion
+                  </span>
                 </button>
               </div>
             </form>

@@ -49,7 +49,7 @@ export default function Header() {
                   ) : (
                     ""
                   )}
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     <Link to={`/home/Login/1`}>
                       <UserCircle size={28} />
                     </Link>
