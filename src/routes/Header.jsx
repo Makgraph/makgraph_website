@@ -49,7 +49,13 @@ export default function Header() {
                   ) : (
                     ""
                   )}
-                  <ShoppingCart size={28} />
+                  <div className="flex gap-4">
+                    <Link to={`/home/Login/1`}>
+                      <UserCircle size={28} />
+                    </Link>
+
+                    <ShoppingCart size={28} />
+                  </div>
                 </div>
               </Link>
             </div>

@@ -53,7 +53,7 @@ export default function SignUp() {
                 />
               </div>
 
-              <div className="mt-4 flex justify-center">
+              <div className="mt-4 p-4 flex justify-center">
                 <button className="btn-primary w-[45%]">
                   <span className="labellg ">Enregistrer</span>
                 </button>
