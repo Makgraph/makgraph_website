@@ -8,7 +8,7 @@ export default function Login() {
     <div>
       <Header />
       <div className="p-screen md:mt-20 pt-24">
-        <div className="px-auto md:px-[250px] pb-12 ">
+        <div className="px-auto  md:px-[250px] pb-12 ">
           <div className="rounded-lg border border-primary p-8 shadow-xl ">
             <div className="flex flex-col items-center justify-center pb-4">
               <h3 className="text-primary md:flex hidden">
