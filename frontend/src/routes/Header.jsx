@@ -93,7 +93,7 @@ export default function Header() {
                 }}
               >
                 <div className="relative flex bg-onSecondaryContainer/5 p-1">
-                  <UserCircle size={24} />
+                  <UserCircle size={28} />
 
                   <span className="text-[14px] px-1 hover:text-primary duration-300">
                     Se Connecter
