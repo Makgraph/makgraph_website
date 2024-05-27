@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+
+  const { name, email, password, password2 } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault;
+  };
+
   return (
     <div>
       <Header />
@@ -24,16 +44,19 @@ export default function SignUp() {
                 </p>
               </Link>
             </div>
-            <form action="#" className="space-y-4">
+            <form onSubmit={onSubmit} action="#" className="space-y-4">
               <div>
                 <label className="sr-only" htmlFor="name">
                   Nom
                 </label>
                 <input
                   className="w-full rounded-lg border-outline hover:bg-primary/5 p-3 text-sm"
-                  placeholder="Nom"
+                  placeholder="Entrez votre nom"
                   type="text"
                   id="name"
+                  name="name"
+                  value={name}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -42,9 +65,12 @@ export default function SignUp() {
                 </label>
                 <input
                   className="w-full rounded-lg border-outline hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
-                  placeholder="Email"
+                  placeholder="Entrez votre email"
                   type="email"
                   id="email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -53,14 +79,34 @@ export default function SignUp() {
                 </label>
                 <input
                   className="w-full rounded-lg border-outline hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
-                  placeholder="Mot de passe"
+                  placeholder="Entrez votre mot de passe"
                   type="password"
                   id="password"
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                />
+              </div>
+              <div>
+                <label className="sr-only" htmlFor="password">
+                  Password2
+                </label>
+                <input
+                  className="w-full rounded-lg border-outline hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
+                  placeholder="Confirmez votre mot de passe"
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  value={password2}
+                  onChange={onChange}
                 />
               </div>
 
               <div className="mt-4 p-4 flex justify-center">
-                <button className=" flex justify-center items-center btn-primary w-[45%]">
+                <button
+                  type="submit"
+                  className=" flex justify-center items-center btn-primary w-[45%]"
+                >
                   <span className="labellg flex justify-center items-center ">
                     Enregistrer
                   </span>

@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault;
+  };
+
   return (
     <div>
       <Header />
@@ -35,9 +53,12 @@ export default function Login() {
                 </label>
                 <input
                   className="w-full rounded-lg border-outline hover:bg-primary/5 p-3 text-sm"
-                  placeholder="Name"
+                  placeholder="Entrez votre email"
                   type="text"
-                  id="name"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -46,9 +67,12 @@ export default function Login() {
                 </label>
                 <input
                   className="w-full rounded-lg border-outline hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
-                  placeholder="Email"
-                  type="email"
-                  id="email"
+                  placeholder="Entrez votre mot de passe"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={onChange}
                 />
               </div>
               <div className=" md:flex hidden justify-center p-4">

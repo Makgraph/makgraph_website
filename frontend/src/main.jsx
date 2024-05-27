@@ -20,6 +20,8 @@ import Mainpage from "./routes/Mainpage.jsx";
 import CartItem from "./routes/shop/CartItem.jsx";
 import Login from "./routes/Login/Login.jsx";
 import SignUp from "./routes/Login/SignUp.jsx";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +66,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* <App /> */}
-    <ShopContextProvider>
-      <RouterProvider router={router} />
-    </ShopContextProvider>
+    <Provider store={store}>
+      <ShopContextProvider>
+        <RouterProvider router={router} />
+      </ShopContextProvider>
+    </Provider>
   </React.StrictMode>
 );
