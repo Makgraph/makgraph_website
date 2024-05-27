@@ -1,12 +1,13 @@
 const asyncHandler = require("express-async-handler");
 
 const Makgraph = require("../models/makgraphModel");
+const User = require("../models/userModel");
 
 // @desc Get makgraph
 // @route GET /api/makgraph
 // @access Private
 const getMakgraph = asyncHandler(async (req, res) => {
-  const makgraph = await Makgraph.find();
+  const makgraph = await Makgraph.find({ user: req.user.id });
 
   res.status(200).json(makgraph);
 });
@@ -22,6 +23,7 @@ const setMakgraph = asyncHandler(async (req, res) => {
 
   const makgraph = await Makgraph.create({
     text: req.body.text,
+    user: req.user.id,
   });
 
   res.status(200).json({ makgraph });
@@ -36,6 +38,19 @@ const updateMakgraph = asyncHandler(async (req, res) => {
   if (!makgraph) {
     res.status(400);
     throw new Error("Makgraph non trouvé");
+  }
+  const user = User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("Utilisateur non trouvé");
+  }
+
+  // Make sure the logged in user matches the goal user
+  if (makgraph.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("Utilisateur non autorisé");
   }
 
   const updatedMakgraph = await Makgraph.findByIdAndUpdate(
@@ -57,6 +72,24 @@ const deleteMakgraph = asyncHandler(async (req, res) => {
   if (!makgraph) {
     res.status(400);
     throw new Error("Makgraph non trouvé");
+  }
+
+  if (!makgraph) {
+    res.status(400);
+    throw new Error("Makgraph non trouvé");
+  }
+  const user = User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("Utilisateur non trouvé");
+  }
+
+  // Make sure the logged in user matches the makgraph user
+  if (makgraph.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("Utilisateur non autorisé");
   }
 
   await makgraph.remove;
