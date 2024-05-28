@@ -4,17 +4,34 @@ import facebook from "../assets/facebook_color.png";
 import instagram from "../assets/instagram_color.png";
 import pinterest from "../assets/pinterest_color.png";
 // import { navLinks } from "../constants";
-import { Person, ShoppingCart, SignIn, UserCircle } from "phosphor-react";
-import { Outlet, NavLink, Link } from "react-router-dom";
+import {
+  Person,
+  ShoppingCart,
+  SignIn,
+  SignOut,
+  UserCircle,
+} from "phosphor-react";
+import { Outlet, NavLink, Link, useNavigate } from "react-router-dom";
 import Home from "./home/home";
 import { navLinks } from "./../constants/index";
 import { ShopContext } from "../context/ShopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { getCartAmount } = useContext(ShopContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const cartAmount = getCartAmount();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
 
   return (
     <>
@@ -38,26 +55,40 @@ export default function Header() {
             </div>
 
             <div className="md:hidden absolute right-6 top-6">
-              <Link to="/shop/3/cart">
-                <div className="relative ">
-                  {cartAmount > 0 ? (
-                    <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
-                      <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
-                        {cartAmount}
-                      </span>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  <div className="flex gap-3">
-                    <Link to={`/home/Login/1`}>
-                      <UserCircle size={28} />
-                    </Link>
+              <div className="flex gap-3">
+                {user ? (
+                  <>
+                    <button onClick={onLogout}>
+                      <div>
+                        <SignOut size={28} />
+                      </div>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <NavLink to={`/home/login/1`}>
+                      <div>
+                        <UserCircle size={28} />
+                      </div>
+                    </NavLink>
+                  </>
+                )}
 
+                <Link to="/shop/3/cart">
+                  <div className="relative ">
+                    {cartAmount > 0 ? (
+                      <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
+                        <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                          {cartAmount}
+                        </span>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <ShoppingCart size={28} />
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
 
             <ul
@@ -86,20 +117,45 @@ export default function Header() {
             </ul>
 
             <div className="h-6 items-center md:flex hidden gap-2 ">
-              <NavLink
-                to={`/home/login/1`}
-                className={({ isActive }) => {
-                  return isActive ? " text-primary" : "";
-                }}
-              >
-                <div className="relative flex bg-onSecondaryContainer/5 p-1">
-                  <UserCircle size={28} />
+              <div>
+                {user ? (
+                  <>
+                    <div
+                      className={({ isActive }) => {
+                        return isActive ? " text-primary" : "";
+                      }}
+                    >
+                      <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                        <UserCircle size={28} />
+                        <button onClick={onLogout}>
+                          <span className="text-[14px] px-1 hover:text-primary duration-300">
+                            Se déconnecter
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <NavLink
+                      to={`/home/login/1`}
+                      className={({ isActive }) => {
+                        return isActive ? " text-primary" : "";
+                      }}
+                    >
+                      <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                        <UserCircle size={28} />
 
-                  <span className="text-[14px] px-1 hover:text-primary duration-300">
-                    Se Connecter
-                  </span>
-                </div>
-              </NavLink>
+                        <button>
+                          <span className="text-[14px] px-1 hover:text-primary duration-300">
+                            Se Connecter
+                          </span>
+                        </button>
+                      </div>
+                    </NavLink>
+                  </>
+                )}
+              </div>
               <NavLink to="/shop/3/cart">
                 <div className="relative flex bg-onSecondaryContainer/5 p-1">
                   <ShoppingCart size={24} />

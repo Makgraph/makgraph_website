@@ -22,6 +22,8 @@ import Login from "./routes/Login/Login.jsx";
 import SignUp from "./routes/Login/SignUp.jsx";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +71,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <ShopContextProvider>
         <RouterProvider router={router} />
+        <ToastContainer />
       </ShopContextProvider>
     </Provider>
   </React.StrictMode>

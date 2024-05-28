@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import Spinner from "./../Spinner";
+import { register, reset } from "../../features/auth/authSlice";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -14,6 +17,24 @@ export default function SignUp() {
 
   const { name, email, password, password2 } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -22,8 +43,24 @@ export default function SignUp() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+
+    if (password !== password2) {
+      toast.error("Les mots de passe ne correspondent pas");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>

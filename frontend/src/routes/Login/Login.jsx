@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Header from "../Header";
 import Footer from "../Footer";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Spinner from "./../Spinner";
+import { login, reset } from "../../features/auth/authSlice";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -10,6 +14,24 @@ export default function Login() {
   });
 
   const { email, password } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -20,7 +42,18 @@ export default function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault;
+
+    const userData = {
+      email,
+      password,
+    };
+
+    dispatch(login(userData));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -46,7 +79,7 @@ export default function Login() {
                 </p>
               </Link>
             </div>
-            <form action="#" className="space-y-4">
+            <form onSubmit={onSubmit} action="#" className="space-y-4">
               <div>
                 <label className="sr-only" htmlFor="name">
                   Name
@@ -80,13 +113,13 @@ export default function Login() {
                   Mot de passe Oublié ?
                 </p>
               </div>
-              <div className="flex justify-center p-4">
+              <div className="flex md:hidden justify-center p-4">
                 <p className="md:hidden text-[14px] text-error underline underline-offset-4 cursor-pointer hover:text-primary ">
                   Mot de passe Oublié ?
                 </p>
               </div>
 
-              <div className="mt-4 flex justify-center">
+              <div className=" flex justify-center">
                 <button className="flex justify-center items-center btn-primary w-[45%]">
                   <span className="labellg flex justify-center items-center">
                     Connexion

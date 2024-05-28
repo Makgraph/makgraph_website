@@ -36,7 +36,7 @@ export default function Footer() {
                 className="w-full rounded-md border-[1px] border-primary hover:bg-primary/5 p-2 text-sm"
                 placeholder="Email"
                 type="email"
-                id="email"
+                id="foremail"
               />
             </div>
 
