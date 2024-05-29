@@ -63,10 +63,10 @@ export default function Login() {
           <div className="rounded-lg border border-primary p-8 shadow-xl ">
             <div className="flex flex-col items-center justify-center pb-4">
               <h3 className="text-primary md:flex hidden">
-                Connectez-vous à votre compte
+                Connectez-vous à votre compte.
               </h3>
               <h5 className="text-primary md:hidden">
-                Connectez-vous à votre compte
+                Connectez-vous à votre compte.
               </h5>
               <Link to={`/home/SignUp/1`}>
                 <p className="md:flex hidden text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
