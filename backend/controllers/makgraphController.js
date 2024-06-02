@@ -39,16 +39,15 @@ const updateMakgraph = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Makgraph non trouvé");
   }
-  const user = User.findById(req.user.id);
 
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("Utilisateur non trouvé");
   }
 
   // Make sure the logged in user matches the goal user
-  if (makgraph.user.toString() !== user.id) {
+  if (makgraph.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Utilisateur non autorisé");
   }
@@ -78,16 +77,15 @@ const deleteMakgraph = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Makgraph non trouvé");
   }
-  const user = User.findById(req.user.id);
 
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("Utilisateur non trouvé");
   }
 
   // Make sure the logged in user matches the makgraph user
-  if (makgraph.user.toString() !== user.id) {
+  if (makgraph.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Utilisateur non autorisé");
   }

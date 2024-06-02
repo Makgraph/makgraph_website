@@ -1,12 +1,10 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Home from "./home/home";
+import HomeScreen from "./../screens/HomeScreen";
 
 export default function root() {
   return (
     <div>
-      <Home />
+      <HomeScreen />
     </div>
   );
 }

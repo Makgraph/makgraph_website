@@ -65,7 +65,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Informations d'identification invalides");
+    throw new Error("Password ou email invalides");
   }
 });
 
@@ -73,13 +73,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route POST /api/users/me
 // @access Private
 const getMe = asyncHandler(async (req, res) => {
-  const { _id, name, email } = await User.findById(req.user.id);
-
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-  });
+  res.status(200).json(req.user);
 });
 
 // Generate JWT
