@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import blueTshirt from "../../assets/blue_t-shirt_1.jpg";
-import black_Tshirt_2 from "../../assets/black_t-shirt_2.png";
-import whiteTshirt from "../../assets/white_t-shirt_2.png";
+import blueTshirt from "/assets/blue_t-shirt_1.jpg";
+import black_Tshirt_2 from "/assets/black_t-shirt_2.png";
+import whiteTshirt from "/assets/white_t-shirt_2.png";
 
 // const colors = ["#0088FE", "#00C49F", "#FFBB28"];
 const colors = [

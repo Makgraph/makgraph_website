@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
-import { ShopContext } from "../../context/ShopContext";
+// import { ShopContext } from "../../context/ShopContext";
 import Header from "../headerComponent/Header";
 import Footer from "../Footer";
 
 const NavBarShop = (props) => {
-  const { getCartAmount } = useContext(ShopContext);
+  // const { getCartAmount } = useContext(ShopContext);
 
-  const cartAmount = getCartAmount();
+  // const cartAmount = getCartAmount();
 
   return (
     <div>

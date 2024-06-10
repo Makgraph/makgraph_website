@@ -9,7 +9,7 @@ import About from "./screens/AboutScreen.jsx";
 import Gallery from "./screens/GalleryScreen.jsx";
 import Contact from "./screens/ContactScreen.jsx";
 import Cart from "./screens/CartScreen.jsx";
-import ShopContextProvider from "./context/ShopContext";
+// import ShopContextProvider from "./context/ShopContext";
 import Login from "./screens/LoginScreen.jsx";
 import SignUp from "./components/loginComponent/SignUp.jsx";
 import { Provider } from "react-redux";
@@ -17,6 +17,7 @@ import { store } from "./redux/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Shop from "./screens/ShopScreen.jsx";
+import SingleProduct from "./screens/SingleProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,47 +26,48 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/Accueil/1",
+    path: "/Accueil",
     element: <Home />,
   },
   {
-    path: "/Accueil/login/1",
+    path: "/Accueil/login",
     element: <Login />,
   },
   {
-    path: "/Accueil/SignUp/1",
+    path: "/Accueil/SignUp",
     element: <SignUp />,
   },
   {
-    path: "/Gallerie/2",
+    path: "/Gallerie",
     element: <Gallery />,
   },
   {
-    path: "/shop/3/cart",
+    path: "/shop/cart",
     element: <Cart />,
   },
   {
-    path: "/À propos/4",
+    path: "/À propos",
     element: <About />,
   },
   {
-    path: "/contact/5",
+    path: "/contact",
     element: <Contact />,
   },
   {
-    path: "/shop/3",
+    path: "/shop",
     element: <Shop />,
+  },
+  {
+    path: "/product/:id",
+    element: <SingleProduct />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <App /> */}
     <Provider store={store}>
-      <ShopContextProvider>
-        <RouterProvider router={router} />
-        <ToastContainer />
-      </ShopContextProvider>
+      <RouterProvider router={router} />
+      <ToastContainer />
     </Provider>
   </React.StrictMode>
 );

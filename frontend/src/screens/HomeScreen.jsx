@@ -13,10 +13,10 @@ import HeroSection from "../components/homeComponent/HeroSection";
 
 export default function HomeScreen() {
   return (
-    <div>
+    <>
       <Header />
       <HeroSection />
       <Footer />
-    </div>
+    </>
   );
 }

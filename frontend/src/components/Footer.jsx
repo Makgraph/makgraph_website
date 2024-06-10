@@ -1,7 +1,7 @@
 import React from "react";
 import { FacebookLogo, InstagramLogo, PinterestLogo } from "phosphor-react";
-import monCash from "../assets/moncash.png";
-import paypal from "../assets/paypal.png";
+import monCash from "/assets/moncash.png";
+import paypal from "/assets/paypal.png";
 
 export default function Footer() {
   return (

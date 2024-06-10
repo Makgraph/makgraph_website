@@ -40,7 +40,7 @@ export default function Login() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
 
     const userData = {
       email,
@@ -63,12 +63,12 @@ export default function Login() {
               <h5 className="text-primary md:hidden">
                 Connectez-vous à votre compte.
               </h5>
-              <Link to={`/home/SignUp/1`}>
+              <Link to={`/Accueil/SignUp`}>
                 <p className="md:flex hidden text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
                   Pas de compte ? Créez-en un
                 </p>
               </Link>
-              <Link to={`/home/SignUp/1`}>
+              <Link to={`/Accueil/SignUp`}>
                 <p className="md:hidden text-error text-[14px] p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
                   Pas de compte ? Créez-en un
                 </p>
@@ -115,7 +115,10 @@ export default function Login() {
               </div>
 
               <div className=" flex justify-center">
-                <button className="flex justify-center items-center btn-primary w-[45%]">
+                <button
+                  type="submit"
+                  className="flex justify-center items-center btn-primary w-[45%]"
+                >
                   <span className="labellg flex justify-center items-center">
                     Connexion
                   </span>

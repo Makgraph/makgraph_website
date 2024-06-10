@@ -1,12 +1,9 @@
 import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBarShop from "../components/shopComponent/NavBarShop.jsx";
 import ShopItems from "../components/shopComponent/ShopItems.jsx";
 import Cart from "./CartScreen.jsx";
 import Header from "../components/headerComponent/Header.jsx";
 import Footer from "../components/Footer.jsx";
-// import ShopContextProvider from "../../context/ShopContext.jsx";
-// import { PRODUCTS } from "../../product.js";
 
 const ShopScreen = () => {
   return (
@@ -17,7 +14,6 @@ const ShopScreen = () => {
         <ShopItems />
         <Footer />
       </div>
-      {/* <Cart /> */}
     </div>
 
     // <div>

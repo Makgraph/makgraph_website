@@ -1,5 +1,5 @@
 import React from "react";
-import logoMakgraph from "../assets/logo_Makgraph.png";
+import logoMakgraph from "/assets/logo_Makgraph.png";
 import Header from "../components/headerComponent/Header";
 import Footer from "../components/Footer";
 

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { PRODUCTS } from "../data/product.js";
-import { ShopContext } from "../context/ShopContext.jsx";
+import React from "react";
+// import { products } from "../data/products.js";
+// import { ShopContext } from "../context/ShopContext.jsx";
 import CartItem from "../components/shopComponent/CartItem.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/headerComponent/Header.jsx";
@@ -12,9 +12,6 @@ import {
 } from "phosphor-react";
 
 const CartScreen = () => {
-  const { cartItems, getTotalCarAmount } = useContext(ShopContext);
-  const totalAmount = getTotalCarAmount();
-
   const navigate = useNavigate();
 
   return (
@@ -38,7 +35,7 @@ const CartScreen = () => {
         )}
 
         <div className="w-[100%] flex flex-col items-center justify-center">
-          {PRODUCTS.map((product) => {
+          {products.map((product) => {
             if (cartItems[product.id] !== 0) {
               return <CartItem data={product} />;
             }

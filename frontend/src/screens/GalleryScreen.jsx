@@ -19,7 +19,7 @@ import "swiper/css/navigation";
 import Header from "../components/headerComponent/Header";
 import Footer from "../components/Footer";
 // import Product from "../components/shopComponent/Product";
-import { PRODUCTS } from "../data/product";
+// import { products } from "../data/products";
 // import Works from "../components/galleryComponent/Works";
 
 const GalleryScreen = () => {
@@ -39,8 +39,7 @@ const GalleryScreen = () => {
         </div>
         <div>
           <div className=" py-1 gap-5 md:gap-5 items-center justify-center grid sm:grid-cols-3 md:grid-cols-4 grid-cols-2">
-            {PRODUCTS.map((product) => (
-              // <Works data={product} />
+            {products.map((product) => (
               <div className="rounded w-auto h-auto flex flex-col transition ease-in-out delay-150  hover:-translate-y-1 md:hover:scale-125  duration-300 cursor-pointer ">
                 <img src={product.productImage} className="w-auto rounded " />
               </div>

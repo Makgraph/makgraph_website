@@ -1,0 +1,52 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+// Fetching singleProduct
+export const fetchSingleProduct = createAsyncThunk(
+  "product/fetchSingleProduct",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get("/api/products");
+
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const initialState = {
+  product: { reviews: [] },
+  loading: false,
+  error: null,
+};
+
+export const singleProductSlice = createSlice({
+  name: "productList",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+
+      .addCase(fetchSingleProduct.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // Add any fetched posts to the array
+        state.product = state.product.concat(action.payload);
+      })
+      .addCase(fetchSingleProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default singleProductSlice.reducer;
