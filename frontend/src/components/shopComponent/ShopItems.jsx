@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Rating from "./Rating";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/productsSlice.js";
 
 const ShopItems = () => {
-  const effectRan = useRef(false);
+  // const effectRan = useRef(false);
   const dispatch = useDispatch();
 
   const { products, pending, error, message } = useSelector(
@@ -14,12 +14,12 @@ const ShopItems = () => {
   );
 
   useEffect(() => {
-    if (effectRan.current === true) {
-      dispatch(fetchProducts());
-    }
-    return () => {
-      effectRan.current = true;
-    };
+    // if (effectRan.current === true) {
+    dispatch(fetchProducts());
+    // }
+    // return () => {
+    //   effectRan.current = true;
+    // };
   }, [dispatch]);
 
   return (
@@ -30,7 +30,7 @@ const ShopItems = () => {
             className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer "
             key={product._id}
           >
-            <Link to={`/product/${product._id}`}>
+            <Link to={`/products/${product._id}`}>
               <img src={product.image} className="w-[400px] rounded-lg " />
             </Link>
             <div className="text-start w-[100%]  ">

@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/headerComponent/Header";
 import products from "../data/products";
 import { useParams } from "react-router-dom";
 import Rating from "../components/shopComponent/Rating";
+import { useDispatch, useSelector } from "react-redux";
+// import { fetchSingleProduct } from "../redux/products/productDetailsSlice.js";
+import { fetchProductDetails } from "../redux/products/productSlice";
 
-const SingleProduct = ({ match }) => {
+const SingleProduct = () => {
   const { id } = useParams();
-  const product = products.find((p) => p._id === id);
+  const dispatch = useDispatch();
+  // const product = products.find((p) => p.id === id);
+  // const productDetails = useSelector((state) => state.productDetails);
+  // const {loading, error, product} = productDetails
+  const product = useSelector((state) => state.product.product);
+  const loading = useSelector((state) => state.product.loading);
+  const error = useSelector((state) => state.product.error);
+
+  useEffect(() => {
+    dispatch(fetchProductDetails(id));
+  }, [dispatch, id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  // const product = {};
   return (
     <>
       <Header />

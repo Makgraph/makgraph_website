@@ -39,7 +39,7 @@ export default function Header() {
           <div>
             <Link to="/">
               <img
-                className=" flex w-20 h-16 md:w-28 md:h-20"
+                className="flex w-20 h-16 md:w-28 md:h-20"
                 src={logoMakgraph}
               />
             </Link>
@@ -104,7 +104,7 @@ export default function Header() {
             ))}
           </ul>
 
-          <div className="h-6 items-center md:flex hidden gap-2 ">
+          <div className="h-6 items-center md:flex hidden gap-2">
             <div>
               {user ? (
                 <div

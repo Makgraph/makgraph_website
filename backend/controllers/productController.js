@@ -14,15 +14,15 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @desc Fetch single product
 // @route GET /api/products/:id
 // @access Public
-// const getSingleProduct = asyncHandler(async (req, res) => {
-//   const product = await Product.findById(req.params.id);
+const getSingleProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
 
-//   if (product) {
-//     res.json(product);
-//   } else {
-//     res.status(404).json({ message: "Produit non trouvé" });
-//   }
-// });
+  if (product) {
+    res.status(202).json(product);
+  } else {
+    res.status(404).json({ message: "Produit non trouvé" });
+  }
+});
 
 // @desc Register new user
 // @route POST /api/users
@@ -47,7 +47,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllProducts,
-  // getSingleProduct,
+  getSingleProduct,
   // createProduct,
   // updateProduct,
   // deleteProduct,

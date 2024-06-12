@@ -3,6 +3,7 @@ const colors = require("colors");
 const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
+const cors = require("cors");
 // const products = require("./data/products");
 // const ImportData = require("./Seed");
 
@@ -10,6 +11,7 @@ const port = process.env.PORT || 5000;
 dotenv;
 connectDB();
 const app = express();
+app.use(cors());
 
 // app.use("/api/import", ImportData);
 

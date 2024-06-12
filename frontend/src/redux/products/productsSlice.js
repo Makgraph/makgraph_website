@@ -2,29 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Fetching products
-// export const fetchProducts = createAsyncThunk(
-//   "products/fetchProducts",
-//   async (_, thunkAPI) => {
-//     try {
-//       const response = await axios.get("/api/products");
-
-//       return response.data;
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async () => {
-    const response = await axios.get("/api/products");
-    return response.data;
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get("/api/products");
+
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
 );
 
@@ -54,7 +47,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Add any fetched posts to the array
+        // Add any fetched products to the array
         state.products = state.products.concat(action.payload);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
