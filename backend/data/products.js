@@ -6,7 +6,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 2.5,
-//     countInStock: 1,
+//     countInStock: 5,
 //     numReviews: 4,
 //   },
 //   {
@@ -16,7 +16,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 1.5,
-//     countInStock: 1,
+//     countInStock: 3,
 //     numReviews: 6,
 //   },
 //   {
@@ -26,7 +26,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 3.5,
-//     countInStock: 1,
+//     countInStock: 10,
 //     numReviews: 3,
 //   },
 //   {
@@ -36,7 +36,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 2.5,
-//     countInStock: 1,
+//     countInStock: 2,
 //     numReviews: 1,
 //   },
 //   {
@@ -46,7 +46,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 4.5,
-//     countInStock: 1,
+//     countInStock: 2,
 //     numReviews: 3,
 //   },
 //   {
@@ -66,7 +66,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 2.5,
-//     countInStock: 1,
+//     countInStock: 4,
 //     numReviews: 5,
 //   },
 //   {
@@ -76,7 +76,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 1.5,
-//     countInStock: 1,
+//     countInStock: 2,
 //     numReviews: 3,
 //   },
 //   {
@@ -86,7 +86,7 @@
 //     description:
 //       "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
 //     rating: 2.5,
-//     countInStock: 1,
+//     countInStock: 9,
 //     numReviews: 4,
 //   },
 // ];

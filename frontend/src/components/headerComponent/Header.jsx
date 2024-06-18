@@ -11,10 +11,13 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { navLinks } from "../../constants/index";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../../redux/auth/authSlice";
+import { selectCartItems } from "../../redux/Cart/cartSlice";
+import Dropdown from "../dropdown menu/dropdown";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
+  const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -72,7 +75,7 @@ export default function Header() {
                 <div className="relative">
                   <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
                     <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
-                      1
+                      {cartItems.length}
                     </span>
                   </div>
 
@@ -107,21 +110,24 @@ export default function Header() {
           <div className="h-6 items-center md:flex hidden gap-2">
             <div>
               {user ? (
-                <div
-                  className={({ isActive }) => {
-                    return isActive ? " text-primary" : "";
-                  }}
-                >
-                  <div className="relative flex bg-onSecondaryContainer/5 p-1">
-                    <UserCircle size={28} />
-                    <button onClick={onLogout}>
-                      <span className="text-[14px] px-1 hover:text-primary duration-300">
-                        Se déconnecter
-                      </span>
-                    </button>
-                  </div>
+                <div className="flex justify-center items-center h-screen">
+                  <Dropdown />
                 </div>
               ) : (
+                // <div
+                //   className={({ isActive }) => {
+                //     return isActive ? " text-primary" : "";
+                //   }}
+                // >
+                //   <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                //     <UserCircle size={28} />
+                //     <button onClick={onLogout}>
+                //       <span className="text-[14px] px-1 hover:text-primary duration-300">
+                //         Se déconnecter
+                //       </span>
+                //     </button>
+                //   </div>
+                // </div>
                 <Link to="/Accueil/login">
                   <div
                     className={({ isActive }) => {
@@ -140,7 +146,7 @@ export default function Header() {
                 </Link>
               )}
             </div>
-            <NavLink to="/shop/3/cart">
+            <NavLink to="/cartScreen">
               <div className="relative flex bg-onSecondaryContainer/5 p-1">
                 <ShoppingCart size={24} />
                 <span className="text-[14px] px-1 hover:text-primary duration-300">
@@ -149,7 +155,7 @@ export default function Header() {
 
                 <div className="bg-error h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
                   <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
-                    1
+                    {cartItems.length}
                   </span>
                 </div>
               </div>

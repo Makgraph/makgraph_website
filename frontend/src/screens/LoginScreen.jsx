@@ -26,7 +26,7 @@ export default function Login() {
       toast.error(message);
     }
     if (isSuccess || user) {
-      navigate("/");
+      navigate("/shop");
     }
 
     dispatch(reset());

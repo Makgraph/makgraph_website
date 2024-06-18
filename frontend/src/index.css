@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-cover bg-no-repeat;
+  background-image: url("../assets/background_web_3.png");
+}
+
 @layer base {
   h1 {
     @apply text-onSurface text-[32px] font-normal font-['Roboto'] leading-10;

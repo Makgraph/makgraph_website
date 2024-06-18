@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import Rating from "./Rating";
 import Pagination from "./Pagination";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/productsSlice.js";
+import { fetchProductById } from "../../redux/products/productSlice.js";
 
 const ShopItems = () => {
   // const effectRan = useRef(false);
+  const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { products, pending, error, message } = useSelector(
     (state) => state.productList
   );
+  // const product = useSelector((state) => state.product.product);
 
   useEffect(() => {
     // if (effectRan.current === true) {
@@ -21,6 +25,10 @@ const ShopItems = () => {
     //   effectRan.current = true;
     // };
   }, [dispatch]);
+
+  const addToCartHandler = (id) => {
+    dispatch(fetchProductById(id));
+  };
 
   return (
     <div>
@@ -49,7 +57,7 @@ const ShopItems = () => {
 
               <button
                 className="bg-[#fffff] border-2 border-primary hover:bg-primary cursor-pointer min-w-[80px] md:mt-1 px-2 py-1  rounded-[5px]"
-                onClick={() => addToCart(id)}
+                onClick={() => addToCartHandler(id)}
               >
                 <h6 className="text-xs md:text-sm  hover:text-white ">
                   Ajouter au panier

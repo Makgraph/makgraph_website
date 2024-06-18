@@ -36,14 +36,15 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error("Utilisateur invalide");
+    throw new Error("Donné d'utilisateur invalide");
   }
 });
 
@@ -61,7 +62,9 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      createdAt: user.createdAt,
     });
   } else {
     res.status(400);
@@ -72,8 +75,15 @@ const loginUser = asyncHandler(async (req, res) => {
 // @desc Get user data
 // @route POST /api/users/me
 // @access Private
-const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+const profile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json(req.user);
+  } else {
+    res.status(404);
+    throw new Error("Utilisateur non trouvé");
+  }
 });
 
 // Generate JWT
@@ -86,5 +96,5 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
-  getMe,
+  profile,
 };

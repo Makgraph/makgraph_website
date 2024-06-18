@@ -5,7 +5,7 @@ import Slideshow from "./Slideshow.jsx";
 
 const HeroSection = () => {
   return (
-    <div className="mt-20 md:mt-24 h-[100%]" id="home">
+    <div className="mt-20 md:mt-24 h-[100%]">
       <div className="p-screen  grid col-span-0 md:grid-cols-[100px_repeat(2,_1fr)]">
         <div className="h-auto hidden md:items-start justify-center md:flex flex-col md:gap-5 animate-slideInLeftFast ">
           {/* <img src={facebook} className="w-6 h-6 relative cursor-pointer" />
