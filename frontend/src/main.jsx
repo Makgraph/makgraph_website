@@ -18,6 +18,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Shop from "./screens/ShopScreen.jsx";
 import SingleProduct from "./screens/SingleProduct.jsx";
 import CartScreen from "./screens/CartScreen.jsx";
+import ProfileScreen from "./screens/Profile.Screen.jsx";
+import ProfileTabs from "./components/profileComponents/ProfileTabs";
+import Orders from "./components/profileComponents/Orders";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,28 @@ const router = createBrowserRouter([
     path: "/Accueil/SignUp",
     element: <SignUp />,
   },
+  {
+    path: "/profile",
+    element: <ProfileScreen />,
+    children: [
+      {
+        path: "/profile/tabs",
+        element: <ProfileTabs />,
+      },
+      {
+        path: "/profile/orders",
+        element: <Orders />,
+      },
+    ],
+  },
+  // {
+  //   path: "/tabs",
+  //   element: <ProfileTabs />,
+  // },
+  // {
+  //   path: "/orders",
+  //   element: <Orders />,
+  // },
   {
     path: "/Gallerie",
     element: <Gallery />,

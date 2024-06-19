@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 
 const User = require("../models/usersModel");
+const { password } = require("pg/lib/defaults");
 
 // @desc Register new user
 // @route POST /api/users
@@ -63,8 +64,8 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
       createdAt: user.createdAt,
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
@@ -86,6 +87,40 @@ const profile = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Update user data
+// @route POST /api/users/profile
+// @access Private
+const updateProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    // if (req.body.password) {
+    //   user.password = req.body.password;
+    // }
+    if (req.body.password) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      user.password = hashedPassword;
+    }
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      password: updatedUser.password,
+      isAdmin: updatedUser.isAdmin,
+      createdAt: updatedUser.createdAt,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("Utilisateur non trouvé");
+  }
+});
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -97,4 +132,5 @@ module.exports = {
   registerUser,
   loginUser,
   profile,
+  updateProfile,
 };

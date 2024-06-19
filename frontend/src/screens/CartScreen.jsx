@@ -170,7 +170,7 @@ const CartScreen = () => {
           <div className="p-screen flex justify-between my-4 mx-40 border-t-[1px] border-primary hover:text-primary">
             <span className="my-2 bg-secondary rounded-md flex justify-center focus:bg-[#22c55e]  cursor-pointertransition hover:bg-onPrimary  text-white hover:text-primary">
               <button
-                className="px-16 py-1 transition focus:bg-[#22c55e] focus:rounded-md focus:text-onPrimary"
+                className="px-16 py-2 transition focus:bg-[#22c55e] focus:rounded-md focus:text-onPrimary"
                 onClick={handleContinueShopping}
               >
                 Continuer vos achats
@@ -178,7 +178,7 @@ const CartScreen = () => {
             </span>
             <span className="my-2 bg-primary rounded-md flex justify-center focus:bg-[#22c55e]  cursor-pointertransition hover:bg-onPrimary  text-white hover:text-primary">
               <button
-                className="px-16 py-1 transition focus:bg-[#22c55e] focus:rounded-md focus:text-onPrimary"
+                className="px-16 py-2 transition focus:bg-[#22c55e] focus:rounded-md focus:text-onPrimary"
                 onClick={handleCheckout}
               >
                 Passer à la caisse

@@ -7,26 +7,16 @@ import {
   SignOut,
   UserCircle,
 } from "phosphor-react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { navLinks } from "../../constants/index";
-import { useSelector, useDispatch } from "react-redux";
-import { logout, reset } from "../../redux/auth/authSlice";
+import { useSelector } from "react-redux";
 import { selectCartItems } from "../../redux/Cart/cartSlice";
-import Dropdown from "../dropdown menu/dropdown";
+import Dropdown from "../dropdownMenu/dropdown";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-
   const cartItems = useSelector(selectCartItems);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
-  const onLogout = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/");
-  };
 
   return (
     <div>
@@ -49,17 +39,22 @@ export default function Header() {
           </div>
           {/* MOBILE HEADER */}
           <div className="md:hidden absolute right-6 top-6">
-            <div className="flex gap-3">
+            <div className="flex md:gap-3">
               {user ? (
-                <button onClick={onLogout}>
-                  <div>
-                    <SignOut size={28} />
+                // <button onClick={onLogout}>
+                //   <div>
+                //     <SignOut size={28} />
+                //   </div>
+                // </button>
+                <div className="">
+                  <div className="flex">
+                    <Dropdown />
                   </div>
-                </button>
+                </div>
               ) : (
                 <NavLink to={`/Accueil/login`}>
-                  <div>
-                    <UserCircle size={28} />
+                  <div className="px-2">
+                    <UserCircle size={30} />
                   </div>
                 </NavLink>
               )}
@@ -114,30 +109,16 @@ export default function Header() {
                   <Dropdown />
                 </div>
               ) : (
-                // <div
-                //   className={({ isActive }) => {
-                //     return isActive ? " text-primary" : "";
-                //   }}
-                // >
-                //   <div className="relative flex bg-onSecondaryContainer/5 p-1">
-                //     <UserCircle size={28} />
-                //     <button onClick={onLogout}>
-                //       <span className="text-[14px] px-1 hover:text-primary duration-300">
-                //         Se déconnecter
-                //       </span>
-                //     </button>
-                //   </div>
-                // </div>
                 <Link to="/Accueil/login">
                   <div
                     className={({ isActive }) => {
                       return isActive ? " text-primary" : "";
                     }}
                   >
-                    <div className="relative flex bg-onSecondaryContainer/5 p-1">
+                    <div className="relative flex   bg-onSecondaryContainer/5 p-1">
                       <UserCircle size={28} />
-                      <button>
-                        <span className="text-[14px] px-1 hover:text-primary duration-300">
+                      <button className="focus:bg-secondaryContainer">
+                        <span className="text-[14px] px-1transition hover:text-primary duration-300">
                           Se Connecter
                         </span>
                       </button>
@@ -146,13 +127,19 @@ export default function Header() {
                 </Link>
               )}
             </div>
-            <NavLink to="/cartScreen">
-              <div className="relative flex bg-onSecondaryContainer/5 p-1">
+            <NavLink
+              to="/cartScreen"
+              className={({ isActive }) => {
+                return isActive ? " text-primary" : "";
+              }}
+            >
+              <div className="relative flex bg-[#d3e2f7] hover:bg-[#b4d1f9] p-1">
                 <ShoppingCart size={24} />
-                <span className="text-[14px] px-1 hover:text-primary duration-300">
-                  Panier
-                </span>
-
+                <button className="focus:bg-secondaryContainer">
+                  <h5 className="text-[14px] text-primary font-normal px-1 hover:bg-[#b4d1f9] duration-300">
+                    Panier
+                  </h5>
+                </button>
                 <div className="bg-error h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
                   <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
                     {cartItems.length}

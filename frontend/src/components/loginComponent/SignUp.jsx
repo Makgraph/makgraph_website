@@ -68,7 +68,7 @@ export default function SignUp() {
                 Créez votre compte
               </h3>
               <h4 className="md:hidden text-primary">Créez votre compte</h4>
-              <Link to={`/home/Login/1`}>
+              <Link to="/Accueil/login">
                 <p className="md:flex hidden text-error p-4 underline underline-offset-4 cursor-pointer hover:text-primary">
                   Vous avez déjà un compte ? Connectez-vous !
                 </p>

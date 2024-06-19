@@ -27,6 +27,7 @@ const login = async (userData) => {
 // Logout user
 const logout = () => {
   localStorage.removeItem("user");
+  document.location.href = "/Accueil/login";
 };
 
 const authService = {
