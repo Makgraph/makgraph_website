@@ -1,22 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingSpinner from "../loadingError/loading";
+import { updateUserProfile } from "../../redux/auth/authSlice";
 
 const ProfileTabs = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
+  const { isError } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector((state) => state.auth.user);
+  const [updatedProfile, setUpdatedProfile] = useState({
+    name: currentUser.name,
+    email: currentUser.email,
   });
 
-  const { name, email, password, password2 } = formData;
-
-  const onChange = (e) => {};
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Password match validation
+    if (updatedProfile.password !== updatedProfile.password2) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    dispatch(updateUserProfile(updatedProfile))
+      .unwrap()
+      .then((updatedUser) => {
+        toast.success("Mise à jour du profil réussie");
+      })
+      .catch((error) => {
+        toast.error("Échec de la mise à jour du profil. Veuillez réessayer.");
+      });
+  };
+
   return (
     <>
-      <form onSubmit={onSubmit} action="#" className="space-y-4">
+      <toast />
+      {isError && <Message variant="alert-danger"></Message>}
+      <form onSubmit={handleSubmit} action="#" className="space-y-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="flex flex-col gap-8">
             <div>
@@ -29,8 +58,8 @@ const ProfileTabs = () => {
                 type="text"
                 id="name"
                 name="name"
-                value={name}
-                onChange={onChange}
+                value={updatedProfile.name}
+                onChange={handleInputChange}
               />
             </div>
             <div>
@@ -43,8 +72,8 @@ const ProfileTabs = () => {
                 type="password"
                 id="password"
                 name="password"
-                value={password}
-                onChange={onChange}
+                value={updatedProfile.password}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -59,8 +88,8 @@ const ProfileTabs = () => {
                 type="email"
                 id="email"
                 name="email"
-                value={email}
-                onChange={onChange}
+                value={updatedProfile.email}
+                onChange={handleInputChange}
               />
             </div>
             <div>
@@ -73,8 +102,8 @@ const ProfileTabs = () => {
                 type="password"
                 id="password2"
                 name="password2"
-                value={password2}
-                onChange={onChange}
+                value={updatedProfile.password2}
+                onChange={handleInputChange}
               />
             </div>
           </div>

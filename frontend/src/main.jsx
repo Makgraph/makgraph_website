@@ -43,25 +43,19 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfileScreen />,
-    children: [
-      {
-        path: "/profile/tabs",
-        element: <ProfileTabs />,
-      },
-      {
-        path: "/profile/orders",
-        element: <Orders />,
-      },
-    ],
   },
   // {
-  //   path: "/tabs",
-  //   element: <ProfileTabs />,
+  //   path: "/profile",
+  //   element: <ProfileScreen userId={userId} />,
   // },
-  // {
-  //   path: "/orders",
-  //   element: <Orders />,
-  // },
+  {
+    path: "/tabs",
+    element: <ProfileTabs />,
+  },
+  {
+    path: "/orders",
+    element: <Orders />,
+  },
   {
     path: "/Gallerie",
     element: <Gallery />,

@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 
 const User = require("../models/usersModel");
-const { password } = require("pg/lib/defaults");
+// const { password } = require("pg/lib/defaults");
 
 // @desc Register new user
 // @route POST /api/users
@@ -33,6 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
+    token: generateToken(user._id),
   });
 
   if (user) {
