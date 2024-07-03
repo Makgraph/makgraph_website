@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { register, reset } from "../../redux/auth/authSlice";
 
 export default function SignUp() {
+  // window.scrollTo(0, 0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -77,7 +78,7 @@ export default function SignUp() {
                 </p>
               </Link>
             </div>
-            <form onSubmit={onSubmit} action="#" className="space-y-4">
+            <form onSubmit={onSubmit} action="#" className="space-y-2">
               <div>
                 <label className="sr-only" htmlFor="name">
                   Nom

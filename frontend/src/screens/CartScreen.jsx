@@ -8,28 +8,26 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import Header from "../components/headerComponent/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import { useSelector, useDispatch } from "react-redux";
+// import { isLoggedIn } from "../redux/auth/authSlice.js";
 import {
   removeFromCart,
   selectCartItems,
   updateCartQuantity,
 } from "../redux/Cart/cartSlice.js";
-// import {
-//   removeItemFromCart,
-//   clearCart,
-//   fetchProductById,
-// } from "../redux/Cart/cartSlice.js";
 
 import {
   ArrowArcLeft,
   ArrowCircleDownLeft,
   ArrowCircleLeft,
 } from "phosphor-react";
+// import { selectIsLoggedIn } from "../redux/auth/authSlice.js";
 
 const CartScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const { productId } = useParams();
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   // Calculate total quantity and total price
   const totalQuantity = cartItems.reduce(
@@ -40,10 +38,6 @@ const CartScreen = () => {
     (total, item) => total + item.product.price * item.quantity,
     0
   );
-
-  // const qty = location ? Number(location.search.split("=")[1]) : 1;
-  // const location = useLocation();
-  // const navigate = useNavigate();
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart({ productId }));
@@ -59,8 +53,11 @@ const CartScreen = () => {
   };
 
   const handleCheckout = () => {
-    console.log("Proceed to checkout...");
-    // Implement redirect to checkout page or any further action
+    if (isLoggedIn) {
+      navigate("/shipping");
+    } else {
+      navigate("/Accueil/login");
+    }
   };
 
   return (
@@ -88,11 +85,15 @@ const CartScreen = () => {
             </div>
             <ul className="w-[100%]">
               {cartItems.map((item) => (
-                <div className=" w-[100%]  h-[100%] md:h-[150px] shadow-[0_3px_15px_rgba(0,0,0,0.3)] rounded-[10px] px-6 py-2 my-4">
+                <div
+                  className=" w-[100%]  h-[100%] md:h-[150px] shadow-[0_3px_15px_rgba(0,0,0,0.3)] rounded-[10px] px-6 py-2 my-4"
+                  key={item.product._id}
+                >
                   <div className="absolute md:left-[150px] md:top-40">
                     <button
                       onClick={() => handleRemoveFromCart(item.product._id)}
-                      className="bg-error h-[18px] w-[18px] md:h-5 md:w-5 rounded-[50%]  "
+                      // className="bg-error h-[18px] w-[18px] md:h-5 md:w-5 rounded-[50%]"
+                      className="absolute top-0 left-0 bg-error h-[18px] w-[18px] text-whitemd:h-5 md:w-5 rounded-[50%] px-2 py-1"
                     >
                       <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
                         {/* <X size={32} color="#fcfcfc" weight="bold" /> */}
@@ -176,8 +177,10 @@ const CartScreen = () => {
                 Continuer vos achats
               </button>
             </span>
+
             <span className="my-2 bg-primary rounded-md flex justify-center focus:bg-[#22c55e]  cursor-pointertransition hover:bg-onPrimary  text-white hover:text-primary">
               <button
+                type="submit"
                 className="px-16 py-2 transition focus:bg-[#22c55e] focus:rounded-md focus:text-onPrimary"
                 onClick={handleCheckout}
               >

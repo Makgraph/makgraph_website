@@ -13,6 +13,11 @@ export default {
       xl: "1440px",
     },
     colors: {
+      danger: {
+        DEFAULT: "#e3342f",
+        light: "#f56565",
+        dark: "#c51e1a",
+      },
       primary: "#216487",
       onPrimary: "#FFFFFF",
       secondary: "#565584",

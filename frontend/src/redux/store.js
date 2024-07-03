@@ -1,16 +1,31 @@
+// store.js
+
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice.js";
-// import userDetailsReducer from "./auth/userDetailsSlice.js";
 import productListReducer from "./products/productsSlice.js";
 import productsReducer from "./products/productSlice.js";
 import cartReducer from "./Cart/cartSlice.js";
+import ordersReducer from "./order/orderSlice.js";
+import orderDetailsReducer from "./order/orderDetailsSlice.js";
+import { saveState, loadState } from "./localStorage.js";
+
+const persistedState = loadState();
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    // userDetails: userDetailsReducer,
     productList: productListReducer,
     products: productsReducer,
     cart: cartReducer,
+    orders: ordersReducer,
+    orderDetails: orderDetailsReducer,
   },
+  preloadedState: persistedState, // Utilise l'état initial chargé depuis localStorage
 });
+
+// Abonnez-vous aux changements d'état et sauvegardez dans localStorage
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
+export default store;

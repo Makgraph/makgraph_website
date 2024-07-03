@@ -46,14 +46,14 @@ const ProfileTabs = () => {
       <toast />
       {isError && <Message variant="alert-danger"></Message>}
       <form onSubmit={handleSubmit} action="#" className="space-y-4">
-        <div className="grid grid-cols-2 gap-5">
-          <div className="flex flex-col gap-8">
-            <div>
+        <div className="md:grid grid-cols-2 gap-5">
+          <div className="flex flex-col md:gap-8">
+            <div className="py-1">
               <label className="sr-only" htmlFor="name">
                 Nom
               </label>
               <input
-                className="w-full rounded-lg cursor-pointer border-primary border-2 hover:bg-primary/5 p-3 text-sm"
+                className="w-full rounded-md md:rounded-lg cursor-pointer border-primary border md:border-2 hover:bg-primary/5 p-3 text-sm"
                 placeholder="Nom d'utilisateur"
                 type="text"
                 id="name"
@@ -62,12 +62,12 @@ const ProfileTabs = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="py-1">
               <label className="sr-only" htmlFor="password">
                 Password
               </label>
               <input
-                className="w-full rounded-lg cursor-pointer border-black border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
+                className="w-full rounded-md md:rounded-lg cursor-pointer border-black border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
                 placeholder="Nouveau mot de passe"
                 type="password"
                 id="password"
@@ -77,13 +77,13 @@ const ProfileTabs = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-8">
-            <div>
+          <div className="flex flex-col md:gap-8">
+            <div className="py-1">
               <label className="sr-only" htmlFor="name">
                 Name
               </label>
               <input
-                className="w-full rounded-lg cursor-pointer border-onSecondary border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
+                className="w-full rounded-md md:rounded-lg cursor-pointer border-onSecondary border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
                 placeholder="Email"
                 type="email"
                 id="email"
@@ -92,12 +92,12 @@ const ProfileTabs = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            <div className="py-1">
               <label className="sr-only" htmlFor="password">
                 Password2
               </label>
               <input
-                className="w-full rounded-lg cursor-pointer border-secondary border-2 hover:bg-primary/20 disabled:bg-error disabled:text-error   p-3 text-sm"
+                className="w-full rounded-md md:rounded-lg cursor-pointer border-secondary border md:border-2 hover:bg-primary/20 disabled:bg-error disabled:text-error   p-3 text-sm"
                 placeholder="Confirmez nouveau mot de passe"
                 type="password"
                 id="password2"
@@ -109,7 +109,7 @@ const ProfileTabs = () => {
           </div>
         </div>
 
-        <div className="mt-4 p-4 flex justify-center">
+        <div className=" md:mt-4 p-4 flex justify-center">
           <button
             type="submit"
             className=" flex justify-center items-center btn-primary w-[100%]"

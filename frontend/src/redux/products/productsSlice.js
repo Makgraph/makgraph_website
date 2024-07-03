@@ -7,7 +7,6 @@ export const fetchProducts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get("/api/products");
-
       return response.data;
     } catch (error) {
       const message =
@@ -21,13 +20,10 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-// export const addNewProduct = createAsyncThunk(
-//   "products/addNewProduct",
-//   async (initialProduct) => {
-//     const response = await client.post("/api/products", initialProduct);
-//     return response.data;
-//   }
-// );
+// Clearing products
+export const clearProducts = () => (dispatch) => {
+  dispatch(productSlice.actions.clear());
+};
 
 const initialState = {
   products: [],
@@ -38,7 +34,13 @@ const initialState = {
 export const productSlice = createSlice({
   name: "productList",
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      state.products = [];
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
 

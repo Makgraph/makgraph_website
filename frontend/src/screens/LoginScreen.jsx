@@ -4,7 +4,7 @@ import Header from "../components/headerComponent/Header";
 import Footer from "../components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login, reset } from "../redux/auth/authSlice";
+import { login, reset, setToken } from "../redux/auth/authSlice";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -21,15 +21,20 @@ export default function Login() {
     (state) => state.auth
   );
 
+  // Effect pour gérer le résultat de la connexion
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate("/shop");
+    if (isSuccess && user) {
+      // Si la connexion réussit et que vous avez un utilisateur
+      if (user.token) {
+        // Dispatch setToken pour mettre à jour le token dans le state Redux
+        dispatch(setToken(user.token));
+      }
+      navigate("/shop"); // Redirigez l'utilisateur après la connexion réussie
+      dispatch(reset()); // Réinitialisez l'état de l'authentification
     }
-
-    dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {

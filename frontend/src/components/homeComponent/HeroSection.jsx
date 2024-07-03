@@ -47,7 +47,7 @@ const HeroSection = () => {
           </div>
 
           <div>
-            <a href="#gallerie" className="labelmd ">
+            <Link href="#gallerie" className="labelmd ">
               <div className="animate-slideInLeftSlow4">
                 <Link to="/Gallerie/2" className="cursor-pointer">
                   <button className="btn-icon animate-scalebtn">
@@ -71,7 +71,7 @@ const HeroSection = () => {
                   </button>
                 </Link>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
 

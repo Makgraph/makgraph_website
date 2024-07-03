@@ -15,12 +15,16 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Shop from "./screens/ShopScreen.jsx";
+import ShopScreen from "./screens/ShopScreen.jsx";
 import SingleProduct from "./screens/SingleProduct.jsx";
 import CartScreen from "./screens/CartScreen.jsx";
 import ProfileScreen from "./screens/Profile.Screen.jsx";
 import ProfileTabs from "./components/profileComponents/ProfileTabs";
-import Orders from "./components/profileComponents/Orders";
+import OrderScreen from "./screens/OrderScreen.jsx";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen.jsx";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen.jsx";
+import ShopItems from "./components/shopComponent/ShopItems.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,17 +48,25 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <ProfileScreen />,
   },
-  // {
-  //   path: "/profile",
-  //   element: <ProfileScreen userId={userId} />,
-  // },
+  {
+    path: "/shipping",
+    element: <ShippingScreen />,
+  },
+  {
+    path: "/payment",
+    element: <PaymentScreen />,
+  },
+  {
+    path: "/placeOrder",
+    element: <PlaceOrderScreen />,
+  },
+  {
+    path: "/order/:id",
+    element: <OrderScreen />,
+  },
   {
     path: "/tabs",
     element: <ProfileTabs />,
-  },
-  {
-    path: "/orders",
-    element: <Orders />,
   },
   {
     path: "/Gallerie",
@@ -78,7 +90,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/shop",
-    element: <Shop />,
+    element: <ShopScreen />,
   },
   {
     path: "/products/:productId",
@@ -87,10 +99,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <RouterProvider router={router} />
-    <ToastContainer />
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </Provider>
+  </React.StrictMode>
 );

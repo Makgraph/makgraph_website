@@ -13,6 +13,7 @@ import {
   selectLoading,
 } from "../redux/products/productSlice.js";
 import { addToCart } from "../redux/Cart/cartSlice";
+import LoadingSpinner from "../components/loadingError/loading.jsx";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
@@ -31,7 +32,6 @@ const SingleProduct = () => {
     // Fetch product details when component mounts
     // dispatch(fetchProductDetails(id));
     dispatch(fetchProductById(productId));
-
     // Clear product details when component unmounts
     return () => {
       dispatch(clearProductDetails());
@@ -39,11 +39,19 @@ const SingleProduct = () => {
   }, [dispatch, productId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-24">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (!productDetails) {
-    return <p>Loading...</p>;
+    return (
+      <p className="mt-24">
+        <LoadingSpinner />
+      </p>
+    );
   }
 
   if (error) {
@@ -137,9 +145,7 @@ const SingleProduct = () => {
                       <select
                         className="bg-[#cbd5e1] w-12"
                         value={quantity}
-                        // value={qty}
                         onChange={handleQuantityChange}
-                        // onChange={(e) => setQty(e.target.value)}
                       >
                         {[...Array(productDetails.countInStock).keys()].map(
                           (x) => (

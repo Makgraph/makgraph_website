@@ -1,8 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  cartItems: [],
+// Function to load cart and shipping address from localStorage
+const loadCart = () => {
+  try {
+    const serializedCart = localStorage.getItem("cart");
+    if (serializedCart === null) {
+      return { cartItems: [], shippingAddress: {}, paymentMethod: null };
+    }
+    const cartState = JSON.parse(serializedCart);
+    // Ensure shippingAddress is initialized if missing in localStorage
+    if (!cartState.hasOwnProperty("shippingAddress")) {
+      cartState.shippingAddress = {};
+    }
+    if (!cartState.hasOwnProperty("paymentMethod")) {
+      cartState.paymentMethod = null;
+    }
+    return cartState;
+  } catch (err) {
+    console.error("Error loading cart from localStorage:", err);
+    return { cartItems: [], shippingAddress: {}, paymentMethod: null };
+  }
 };
+
+// Function to save cart and shipping address to localStorage
+const saveCart = (cart) => {
+  try {
+    const serializedCart = JSON.stringify(cart);
+    localStorage.setItem("cart", serializedCart);
+  } catch (err) {
+    console.error("Error saving cart to localStorage:", err);
+  }
+};
+const initialState = loadCart();
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -13,6 +42,7 @@ export const cartSlice = createSlice({
       // Check if item is already in cart
       const existingItem = state.cartItems.find(
         (item) => item.product._id === product._id
+        // (item) => item.product.id === product.id
       );
 
       if (existingItem) {
@@ -22,12 +52,17 @@ export const cartSlice = createSlice({
         // If item doesn't exist in cart, add it
         state.cartItems.push({ product, quantity });
       }
+
+      // Save cart state to local storage after any modification
+      saveCart(state);
     },
+
     removeFromCart: (state, action) => {
       const { productId } = action.payload;
       state.cartItems = state.cartItems.filter(
         (item) => item.product._id !== productId
       );
+      saveCart(state); // Ensure cart is saved after removing item
     },
 
     updateCartQuantity: (state, action) => {
@@ -43,12 +78,32 @@ export const cartSlice = createSlice({
 
     clearCart: (state) => {
       state.cartItems = [];
+      saveCart(state); // Save empty cart to localStorage when clearing
+    },
+
+    // UPDATE SHIPPING ADDRESS
+    updateShippingAddress: (state, action) => {
+      const { address, city, postalCode, country } = action.payload;
+      state.shippingAddress = { address, city, postalCode, country };
+      saveCart(state);
+    },
+
+    // UPDATE PAYMENTT METHOD
+    updatePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload; // Update payment method in state
+      saveCart(state); // Save state to localStorage
     },
   },
 });
 
-export const { addToCart, removeFromCart, updateCartQuantity, clearCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateCartQuantity,
+  clearCart,
+  updateShippingAddress,
+  updatePaymentMethod,
+} = cartSlice.actions;
 
 // Selectors
 export const selectCartItems = (state) => state.cart.cartItems;
@@ -56,94 +111,3 @@ export const selectCartTotalItems = (state) =>
   state.cart.cartItems.reduce((total, item) => total + item.quantity, 0);
 
 export default cartSlice.reducer;
-
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
-
-// const initialState = {
-//   items: [],
-//   totalQuantity: 0,
-//   totalPrice: 0,
-// };
-
-// export const fetchProductById = createAsyncThunk(
-//   "cart/fetchProductById",
-//   async (id, thunkAPI) => {
-//     try {
-//       console.log("Fetching product with ID:", id);
-//       const response = await axios.get(`/api/products/${id}`);
-//       console.log("API Response:", response.data);
-//       return response.data;
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
-
-// const cartSlice = createSlice({
-//   name: "cart",
-//   initialState,
-//   reducers: {
-//     removeItemFromCart(state, action) {
-//       const id = action.payload;
-//       const existingItem = state.items.find((item) => item._id === id);
-
-//       if (existingItem) {
-//         state.totalQuantity -= existingItem.quantity;
-//         state.totalPrice -= existingItem.quantity * existingItem.price;
-//         state.items = state.items.filter((item) => item._id !== id);
-//       }
-//     },
-//     updateItemQuantity(state, action) {
-//       const { id, quantity } = action.payload;
-//       const existingItem = state.items.find((item) => item._id === id);
-
-//       if (existingItem) {
-//         state.totalQuantity += quantity - existingItem.quantity;
-//         state.totalPrice +=
-//           (quantity - existingItem.quantity) * existingItem.price;
-//         existingItem.quantity = quantity;
-//       }
-//     },
-
-//     clearCart(state) {
-//       state.items = [];
-//       state.totalQuantity = 0;
-//       state.totalPrice = 0;
-//     },
-//   },
-//   extraReducers: (builder) => {
-//     builder.addCase(fetchProductById.fulfilled, (state, action) => {
-//       const newItem = action.payload;
-//       const existingItem = state.items.find((item) => item._id === newItem._id);
-
-//       state.totalQuantity++;
-//       state.totalPrice += newItem.price;
-
-//       if (!existingItem) {
-//         state.items.push({
-//           _id: newItem._id,
-//           name: newItem.name,
-//           image: newItem.image,
-//           price: newItem.price,
-//           countInStock: newItem.countInStock,
-//           quantity: newItem.quantity,
-//         });
-
-//       } else {
-//         existingItem.quantity++;
-//       }
-//       console.log("State after addition:", state);
-//     });
-//   },
-// });
-
-// export const { removeItemFromCart, clearCart } = cartSlice.actions;
-
-// export default cartSlice.reducer;

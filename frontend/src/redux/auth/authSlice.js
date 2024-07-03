@@ -7,11 +7,13 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   user: user ? user : null,
+  token: localStorage.getItem("token") || null,
   userDetails: null,
   userUpdatedProfile: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
+  isLoggedIn: false,
   message: "",
 };
 
@@ -34,9 +36,24 @@ export const register = createAsyncThunk(
 );
 
 // Login user
+// export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+//   try {
+//     return await authService.login(user);
+//   } catch (error) {
+//     const message =
+//       (error.response && error.response.data && error.response.data.message) ||
+//       error.message ||
+//       error.toString();
+//     return thunkAPI.rejectWithValue(message);
+//   }
+// });
+
+// Exemple d'action login avec dispatch de setToken
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
-    return await authService.login(user);
+    const userData = await authService.login(user);
+    thunkAPI.dispatch(setToken(userData.token)); // Dispatch de l'action setToken avec le token reçu
+    return userData;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -46,10 +63,12 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   }
 });
 
+// Logout user
 export const logout = createAsyncThunk("auth/logout", async () => {
   authService.logout();
 });
 
+// User details
 export const fetchUserDetails = createAsyncThunk(
   "auth/fetchUserDetails",
   async (_, thunkAPI) => {
@@ -69,7 +88,7 @@ export const fetchUserDetails = createAsyncThunk(
   }
 );
 
-// Async Thunk to update user profile
+// Update user profile
 export const updateUserProfile = createAsyncThunk(
   "auth/updateUserProfile",
   async (updatedProfileData, thunkAPI) => {
@@ -104,6 +123,10 @@ export const authSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    setToken(state, action) {
+      state.isLoggedIn = true;
+      localStorage.setItem("token", action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -125,6 +148,7 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
@@ -136,6 +160,7 @@ export const authSlice = createSlice({
         state.user = null;
       })
       .addCase(logout.fulfilled, (state) => {
+        state.isLoggedIn = false;
         state.user = null;
         state.token = null;
         state.userDetails = null;
@@ -167,11 +192,16 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset, updateUserProfileSuccess, updateUserProfileFailure } =
-  authSlice.actions;
+export const {
+  reset,
+  setToken,
+  updateUserProfileSuccess,
+  updateUserProfileFailure,
+} = authSlice.actions;
 export const selectUserDetails = (state) => state.auth.userDetails;
 export const selectUserUpdatedProfile = (state) =>
   state.auth.userUpdatedProfile;
+export const isLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectError = (state) => state.auth.isError;
 export default authSlice.reducer;

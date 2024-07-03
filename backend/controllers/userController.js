@@ -75,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user data
-// @route POST /api/users/me
+// @route POST /api/users/profile
 // @access Private
 const profile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
