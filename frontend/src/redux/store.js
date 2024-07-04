@@ -7,6 +7,7 @@ import productsReducer from "./products/productSlice.js";
 import cartReducer from "./Cart/cartSlice.js";
 import ordersReducer from "./order/orderSlice.js";
 import orderDetailsReducer from "./order/orderDetailsSlice.js";
+import orderPayReducer from "./order/orderPaySlice.js";
 import { saveState, loadState } from "./localStorage.js";
 
 const persistedState = loadState();
@@ -19,6 +20,7 @@ export const store = configureStore({
     cart: cartReducer,
     orders: ordersReducer,
     orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer,
   },
   preloadedState: persistedState, // Utilise l'état initial chargé depuis localStorage
 });

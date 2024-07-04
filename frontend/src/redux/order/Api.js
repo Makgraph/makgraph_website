@@ -35,6 +35,24 @@ const Api = {
       );
     }
   },
+
+  // Fonction pour récupérer les détails d'une commande
+  updateOrderDetail: async (id, paymentResult, token) => {
+    try {
+      const response = await axios.put(`/api/orders/${id}/pay`, paymentResult, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      throw new Error(
+        error.response.data.error ||
+          "Échec de la récupération des détails de la commande"
+      );
+    }
+  },
 };
 
 export default Api;

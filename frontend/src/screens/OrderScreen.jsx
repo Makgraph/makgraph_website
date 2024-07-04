@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/headerComponent/Header";
 import { User, Truck, MapPin } from "phosphor-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,25 +8,27 @@ import {
   selectCartItems,
 } from "../redux/Cart/cartSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { createOrder } from "../redux/order/orderSlice";
 import { fetchOrderDetails } from "../redux/order/orderDetailsSlice";
 import LoadingSpinner from "../components/loadingError/loading.jsx";
 import Message from "../components/loadingError/errorMessage.jsx";
+import axios from "axios";
+import { payOrder, resetOrderPayState } from "../redux/order/orderPaySlice.js";
+import { PayPalButton } from "react-paypal-button-v2";
+import moment from "moment";
 
-const PlaceOrderScreen = () => {
+const orderScreen = () => {
+  const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isInitialMount = useRef(true); // Référence useRef pour suivre le premier montage
-  const cartItems = useSelector(selectCartItems);
   const { productId, id } = useParams();
-  const { user, token } = useSelector((state) => state.auth);
-  const { shippingAddress, paymentMethod } = useSelector((state) => state.cart);
   const orders = useSelector((state) => state.orders.orders);
   const orderDetails = useSelector((state) => state.orderDetails.orderDetails);
   const loading = useSelector((state) => state.orders.loading);
   const error = useSelector((state) => state.orders.error);
-  console.log(orderDetails);
-  console.log(orders);
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay } = useSelector((state) => state.orderPay);
+  const { success: successPay } = useSelector((state) => state.orderPay);
 
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -38,53 +40,52 @@ const PlaceOrderScreen = () => {
       0
     )
   );
-
   useEffect(() => {
     if (isInitialMount.current) {
       // Ne rien faire sur le premier rendu
       isInitialMount.current = false;
     } else {
-      // Déclencher fetchProducts() après le premier rendu
-      dispatch(fetchOrderDetails(id));
-      console.log(orderDetails);
+      const addPayPalScript = async () => {
+        try {
+          const { data: clientId } = await axios.get("/api/config/paypal");
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+          script.async = true;
+          script.onload = () => {
+            setSdkReady(true);
+          };
+          document.body.appendChild(script);
+        } catch (error) {
+          console.error("Erreur lors du chargement du script PayPal :", error);
+          // Gérer l'erreur de manière appropriée (afficher un message à l'utilisateur, etc.)
+        }
+      };
+
+      if (!orderDetails || successPay) {
+        dispatch(resetOrderPayState()); // Appel corrigé avec des parenthèses
+        dispatch(fetchOrderDetails(id));
+      } else if (!orderDetails.isPaid) {
+        if (!window.paypal) {
+          addPayPalScript();
+        } else {
+          setSdkReady(true);
+        }
+      }
     }
 
     // Clean up effect
     return () => {
       dispatch(clearCart());
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, successPay, orderDetails]);
 
-  // const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : 100);
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult);
+    dispatch(payOrder({ orderId: id, paymentResult }));
+  };
 
-  // const taxPrice = addDecimals(Number((0.15 * itemsPrice).toFixed(2)));
-
-  // const totalPrice = (
-  //   Number(itemsPrice) +
-  //   Number(taxPrice) +
-  //   Number(shippingPrice)
-  // ).toFixed(2);
-
-  // const placeOrderHandler = async () => {
-  //   // Déclarez la fonction comme asynchrone ici
-  //   try {
-  //     const orderData = {
-  //       cartItems,
-  //       shippingAddress,
-  //       paymentMethod,
-  //       itemsPrice,
-  //       shippingPrice,
-  //       taxPrice,
-  //       totalPrice,
-  //     };
-  //     const action = await dispatch(createOrder(orderData));
-  //     const responseData = action.payload; // Accédez aux données de la réponse
-  //     navigate(`/order/${responseData._id}`);
-  //     console.log("Réponse de l'API:", responseData);
-  //   } catch (error) {
-  //     console.error("Erreur lors de la création de la commande:", error);
-  //   }
-  // };
+  console.log(successPay);
 
   return (
     <div>
@@ -143,7 +144,7 @@ const PlaceOrderScreen = () => {
                   {orderDetails.isPaid ? (
                     <div className="bg-[#2563eb] mt-1 p-2">
                       <p className="text-onPrimary md:text-sm text-xs flex justify-center">
-                        Payé le {moment(orderDetails.paidAt).calendar()}
+                        Payé {moment(orderDetails.paidAt).calendar()}
                       </p>
                     </div>
                   ) : (
@@ -206,18 +207,6 @@ const PlaceOrderScreen = () => {
                             className=" w-[100%]  h-[100%] md:h-[100px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] md:rounded-[10px] rounded-[5px] md:px-5 px-2 py-1 md:py-0 my-2"
                             key={index}
                           >
-                            {/* <div className="absolute md:left-[150px] md:top-40">
-                              <button
-                                onClick={() =>
-                                  handleRemoveFromCart(item.product._id)
-                                }
-                                className="bg-error h-[18px] w-[18px] md:h-5 md:w-5 rounded-[50%]  "
-                              >
-                                <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
-                                  *
-                                </span>
-                              </button>
-                            </div> */}
                             <li
                               className="h-[100%] w-[100%] flex md:justify-between justify-between items-center"
                               key={item.product._id}
@@ -236,7 +225,7 @@ const PlaceOrderScreen = () => {
                               </Link>
 
                               <div className="md:text-sm text-[10px] flex flex-col items-center justify-center">
-                                <div className="text-">QUANTITÉ</div>
+                                <div className="text-">Quantité</div>
                                 {item.qty}
                               </div>
                               <div className="md:text-sm text-xs flex flex-col items-center justify-center">
@@ -294,16 +283,26 @@ const PlaceOrderScreen = () => {
                       </tr>
                     </tbody>
                   </table>
+                  {!orderDetails.isPaid && (
+                    <div className="">
+                      {loadingPay && (
+                        <div className="pt-10">
+                          <LoadingSpinner />
+                        </div>
+                      )}
+                      {!sdkReady ? (
+                        <div className="pt-10">
+                          <LoadingSpinner />
+                        </div>
+                      ) : (
+                        <PayPalButton
+                          amount={orderDetails.totalPrice}
+                          onSuccess={successPaymentHandler}
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
-                {/* {cartItems.length === 0 ? null : (
-                  <button
-                    type="submit"
-                    className="w-full bg-primary/90 text-white py-2 px-4  hover:bg-primary focus:outline-none focus:ring-2 focus:bg-[#22c55e] focus:ring-offset-2"
-                    onClick={placeOrderHandler}
-                  >
-                    Passer la commande
-                  </button>
-                )} */}
               </div>
             </div>
           </>
@@ -313,4 +312,4 @@ const PlaceOrderScreen = () => {
   );
 };
 
-export default PlaceOrderScreen;
+export default orderScreen;

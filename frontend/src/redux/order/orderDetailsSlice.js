@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Api from "./Api"; // Replace with your actual API function
+import Api from "./Api";
 
 export const fetchOrderDetails = createAsyncThunk(
   "orders/fetchOrderDetails",
@@ -17,7 +17,7 @@ export const fetchOrderDetails = createAsyncThunk(
 const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
-    orderDetails: {},
+    orderDetails: { isPaid: false },
     loading: true,
     success: false,
     error: null,
