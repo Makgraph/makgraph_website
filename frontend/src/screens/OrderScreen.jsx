@@ -30,10 +30,11 @@ const orderScreen = () => {
   const { loading: loadingPay } = useSelector((state) => state.orderPay);
   const { success: successPay } = useSelector((state) => state.orderPay);
 
+  console.log(orderDetails);
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
-
+  // console.log(orderDetails);
   const itemsPrice = addDecimals(
     orderDetails.orderItems.reduce(
       (acc, item) => acc + item.price * item.qty,
@@ -62,10 +63,10 @@ const orderScreen = () => {
         }
       };
 
-      if (!orderDetails || successPay) {
+      if (!orders || successPay) {
         dispatch(resetOrderPayState()); // Appel corrigé avec des parenthèses
         dispatch(fetchOrderDetails(id));
-      } else if (!orderDetails.isPaid) {
+      } else if (!orders.isPaid) {
         if (!window.paypal) {
           addPayPalScript();
         } else {
@@ -78,10 +79,11 @@ const orderScreen = () => {
     return () => {
       dispatch(clearCart());
     };
-  }, [dispatch, id, successPay, orderDetails]);
-
+  }, [dispatch, id, successPay, orders]);
+  console.log(id);
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
+    // dispatch(fetchOrderDetails({ orderId: id }));
     dispatch(payOrder({ orderId: id, paymentResult }));
   };
 

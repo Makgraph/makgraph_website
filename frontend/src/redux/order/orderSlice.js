@@ -8,7 +8,6 @@ export const createOrder = createAsyncThunk(
     const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
     try {
       const response = await Api.createOrder(orderData, token); // Appelez votre fonction API pour créer la commande avec le token
-
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

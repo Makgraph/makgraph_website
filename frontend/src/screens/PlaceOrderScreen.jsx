@@ -9,6 +9,7 @@ import {
 } from "../redux/Cart/cartSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { createOrder, resetOrdersState } from "../redux/order/orderSlice";
+import { fetchOrderDetails } from "../redux/order/orderDetailsSlice";
 
 const PlaceOrderScreen = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ const PlaceOrderScreen = () => {
     try {
       const action = await dispatch(createOrder(orderData));
       const responseData = action.payload; // Accédez aux données de la réponse
-      // navigate(`/order/${responseData._id}`);
+      console.log(responseData);
+      navigate(`/order/${responseData._id}`);
+      dispatch(fetchOrderDetails(responseData._id));
     } catch (error) {
       console.error("Erreur lors de la création de la commande:", error);
     }
@@ -75,9 +78,10 @@ const PlaceOrderScreen = () => {
 
   useEffect(() => {
     if (success) {
-      dispatch(resetOrdersState());
-      dispatch(clearCart());
-      navigate(`/order/${orders._id}`);
+      // dispatch(fetchOrderDetails(responseData._id));
+      // dispatch(resetOrdersState());
+      // dispatch(clearCart());
+      // navigate(`/order/${orders._id}`);
     }
   }, [navigate, dispatch, success, orders]);
 

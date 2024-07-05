@@ -19,12 +19,13 @@ import ShopScreen from "./screens/ShopScreen.jsx";
 import SingleProduct from "./screens/SingleProduct.jsx";
 import CartScreen from "./screens/CartScreen.jsx";
 import ProfileScreen from "./screens/Profile.Screen.jsx";
-import ProfileTabs from "./components/profileComponents/ProfileTabs";
 import OrderScreen from "./screens/OrderScreen.jsx";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen.jsx";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen.jsx";
 import ShopItems from "./components/shopComponent/ShopItems.jsx";
+import ProfileTabs from "./components/profileComponents/ProfileTabs.jsx";
+import OrderTabs from "./components/profileComponents/OrderTabs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,8 +46,22 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/profile",
+    path: "/profile", // Chemin parent
     element: <ProfileScreen />,
+    children: [
+      {
+        path: "", // Route par défaut relative à /profile
+        element: <ProfileTabs />,
+      },
+      {
+        path: "profileTabs", // Chemin relatif pour les onglets du profil
+        element: <ProfileTabs />,
+      },
+      {
+        path: "orderTabs", // Chemin relatif pour les onglets de commande
+        element: <OrderTabs />,
+      },
+    ],
   },
   {
     path: "/shipping",
@@ -63,10 +78,6 @@ const router = createBrowserRouter([
   {
     path: "/order/:id",
     element: <OrderScreen />,
-  },
-  {
-    path: "/tabs",
-    element: <ProfileTabs />,
   },
   {
     path: "/Gallerie",

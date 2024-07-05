@@ -4,7 +4,7 @@ const Api = {
   // Fonction pour créer une commande
   createOrder: async (orderData, token) => {
     try {
-      const response = await axios.post("/api/orders", orderData, {
+      const response = await axios.post(`/api/orders`, orderData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

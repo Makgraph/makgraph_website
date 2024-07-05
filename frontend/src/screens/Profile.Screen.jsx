@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/headerComponent/Header";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { UserCircle } from "phosphor-react";
-import ProfileTabs from "./../components/profileComponents/ProfileTabs";
+import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetails } from "../redux/auth/authSlice";
 import moment from "moment";
 import LoadingSpinner from "../components/loadingError/loading";
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserDetails()); // Fetch user details on component mount
@@ -43,23 +43,38 @@ const ProfileScreen = () => {
                 </div>
               </div>
               <div className="mt-4 w-[100%] flex flex-col justify-center items-center">
-                <Link to="/tabs" className="w-[100%]">
-                  <button className="bg-tertiary w-[100%] text-[12px]  hover:bg-onSecondary focus:bg-onSecondary focus:text-onPrimary hover:text-white py-2 px-[94px]">
-                    PARAMÈTRES DE PROFIL
-                  </button>
-                </Link>
-                <NavLink to="/orders" className="w-[100%]">
-                  <button className="bg-tertiary w-[100%] text-[12px] hover:bg-secondary focus:bg-secondary focus:text-onPrimary hover:text-white py-2 px-[94px]">
-                    LISTE DES COMMANDES
-                  </button>
-                </NavLink>
+                <div className="w-[100%]">
+                  <NavLink
+                    to="/profile/profileTabs"
+                    className={({ isActive }) => {
+                      return isActive ? "bg-onSecondary" : "";
+                    }}
+                  >
+                    <button className="bg-tertiary w-[100%] text-[12px]  hover:bg-onSecondary focus:bg-onSecondary focus:text-onPrimary hover:text-white py-2 px-[94px]">
+                      PARAMÈTRES DE PROFIL
+                    </button>
+                  </NavLink>
+                </div>
+                <div className="w-[100%]">
+                  <NavLink
+                    to="/profile/orderTabs"
+                    className={({ isActive }) => {
+                      return isActive ? "bg-secondary" : "";
+                    }}
+                  >
+                    <button className="bg-tertiary w-[100%] text-[12px] focus: hover:bg-secondary focus:bg-secondary focus:text-onPrimary hover:text-white py-2 px-[94px]">
+                      LISTE DES COMMANDES
+                    </button>
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>
           <div className="md:w-2/3 py-2 md:p-4  ">
-            {isLoading && <LoadingSpinner />}
+            {/* {isLoading && <LoadingSpinner />}
             {isError && <p>Error: {isError.message}</p>}
-            {user && <ProfileTabs />}
+            {user && <ProfileTabs />} */}
+            <Outlet />
           </div>
         </div>
       </div>
