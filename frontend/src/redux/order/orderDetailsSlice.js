@@ -24,7 +24,14 @@ const orderDetailsSlice = createSlice({
     success: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetOrderDetail: (state) => {
+      state.orderDetails = {}; // Reset orderList to empty array
+      state.loading = false;
+      state.success = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
 
@@ -47,5 +54,5 @@ const orderDetailsSlice = createSlice({
   },
 });
 
-export const {} = orderDetailsSlice.actions;
+export const { resetOrderDetail } = orderDetailsSlice.actions;
 export default orderDetailsSlice.reducer;

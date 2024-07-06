@@ -36,6 +36,15 @@ const orders = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Fetch user login orders
+// @route GET /api/orders
+// @access Private
+const userOrders = asyncHandler(async (req, res) => {
+  const order = await Order.find({ user: req.user.id }).sort({ _id: -1 });
+  console.log("User orders:", orders);
+  res.json(order);
+});
+
 // @desc Fetch single order
 // @route GET /api/orders/:id
 // @access Private
@@ -81,4 +90,5 @@ module.exports = {
   orders,
   getOrder,
   updateOrder,
+  userOrders,
 };

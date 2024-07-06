@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import LoadingSpinner from "../loadingError/loading";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  listUserOrders,
+  resetOrderList,
+} from "../../redux/order/orderListSlice";
+import moment from "moment";
 
-const data = [
-  { id: 1, status: "Pending", date: "2024-07-04", total: 100 },
-  { id: 2, status: "Completed", date: "2024-07-03", total: 150 },
-  // Ajoutez d'autres données selon vos besoins
-];
+const OrderTabs = () => {
+  const dispatch = useDispatch();
+  const isInitialMount = useRef(true);
+  // const { orderList, loading, error } = useSelector((state) => state.orderList);
+  const orderList = useSelector((state) => state.orderList.orderList);
+  const loading = useSelector((state) => state.orderList.loading);
+  const error = useSelector((state) => state.orderList.error);
+  const logTimeout = useRef(null); // Référence pour gérer le timeout du log
 
-const orderTabs = () => {
-  const orderDetails = useSelector((state) => state.orderDetails.orderDetails);
-  const loading = useSelector((state) => state.orders.loading);
-  const error = useSelector((state) => state.orders.error);
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      dispatch(listUserOrders());
+    } else {
+      isInitialMount.current = false;
+    }
 
-  console.log(orderDetails);
+    return () => {
+      dispatch(resetOrderList());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      if (logTimeout.current) {
+        clearTimeout(logTimeout.current); // Réinitialiser le timeout s'il y en a déjà un
+      }
+      // logTimeout.current = setTimeout(() => {
+      //   console.log(orderList); // Log après un délai
+      // }, 300); // Délai de 300 ms (ajustez selon vos besoins)
+    }
+  }, [orderList, dispatch]);
+
   return (
     <div className="overflow-x-auto">
       {loading ? (
@@ -23,10 +48,10 @@ const orderTabs = () => {
         <p>Error: {error.message}</p>
       ) : (
         <>
-          {orderDetails.length === 0 ? (
+          {orderList.length === 0 && !loading ? ( // Vérifiez également !loading pour éviter le rendu vide initial
             <div>
               No Orders
-              <Link>START SHOPPING</Link>
+              <Link to="/">START SHOPPING</Link>
             </div>
           ) : (
             <table className="min-w-full bg-white border-collapse border border-[#e5e7eb]">
@@ -39,24 +64,28 @@ const orderTabs = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderDetails.map((order) => (
+                {orderList.map((order) => (
                   <tr
                     key={order._id}
                     className={`${
-                      order.isPaid ? "bg-secondary/20" : "bg-primary/25"
+                      order.isPaid
+                        ? "bg-onPrimary font-serif"
+                        : "bg-primary/25 font-sans"
                     }`}
                   >
                     <td className="border border-primary/40 px-4 py-2">
-                      {item.id}
+                      {order._id}
                     </td>
                     <td className="border border-primary/40 px-4 py-2">
-                      {item.status}
+                      {order.isPaid ? <>Payé</> : <>Impayé</>}
                     </td>
                     <td className="border border-primary/40 px-4 py-2">
-                      {item.date}
+                      {order.isPaid
+                        ? moment(order.paidAt).calendar()
+                        : moment(order.createdAt).calendar()}
                     </td>
                     <td className="border border-primary/40 px-4 py-2">
-                      {item.total}
+                      {order.totalPrice}
                     </td>
                   </tr>
                 ))}
@@ -69,4 +98,4 @@ const orderTabs = () => {
   );
 };
 
-export default orderTabs;
+export default OrderTabs;

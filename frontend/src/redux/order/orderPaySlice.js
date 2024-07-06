@@ -20,7 +20,7 @@ export const payOrder = createAsyncThunk(
   }
 );
 
-const ordersSlice = createSlice({
+const orderPaySlice = createSlice({
   name: "orderPay",
   initialState: {
     orderPay: {}, // Corrected field name from 'orders' to 'orderPay'
@@ -54,5 +54,5 @@ const ordersSlice = createSlice({
   },
 });
 
-export const { resetOrderPayState } = ordersSlice.actions;
-export default ordersSlice.reducer;
+export const { resetOrderPayState } = orderPaySlice.actions;
+export default orderPaySlice.reducer;

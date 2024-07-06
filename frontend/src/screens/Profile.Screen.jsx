@@ -7,15 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetails } from "../redux/auth/authSlice";
 import moment from "moment";
 import LoadingSpinner from "../components/loadingError/loading";
+import { listUserOrders } from "../redux/order/orderListSlice";
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  // const { orderList, loading, error } = useSelector((state) => state.orderList);
+  // const loading = useSelector((state) => state.orderList.loading);
+  // const error = useSelector((state) => state.orderList.error);
+  const { user } = useSelector((state) => state.auth);
+  // console.log(orderList);
 
   useEffect(() => {
-    dispatch(fetchUserDetails()); // Fetch user details on component mount
+    dispatch(listUserOrders()); // Fetch user details on component mount
   }, [dispatch]);
 
   return (

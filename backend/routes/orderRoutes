@@ -4,10 +4,12 @@ const {
   orders,
   getOrder,
   updateOrder,
+  userOrders,
 } = require("../controllers/orderController");
 const protect = require("../middleware/authMiddleware");
 
 router.post("/", protect, orders);
+router.get("/", protect, userOrders);
 router.route("/:id").get(protect, getOrder);
 router.route("/:id/pay").put(protect, updateOrder);
 

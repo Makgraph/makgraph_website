@@ -49,7 +49,7 @@ const profileTabs = () => {
       {isError && <p>Error: {isError.message}</p>}
       {user && (
         <div>
-          <toast />
+          {/* <toast /> */}
           {/* {isError && <Message variant="alert-danger"></Message>} */}
           <form onSubmit={handleSubmit} action="#" className="space-y-4">
             <div className="md:grid grid-cols-2 gap-5">

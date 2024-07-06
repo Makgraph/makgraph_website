@@ -7,11 +7,12 @@ import productsReducer from "./products/productSlice.js";
 import cartReducer from "./Cart/cartSlice.js";
 import ordersReducer from "./order/orderSlice.js";
 import orderDetailsReducer from "./order/orderDetailsSlice.js";
+import orderListReducer from "./order/orderListSlice.js";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "cart", "orderDetails", "orders"],
+  whitelist: ["auth", "cart", "orderDetails", "orders", "orderList"],
 };
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   orders: ordersReducer,
   orderDetails: orderDetailsReducer,
+  orderList: orderListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
