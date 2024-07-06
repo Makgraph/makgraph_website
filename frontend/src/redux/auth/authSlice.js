@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService.js";
+import { resetOrdersState } from "../order/orderSlice.js";
+import { resetOrderDetail } from "../order/orderDetailsSlice";
 import { api } from "./api.js";
+
+// Action asynchrone pour vérifier l'authentification
+export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
+  const isLoggedIn = await authService.isLoggedIn(); // Appelle de la méthode d'authentification
+  return isLoggedIn;
+});
 
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem("user"));
@@ -35,20 +43,6 @@ export const register = createAsyncThunk(
   }
 );
 
-// Login user
-// export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-//   try {
-//     return await authService.login(user);
-//   } catch (error) {
-//     const message =
-//       (error.response && error.response.data && error.response.data.message) ||
-//       error.message ||
-//       error.toString();
-//     return thunkAPI.rejectWithValue(message);
-//   }
-// });
-
-// Exemple d'action login avec dispatch de setToken
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
     const userData = await authService.login(user);
@@ -64,8 +58,10 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 });
 
 // Logout user
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   authService.logout();
+  thunkAPI.dispatch(resetOrdersState()); // Réinitialise les orders
+  thunkAPI.dispatch(resetOrderDetail()); // Réinitialise les orderDetails
 });
 
 // User details
@@ -117,6 +113,10 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setLoggedIn(state, action) {
+      state.isLoggedIn = action.payload;
+    },
+
     reset: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
@@ -164,6 +164,7 @@ export const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.userDetails = null;
+        state.userUpdatedProfile = null;
       })
       .addCase(fetchUserDetails.pending, (state) => {
         state.isLoading = true;
@@ -188,11 +189,15 @@ export const authSlice = createSlice({
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload;
       });
   },
 });
 
 export const {
+  setLoggedIn,
   reset,
   setToken,
   updateUserProfileSuccess,

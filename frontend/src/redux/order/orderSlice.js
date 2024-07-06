@@ -15,6 +15,13 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+export const resetOrdersState = createAsyncThunk(
+  "orders/resetOrdersState",
+  async (_, thunkAPI) => {
+    return { orders: {}, loading: false, success: false, error: null };
+  }
+);
+
 const ordersSlice = createSlice({
   name: "orders",
   initialState: {
@@ -24,12 +31,12 @@ const ordersSlice = createSlice({
     error: null,
   },
   reducers: {
-    resetOrdersState: (state) => {
-      state.orders = {};
-      state.loading = false;
-      state.success = false;
-      state.error = null;
-    },
+    // resetOrdersState: (state) => {
+    //   state.orders = {};
+    //   state.loading = false;
+    //   state.success = false;
+    //   state.error = null;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -45,9 +52,15 @@ const ordersSlice = createSlice({
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Assuming the API returns an error message
+      })
+      .addCase(resetOrdersState.fulfilled, (state, action) => {
+        state.orders = action.payload.orders;
+        state.loading = action.payload.loading;
+        state.success = action.payload.success;
+        state.error = action.payload.error;
       });
   },
 });
 
-export const { resetOrdersState } = ordersSlice.actions;
+export const {} = ordersSlice.actions;
 export default ordersSlice.reducer;

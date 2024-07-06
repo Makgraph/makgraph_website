@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, reset } from "../../redux/auth/authSlice";
 import { UserCircle } from "phosphor-react";
-import { resetOrderList } from "../../redux/order/orderListSlice";
-import { resetOrderDetail } from "../../redux/order/orderDetailsSlice";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +19,7 @@ const Dropdown = () => {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    dispatch(resetOrderList());
-    dispatch(resetOrderDetail());
+
     navigate("/Accueil/SignUp");
   };
 

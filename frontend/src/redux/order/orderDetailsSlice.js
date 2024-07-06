@@ -16,6 +16,13 @@ export const fetchOrderDetails = createAsyncThunk(
   }
 );
 
+export const resetOrderDetail = createAsyncThunk(
+  "orderDetails/resetOrderDetail",
+  async (_, thunkAPI) => {
+    return { orderDetails: {}, loading: true, success: false, error: null };
+  }
+);
+
 const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
@@ -25,12 +32,12 @@ const orderDetailsSlice = createSlice({
     error: null,
   },
   reducers: {
-    resetOrderDetail: (state) => {
-      state.orderDetails = {}; // Reset orderList to empty array
-      state.loading = false;
-      state.success = false;
-      state.error = null;
-    },
+    // resetOrderDetail: (state) => {
+    //   state.orderDetails = {}; // Reset orderList to empty array
+    //   state.loading = false;
+    //   state.success = false;
+    //   state.error = null;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -50,9 +57,15 @@ const orderDetailsSlice = createSlice({
       .addCase(fetchOrderDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Assuming the API returns an error message
+      })
+      .addCase(resetOrderDetail.fulfilled, (state, action) => {
+        state.orderDetails = action.payload.orderDetails;
+        state.loading = action.payload.loading;
+        state.success = action.payload.success;
+        state.error = action.payload.error;
       });
   },
 });
 
-export const { resetOrderDetail } = orderDetailsSlice.actions;
+export const {} = orderDetailsSlice.actions;
 export default orderDetailsSlice.reducer;

@@ -24,31 +24,43 @@ const getSingleProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Register new user
-// @route POST /api/users
+// @desc Create productReview
+// @route GET /api/products/:id
 // @access Public
-// const createProduct = asyncHandler(async (req, res) => {
-//   const products = await Product.find({});
-// });
+const ProductReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const product = await Product.findById(req.params.id);
 
-// @desc Register new user
-// @route POST /api/users
-// @access Public
-// const updateProduct = asyncHandler(async (req, res) => {
-//   const products = await Product.find({});
-// });
+  if (product) {
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Produit déjà évalué");
+    }
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
 
-// @desc Register new user
-// @route POST /api/users
-// @access Public
-// const deleteProduct = asyncHandler(async (req, res) => {
-//   const products = await Product.find({});
-// });
+    product.reviews.push(review);
+    product.numReviews = product.reviews.length;
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
+
+    await product.save();
+    res.status(201).json({ message: "Avis ajouté" });
+  } else {
+    res.status(404).json({ message: "Produit non trouvé" });
+  }
+});
 
 module.exports = {
   getAllProducts,
   getSingleProduct,
-  // createProduct,
-  // updateProduct,
-  // deleteProduct,
+  ProductReview,
 };

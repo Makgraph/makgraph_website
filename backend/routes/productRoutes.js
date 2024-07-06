@@ -3,14 +3,12 @@ const router = express.Router();
 const {
   getAllProducts,
   getSingleProduct,
-  // createProduct,
-  // updateProduct,
-  // deleteProduct,
+  ProductReview,
 } = require("../controllers/productController.js");
+const protect = require("../middleware/authMiddleware");
 
 router.route("/").get(getAllProducts).post(getAllProducts);
 router.route("/:id").get(getSingleProduct);
-// .put(updateProduct)
-// .delete(deleteProduct);
+router.post("/:id/review", protect, ProductReview);
 
 module.exports = router;

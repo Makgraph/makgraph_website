@@ -76,14 +76,14 @@ const PlaceOrderScreen = () => {
     }
   };
 
-  useEffect(() => {
-    if (success) {
-      // dispatch(fetchOrderDetails(responseData._id));
-      // dispatch(resetOrdersState());
-      // dispatch(clearCart());
-      // navigate(`/order/${orders._id}`);
-    }
-  }, [navigate, dispatch, success, orders]);
+  // useEffect(() => {
+  //   if (success) {
+  //     // dispatch(fetchOrderDetails(responseData._id));
+  //     // dispatch(resetOrdersState());
+  //     // dispatch(clearCart());
+  //     // navigate(`/order/${orders._id}`);
+  //   }
+  // }, [navigate, dispatch, success, orders]);
 
   return (
     <div>

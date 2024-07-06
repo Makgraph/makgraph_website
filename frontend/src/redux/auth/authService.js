@@ -2,6 +2,12 @@ import axios from "axios";
 
 const API_URL = "/api/users/";
 
+// Fonction pour vérifier si l'utilisateur est connecté
+const isLoggedIn = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user ? true : false;
+};
+
 //Register user
 const register = async (userData) => {
   const response = await axios.post(API_URL, userData);
@@ -31,6 +37,7 @@ const logout = () => {
 };
 
 const authService = {
+  isLoggedIn,
   register,
   logout,
   login,

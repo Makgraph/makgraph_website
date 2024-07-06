@@ -64,7 +64,7 @@ const orderScreen = () => {
       };
 
       if (!orders || successPay) {
-        dispatch(resetOrderPayState()); // Appel corrigé avec des parenthèses
+        dispatch(resetOrderPayState());
         dispatch(fetchOrderDetails(id));
       } else if (!orders.isPaid) {
         if (!window.paypal) {
