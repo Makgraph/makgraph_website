@@ -1,42 +1,54 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/headerComponent/Header";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/shopComponent/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductById,
-  selectProductDetails,
   clearProductDetails,
-  selectError,
-  selectLoading,
 } from "../redux/products/productSlice.js";
 import { addToCart } from "../redux/Cart/cartSlice";
 import LoadingSpinner from "../components/loadingError/loading.jsx";
+import {
+  createProductReview,
+  resetProductReview,
+} from "../redux/products/productReviewSlice.js";
+import moment from "moment";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const productDetails = useSelector(selectProductDetails);
-  const error = useSelector(selectError);
-  const loading = useSelector(selectLoading);
+  const { user } = useSelector((state) => state.auth);
+  const { productDetails, loading, error } = useSelector(
+    (state) => state.products
+  );
+  const {
+    productReview,
+    loading: loadingCreateReview,
+    success: successCreateReview,
+    error: errorCreateReview,
+  } = useSelector((state) => state.productReview);
 
-  // const productDetails = useSelector((state) => state.products.productDetails);
-  // const product = useSelector((state) => state.product.product);
-
+  console.log(productReview);
   useEffect(() => {
+    if (successCreateReview) {
+      alert("Avis soumis avec succès");
+      setRating(0);
+      setComment("");
+      dispatch(resetProductReview());
+    }
     // Fetch product details when component mounts
-    // dispatch(fetchProductDetails(id));
     dispatch(fetchProductById(productId));
     // Clear product details when component unmounts
     return () => {
       dispatch(clearProductDetails());
     };
-  }, [dispatch, productId]);
+  }, [dispatch, productId, successCreateReview]);
 
   if (loading) {
     return (
@@ -71,24 +83,18 @@ const SingleProduct = () => {
     setQuantity(parseInt(e.target.value, 10));
   };
 
-  // const addToCartHandler = (e) => {
-  //   e.preventDefault();
-  //   navigate(`/cartScreen/${product._id}?qty=${qty}`);
-
-  //   dispatch(fetchProductById(id));
-  // };
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
-
-  // if (!product) {
-  //   return <div>Product not found</div>;
-  // }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createProductReview({
+        productId,
+        review: {
+          rating,
+          comment,
+        },
+      })
+    );
+  };
 
   return (
     <>
@@ -172,50 +178,82 @@ const SingleProduct = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:my-6 ">
             <div className="">
               <h5 className="mb-4">COMMENTAIRES</h5>
+              {productDetails.reviews.length === 0 && (
+                <div className="bg-tertiary p-3 ">Pas de commentaire</div>
+              )}
+              {productDetails.reviews.map((review) => (
+                <div className="my-6 p-2 bg-[#cbd5e1]">
+                  <div key={review._id} className="flex flex-col px-2 py-4">
+                    <strong className="py-1">{review.name}</strong>
+                    <Rating value={review.rating} />
+                    <span className="pt-4">
+                      {moment(review.createdAt).calendar()}
+                    </span>
+                  </div>
 
-              <div className="bg-tertiary p-3 ">Pas de commentaire</div>
-              <div className="my-6 p-2 bg-[#cbd5e1]">
-                <div className="px-2 py-4">
-                  Admin Milien <br />
-                  time
+                  <div className="bg-tertiary px-3 py-2 pb-10 ">
+                    {review.comment}
+                  </div>
                 </div>
-
-                <div className="bg-tertiary px-3 pb-10 ">
-                  Lorem ipsum dolor sit amet consectetur. Amet nec dolor est
-                  sem.
-                </div>
-              </div>
+              ))}
             </div>
             <div>
               <h5 className="mb-4">ÉCRIRE UN AVIS CLIENT</h5>
-              <form>
-                <div className="">
-                  <strong>Notation</strong>
-                  <select className="bg-[#cbd5e1] w-full p-2 mb-3 rounded">
-                    <option value="">Selectionner...</option>
-                    <option value="1">1 - Faible</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="3">3 -Bon</option>
-                    <option value="4">4 - Très Bon</option>
-                    <option value="5">5 - Exellent</option>
-                  </select>
+              <div>{loadingCreateReview && <LoadingSpinner />}</div>
+
+              {user ? (
+                <form onSubmit={submitHandler}>
+                  <div className="">
+                    <strong>Notation</strong>
+                    <select
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                      className="bg-[#cbd5e1] w-full p-2 mb-3 rounded"
+                    >
+                      <option value="">Selectionner...</option>
+                      <option value="1">1 - Faible</option>
+                      <option value="2">2 - Équitable</option>
+                      <option value="3">3 -Bon</option>
+                      <option value="4">4 - Très Bon</option>
+                      <option value="5">5 - Exellent</option>
+                    </select>
+                  </div>
+                  <div className="">
+                    <strong>Comment</strong>
+                    <textarea
+                      rows="3"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      className="bg-[#cbd5e1] w-full p-2 mb-3 rounded text-primary"
+                    ></textarea>
+                  </div>
+                  <div className="">
+                    <button
+                      disabled={loadingCreateReview}
+                      className="bg-primary border-2 border-primary  hover:shadow-xl cursor-pointer w-full md:mt-1 px-2 py-1  rounded-[5px]"
+                    >
+                      <h6 className="text-xs md:text-sm text-white  ">
+                        Soumettre
+                      </h6>
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div
+                  className="bg-[#fee2e2] border border-[#f87171] text-[#b91c1c] px-4 py-3 rounded relative mt-4"
+                  role="alert"
+                >
+                  {/* <strong className="font-bold">Alerte :</strong> */}
+                  <span className="md:block inline">
+                    {" "}
+                    Veuillez{" "}
+                    <Link to="/Accueil/login" className="text-[#3b82f6]">
+                      vous connecter
+                    </Link>{" "}
+                    pour écrire un commentaire.
+                  </span>
                 </div>
-                <div className="">
-                  <strong>Comment</strong>
-                  <textarea
-                    rows="3"
-                    className="bg-[#cbd5e1] w-full p-2 mb-3 rounded text-primary"
-                  ></textarea>
-                </div>
-                <div className="">
-                  <button className="bg-primary border-2 border-primary  hover:shadow-xl cursor-pointer w-full md:mt-1 px-2 py-1  rounded-[5px]">
-                    <h6 className="text-xs md:text-sm text-white  ">
-                      Soumettre
-                    </h6>
-                  </button>
-                </div>
-              </form>
-              <div>{/* <Message variant={"alert-warning"}></Message> */}</div>
+              )}
             </div>
           </div>
         </div>

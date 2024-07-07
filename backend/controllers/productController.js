@@ -36,8 +36,8 @@ const ProductReview = asyncHandler(async (req, res) => {
       (r) => r.user.toString() === req.user._id.toString()
     );
     if (alreadyReviewed) {
-      res.status(400);
-      throw new Error("Produit déjà évalué");
+      res.status(400).json({ message: "Produit déjà évalué" });
+      return; // Assurez-vous de terminer l'exécution de la fonction ici
     }
     const review = {
       name: req.user.name,
