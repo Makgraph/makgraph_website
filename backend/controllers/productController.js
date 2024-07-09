@@ -5,10 +5,22 @@ const Product = require("../models/productsModel.js");
 // @desc Fetch all products
 // @route GET /api/products
 // @access Public
-const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+// const getAllProducts = asyncHandler(async (req, res) => {
+//   const products = await Product.find({});
 
-  res.json(products);
+//   res.json(products);
+// });
+
+const getAllProducts = asyncHandler(async (req, res) => {
+  const pageSize = 3; // Nombre de produits par page
+  const page = Number(req.query.pageNumber) || 1; // Récupérer le numéro de page
+
+  const count = await Product.countDocuments({});
+  const products = await Product.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc Fetch single product

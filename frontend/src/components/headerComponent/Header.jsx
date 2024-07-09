@@ -88,7 +88,7 @@ export default function Header() {
             {navLinks.map((navLinks) => (
               <li
                 key={navLinks.id}
-                className="w-full md:w-[70px] text-[14px] h-5 justify-center items-center flex md:my-0 my-7 md:bg-surfaceContainer hover:bg-primary/10 duration-300"
+                className="w-full md:w-[70px] text-[14px] font-serif h-5 justify-center items-center flex md:my-0 my-7 md:bg-surfaceContainer hover:bg-primary/10 duration-300"
               >
                 <NavLink
                   to={`/${navLinks.title}`}
@@ -118,7 +118,7 @@ export default function Header() {
                     <div className="relative flex   bg-onSecondaryContainer/5 p-1">
                       <UserCircle size={28} />
                       <button className="focus:bg-secondaryContainer">
-                        <span className="text-[14px] px-1transition hover:text-primary duration-300">
+                        <span className="text-[14px] font-serif px-1transition hover:text-primary duration-300">
                           Se Connecter
                         </span>
                       </button>
@@ -136,7 +136,7 @@ export default function Header() {
               <div className="relative flex bg-[#d3e2f7] hover:bg-[#b4d1f9] p-1">
                 <ShoppingCart size={24} />
                 <button className="focus:bg-secondaryContainer">
-                  <h5 className="text-[14px] text-primary font-normal px-1 hover:bg-[#b4d1f9] duration-300">
+                  <h5 className="text-[14px] font-serif text-primary font-normal px-1 hover:bg-[#b4d1f9] duration-300">
                     Panier
                   </h5>
                 </button>

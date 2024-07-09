@@ -34,7 +34,6 @@ const SingleProduct = () => {
     error: errorCreateReview,
   } = useSelector((state) => state.productReview);
 
-  console.log(productReview);
   useEffect(() => {
     if (successCreateReview) {
       alert("Avis soumis avec succès");
@@ -85,15 +84,24 @@ const SingleProduct = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createProductReview({
-        productId,
-        review: {
-          rating,
-          comment,
-        },
-      })
+    // Check if the user has already reviewed the product
+    const userAlreadyReviewed = productDetails.reviews.some(
+      (review) => review.user === user._id
     );
+
+    if (userAlreadyReviewed) {
+      alert("Vous avez déjà évalué ce produit.");
+    } else {
+      dispatch(
+        createProductReview({
+          productId,
+          review: {
+            rating,
+            comment,
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -182,8 +190,8 @@ const SingleProduct = () => {
                 <div className="bg-tertiary p-3 ">Pas de commentaire</div>
               )}
               {productDetails.reviews.map((review) => (
-                <div className="my-6 p-2 bg-[#cbd5e1]">
-                  <div key={review._id} className="flex flex-col px-2 py-4">
+                <div key={review._id} className="my-6 p-2 bg-[#cbd5e1]">
+                  <div className="flex flex-col px-2 py-4">
                     <strong className="py-1">{review.name}</strong>
                     <Rating value={review.rating} />
                     <span className="pt-4">
@@ -202,56 +210,64 @@ const SingleProduct = () => {
               <div>{loadingCreateReview && <LoadingSpinner />}</div>
 
               {user ? (
-                <form onSubmit={submitHandler}>
-                  <div className="">
-                    <strong>Notation</strong>
-                    <select
-                      value={rating}
-                      onChange={(e) => setRating(e.target.value)}
-                      className="bg-[#cbd5e1] w-full p-2 mb-3 rounded"
-                    >
-                      <option value="">Selectionner...</option>
-                      <option value="1">1 - Faible</option>
-                      <option value="2">2 - Équitable</option>
-                      <option value="3">3 -Bon</option>
-                      <option value="4">4 - Très Bon</option>
-                      <option value="5">5 - Exellent</option>
-                    </select>
-                  </div>
-                  <div className="">
-                    <strong>Comment</strong>
-                    <textarea
-                      rows="3"
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      className="bg-[#cbd5e1] w-full p-2 mb-3 rounded text-primary"
-                    ></textarea>
-                  </div>
-                  <div className="">
-                    <button
-                      disabled={loadingCreateReview}
-                      className="bg-primary border-2 border-primary  hover:shadow-xl cursor-pointer w-full md:mt-1 px-2 py-1  rounded-[5px]"
-                    >
-                      <h6 className="text-xs md:text-sm text-white  ">
-                        Soumettre
-                      </h6>
-                    </button>
-                  </div>
-                </form>
+                <>
+                  <form onSubmit={submitHandler}>
+                    <div>
+                      {errorCreateReview && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                          {errorCreateReview}
+                        </div>
+                      )}
+
+                      {productDetails.reviews.some(
+                        (review) => review.user === user._id
+                      ) && (
+                        <div className="bg-[#fef9c3] border border-[#facc15] text-[#a16207] px-4 py-3 rounded relative mb-4">
+                          Vous avez déjà évalué ce produit.
+                        </div>
+                      )}
+
+                      <strong>Notation</strong>
+                      <select
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        className="bg-[#cbd5e1] w-full p-2 mb-3 rounded"
+                      >
+                        <option value="">Sélectionner...</option>
+                        <option value="1">1 - Faible</option>
+                        <option value="2">2 - Équitable</option>
+                        <option value="3">3 - Bon</option>
+                        <option value="4">4 - Très Bon</option>
+                        <option value="5">5 - Excellent</option>
+                      </select>
+                    </div>
+                    <div className="">
+                      <strong>Commentaire</strong>
+                      <textarea
+                        rows="3"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        className="bg-[#cbd5e1] w-full p-2 mb-3 rounded text-primary"
+                      ></textarea>
+                    </div>
+                    <div className="">
+                      <button
+                        disabled={loadingCreateReview}
+                        type="submit"
+                        className="bg-primary text-white w-full p-3 hover:bg-[#22c55e] "
+                      >
+                        Envoyer
+                      </button>
+                    </div>
+                  </form>
+                </>
               ) : (
-                <div
-                  className="bg-[#fee2e2] border border-[#f87171] text-[#b91c1c] px-4 py-3 rounded relative mt-4"
-                  role="alert"
-                >
-                  {/* <strong className="font-bold">Alerte :</strong> */}
-                  <span className="md:block inline">
-                    {" "}
-                    Veuillez{" "}
-                    <Link to="/Accueil/login" className="text-[#3b82f6]">
-                      vous connecter
-                    </Link>{" "}
-                    pour écrire un commentaire.
-                  </span>
+                <div className="bg-[#fee2e2] border border-[#f87171] text-[#b91c1c] px-4 py-3 rounded relative mt-4">
+                  Veuillez vous{" "}
+                  <Link to="/Accueil/login" className="text-[#3b82f6]">
+                    connecter
+                  </Link>{" "}
+                  pour écrire un commentaire.
                 </div>
               )}
             </div>

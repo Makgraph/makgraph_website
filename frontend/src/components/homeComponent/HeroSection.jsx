@@ -24,14 +24,14 @@ const HeroSection = () => {
 
         <div className="w-auto h-auto col-span-2 md:col-span-1 md:max-h-[520px] pt-10 md:pt-0 flex-col justify-center gap-6 items-center inline-flex md:px-2">
           <div className="self-stretch justify-center items-center inline-flex animate-slideInLeftFast">
-            <div className="grow shrink basis-0 text-[10px] text-center text-[#18181b] text-xs md:text-sm font-normal font-['Roboto'] leading-none tracking-wide">
+            <div className="grow shrink basis-0 text-[10px]  text-center text-[#18181b] text-xs md:text-base font-normal font-sans  leading-none tracking-wide">
               Bienvenue sur la page web de Makgraph
             </div>
           </div>
           <div className="self-stretch justify-center items-center inline-flex ">
             <div className="grow  shrink basis-0 text-center ">
               <div className="animate-slideInLeftSlow2">
-                <span className="text-black text-[34px] md:text-5xl font-bold font-['Roboto'] leading-[44px] ">
+                <span className="text-black text-[34px] md:text-5xl font-bold font-sans leading-[44px] ">
                   Design unique
                   <br />
                   sur vos maillots.
@@ -39,7 +39,7 @@ const HeroSection = () => {
                 </span>
               </div>
               <div className="animate-slideInLeftSlow3">
-                <span className="text-black text-4xl font-normal font-['Roboto'] leading-[44px] animate-slideInLeftSlow4">
+                <span className="text-black text-4xl font-normal font-sans leading-[44px] animate-slideInLeftSlow4">
                   Fait à la main !!!
                 </span>
               </div>

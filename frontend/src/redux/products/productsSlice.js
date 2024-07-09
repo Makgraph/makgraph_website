@@ -2,11 +2,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Fetching products
+
+// export const fetchProducts = createAsyncThunk(
+//   "products/fetchProducts",
+//   async (_, thunkAPI) => {
+//     try {
+//       // const response = await axios.get("/api/products");
+//       const response = await axios.get(
+//         `/api/products?pageNumber=${pageNumber}`
+//       );
+//       return response.data;
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (_, thunkAPI) => {
+  async (pageNumber, thunkAPI) => {
     try {
-      const response = await axios.get("/api/products");
+      const response = await axios.get(
+        `/api/products?pageNumber=${pageNumber}`
+      );
       return response.data;
     } catch (error) {
       const message =
@@ -45,18 +68,28 @@ export const productSlice = createSlice({
     builder
 
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading";
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.success = true;
+        state.loading = false;
         // Add any fetched products to the array
-        state.products = state.products.concat(action.payload);
+        // state.products = state.products.concat(action.payload);
+        // state.products = [...state.products, ...action.payload];
+        state.error = null;
+        state.products = action.payload.products;
+        state.page = action.payload.page;
+        state.pages = action.payload.pages;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+        state.loading = false;
+        // state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
+
+export const selectProductList = (state) => state.productList;
 
 export default productSlice.reducer;

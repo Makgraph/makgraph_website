@@ -11,15 +11,15 @@ export default function Footer() {
           <h6>
             <b>Entrer en Contact</b>
           </h6>
-          <h6>makgraph@gmail.com</h6>
-          <h6>+509-3604-3023</h6>
+          <h6 className="font-sans">makgraph@gmail.com</h6>
+          <h6 className="font-sans">+509-3604-3023</h6>
         </div>
         <div className="flex flex-col">
           <div>
             <h6 className="pb-4">
               <b>Lettre d'information</b>
             </h6>
-            <h6>
+            <h6 className="font-sans">
               Pour les Promotions, nouveaux produits et ventes. Directement dans
               votre boîte de réception.
             </h6>

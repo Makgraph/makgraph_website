@@ -105,6 +105,10 @@ const router = createBrowserRouter([
     element: <ShopScreen />,
   },
   {
+    path: "/shop/:pageNumber",
+    element: <ShopScreen />,
+  },
+  {
     path: "/products/:productId",
     element: <SingleProduct />,
   },
@@ -115,8 +119,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router}>
-        {" "}
-        {/* Fourniture du router créé avec createBrowserRouter */}
         <ToastContainer />
       </RouterProvider>
     </Provider>

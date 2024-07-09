@@ -1,96 +1,109 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Rating from "./Rating";
-import Pagination from "./Pagination";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import {
   clearProducts,
   fetchProducts,
-} from "../../redux/products/productsSlice.js";
-import { selectProductDetails } from "../../redux/products/productSlice.js";
-import LoadingSpinner from "../loadingError/loading.jsx";
-import Message from "../loadingError/errorMessage.jsx";
-import { addToCart } from "../../redux/Cart/cartSlice.js";
+  selectProductList,
+} from "../../redux/products/productsSlice";
+import LoadingSpinner from "../loadingError/loading";
+import Message from "../loadingError/errorMessage";
+import Pagination from "./Pagination";
 
 const ShopItems = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isInitialMount = useRef(true); // Référence useRef pour suivre le premier montage
-  const { products, loading, error } = useSelector(
-    (state) => state.productList
-  );
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const pageNumber = searchParams.get("pageNumber") || 1;
+  const logTimeout = useRef(null);
+
+  const { products, loading, error, page, pages } =
+    useSelector(selectProductList);
+
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      // Ne rien faire sur le premier rendu
-      isInitialMount.current = false;
+    if (!isInitialMount.current) {
+      // Fetch products when `pageNumber` changes
+      dispatch(fetchProducts(pageNumber));
     } else {
-      // Déclencher fetchProducts() après le premier rendu
-      dispatch(fetchProducts());
+      isInitialMount.current = false;
     }
 
-    // Clean up effect
     return () => {
+      // Clear products when component unmounts or before fetching new products
       dispatch(clearProducts());
     };
-  }, [dispatch]);
+  }, [dispatch, pageNumber]);
 
-  const addToCartHandler = (product) => {
-    // Dispatch addToCart action from your Redux slice
-    dispatch(addToCart({ product, quantity: 1 }));
-    // Optionally, you can navigate to the cart page or show a confirmation message
-    // navigate("/cart"); // Example: Navigate to the cart page after adding to cart
-  };
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      // Log products after a delay, adjust timeout as needed
+      if (logTimeout.current) {
+        clearTimeout(logTimeout.current);
+      }
+      logTimeout.current = setTimeout(() => {
+        // console.log(products);
+      }, 500);
+    }
+  }, [dispatch, products]);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <Message variant="bg-danger dark:bg-danger-dark text-white">
+        {error}
+      </Message>
+    );
   }
 
   return (
     <div>
-      <div className=" p-screen  py-4 md:py-5 gap-10 md:gap-28  items-center justify-center grid sm:grid-cols-2 md:grid-cols-3 grid-cols-2">
+      <div className="p-screen py-4 md:py-0 gap-10 md:gap-28 items-center justify-center grid  md:grid-cols-3 grid-cols-2">
         {loading ? (
-          <LoadingSpinner />
-        ) : error ? (
-          <Message variant="bg-danger dark:bg-danger-dark text-white">
-            {error}
-          </Message>
+          <div className="flex justify-center items-center">
+            <LoadingSpinner />
+          </div>
         ) : (
-          <>
-            {products.map((product) => (
-              <div
-                className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer "
-                key={product._id}
-              >
-                <Link to={`/products/${product._id}`}>
-                  <img src={product.image} className="w-[400px] rounded-lg " />
-                </Link>
-                <div className="text-start w-[100%]  ">
-                  <p className="text-sm md:text-base">
-                    <b>{product.productName}</b>
-                  </p>
-                  <p className="text-sm md:text-base">
-                    <b>$ {product.price}</b>
-                  </p>
-
+          products.map((product) => (
+            <div
+              className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer"
+              key={product._id}
+            >
+              <Link to={`/products/${product._id}`}>
+                <img
+                  src={product.image}
+                  className="w-full rounded-lg"
+                  alt={product.name}
+                />
+              </Link>
+              <div className="text-start w-[100%]">
+                <p className="font-semibold font-serif text-sm md:text-normal">
+                  {product.name}
+                </p>
+                <p className="font-semibold font-serif  text-base md:text-xl">
+                  <b>$ {product.price}</b>
+                </p>
+                <p className="font-medium font-serif">
                   <Rating
                     className="text-"
                     value={product.rating}
                     text={`${product.numReviews} commentaires`}
                   />
-                  <button
-                    className="bg-[#3b82f6] hover:bg-[#1d4ed8] text-white font-bold py-2 px-4 rounded mt-2"
-                    onClick={() => addToCartHandler(product)}
-                  >
-                    Ajouter au panier
-                  </button>
-                </div>
+                </p>
+
+                <button
+                  className="bg-[#3b82f6] hover:bg-[#1d4ed8] w-full text-white text-xs md:text-base font-bold py-2 md:py-2 px-1 md:px-4 rounded mt-2"
+                  onClick={() => addToCartHandler(product)}
+                >
+                  Ajouter au panier
+                </button>
               </div>
-            ))}
-          </>
+            </div>
+          ))
         )}
       </div>
-      <Pagination />
+      <Pagination pages={pages} page={page} />
     </div>
   );
 };

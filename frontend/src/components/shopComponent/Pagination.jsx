@@ -1,35 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pagination = () => {
+const Pagination = ({ pages, page }) => {
   return (
     <nav className="p-screen flex justify-center">
       <ul className="flex py-8">
-        <li className="bg-onPrimary hover:bg-primary border-primary border-[1px] hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center">
-          <Link to={"#"} className="hover:text-white">
-            1
+        {[...Array(pages).keys()].map((x) => (
+          <Link to={`/shop?pageNumber=${x + 1}`} className="hover:text-white">
+            <li
+              key={x + 1}
+              className={`bg-onPrimary hover:bg-primary border-primary border-[1px] font-serif font-semibold hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center ${
+                x + 1 === page ? "bg-primary text-white" : ""
+              }`}
+            >
+              {x + 1}
+            </li>
           </Link>
-        </li>
-        <li className="bg-onPrimary hover:bg-primary border-primary border-[1px] hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center">
-          <Link to={"#"} className="hover:text-white">
-            2
-          </Link>
-        </li>
-        <li className="bg-onPrimary hover:bg-primary border-primary border-[1px] hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center">
-          <Link to={"#"} className="hover:text-white">
-            3
-          </Link>
-        </li>
-        <li className="bg-onPrimary hover:bg-primary border-primary border-[1px] hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center">
-          <Link to={"#"} className="hover:text-white">
-            4
-          </Link>
-        </li>
-        <li className="bg-onPrimary hover:bg-primary border-primary border-[1px] hover:text-white cursor-pointer w-12 h-8 flex justify-center items-center">
-          <Link to={"#"} className="hover:text-white">
-            5
-          </Link>
-        </li>
+        ))}
       </ul>
     </nav>
   );
