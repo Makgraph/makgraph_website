@@ -10,6 +10,7 @@ import {
 import LoadingSpinner from "../loadingError/loading";
 import Message from "../loadingError/errorMessage";
 import Pagination from "./Pagination";
+import { addToCart } from "../../redux/Cart/cartSlice";
 
 const ShopItems = () => {
   const dispatch = useDispatch();
@@ -57,53 +58,60 @@ const ShopItems = () => {
     );
   }
 
+  const handleAddToCart = (product) => {
+    const quantity = 1; // Vous pouvez ajuster la quantité ajoutée au panier selon votre logique
+    dispatch(addToCart({ product, quantity }));
+  };
+
   return (
     <div>
-      <div className="p-screen py-4 md:py-0 gap-10 md:gap-28 items-center justify-center grid  md:grid-cols-3 grid-cols-2">
+      <div className="p-screen py-4 md:py-0  ">
         {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="flex p-[175.6px] justify-center items-center">
             <LoadingSpinner />
           </div>
         ) : (
-          products.map((product) => (
-            <div
-              className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer"
-              key={product._id}
-            >
-              <Link to={`/products/${product._id}`}>
-                <img
-                  src={product.image}
-                  className="w-full rounded-lg"
-                  alt={product.name}
-                />
-              </Link>
-              <div className="text-start w-[100%]">
-                <p className="font-semibold font-serif text-sm md:text-normal">
-                  {product.name}
-                </p>
-                <p className="font-semibold font-serif  text-base md:text-xl">
-                  <b>$ {product.price}</b>
-                </p>
-                <p className="font-medium font-serif">
-                  <Rating
-                    className="text-"
-                    value={product.rating}
-                    text={`${product.numReviews} commentaires`}
+          <div className="gap-10 md:gap-28 items-center justify-center grid md:grid-cols-3 grid-cols-2">
+            {products.map((product) => (
+              <div
+                className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer"
+                key={product._id}
+              >
+                <Link to={`/products/${product._id}`}>
+                  <img
+                    src={product.image}
+                    className="w-full rounded-lg"
+                    alt={product.name}
                   />
-                </p>
+                </Link>
+                <div className="text-start w-[100%]">
+                  <p className="font-semibold font-serif text-sm md:text-normal">
+                    {product.name}
+                  </p>
+                  <p className="font-semibold font-serif  text-base md:text-xl">
+                    <b>$ {product.price}</b>
+                  </p>
+                  <p className="font-medium font-serif">
+                    <Rating
+                      className="text-"
+                      value={product.rating}
+                      text={`${product.numReviews} commentaires`}
+                    />
+                  </p>
 
-                <button
-                  className="bg-[#3b82f6] hover:bg-[#1d4ed8] w-full text-white text-xs md:text-base font-bold py-2 md:py-2 px-1 md:px-4 rounded mt-2"
-                  onClick={() => addToCartHandler(product)}
-                >
-                  Ajouter au panier
-                </button>
+                  <button
+                    className="bg-[#3b82f6] hover:bg-[#1d4ed8] w-full text-white text-xs md:text-base font-bold py-2 md:py-2 px-1 md:px-4 rounded mt-2"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Ajouter au panier
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
-      <Pagination pages={pages} page={page} />
+      <Pagination pages={pages} page={page} basePath="/shop" />
     </div>
   );
 };

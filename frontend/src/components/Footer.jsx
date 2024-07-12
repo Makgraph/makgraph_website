@@ -1,5 +1,12 @@
 import React from "react";
 import { FacebookLogo, InstagramLogo, PinterestLogo } from "phosphor-react";
+import { IonIcon } from "@ionic/react";
+import {
+  logoFacebook,
+  logoInstagram,
+  logoPinterest,
+  logoWhatsapp,
+} from "ionicons/icons";
 import monCash from "/assets/moncash.png";
 import paypal from "/assets/paypal.png";
 
@@ -12,7 +19,7 @@ export default function Footer() {
             <b>Entrer en Contact</b>
           </h6>
           <h6 className="font-sans">makgraph@gmail.com</h6>
-          <h6 className="font-sans">+509-3604-3023</h6>
+          <h6 className="font-sans">+(509) 3604-3023</h6>
         </div>
         <div className="flex flex-col">
           <div>
@@ -42,22 +49,25 @@ export default function Footer() {
 
             <div className="">
               <button className="w-100% inline-block items-center justify-center rounded-md bg-primary py-2 px-3 text-sm font-medium text-onPrimary transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50">
-                <span className="labellg ">S'inscrire</span>
+                <span className="font-sans font-semibold">S'inscrire</span>
               </button>
             </div>
           </form>
         </div>
       </div>
       <div className="flex justify-center py-4 border-t-[1px] border-b-[1px] border-primary/15">
-        <div className="cursor-pointer px-2 ">
-          <FacebookLogo size={24} weight="fill" />
-        </div>
-        <div className="cursor-pointer px-2">
-          <InstagramLogo size={24} weight="fill" />
-        </div>
-        <div className="cursor-pointer px-2">
-          <PinterestLogo size={24} weight="fill" />
-        </div>
+        <IonIcon
+          icon={logoFacebook}
+          className="text-onSurface px-2 text-lg md:text-xl"
+        />
+        <IonIcon
+          icon={logoInstagram}
+          className="text-onSurface px-2 text-lg md:text-xl"
+        />
+        <IonIcon
+          icon={logoPinterest}
+          className="text-onSurface px-2 text-lg md:text-xl"
+        />
       </div>
       <div className="flex justify-between py-2">
         <h6>@ 2024 designed by makgraph</h6>

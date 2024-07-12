@@ -48,7 +48,7 @@ function Slideshow() {
       >
         {colors.map((img, index) => (
           <img
-            className="basis-0 w-full h-[210px] xs:h-auto md:w-100% md:h-[405px] inline-block rounded-xl border border-[#155e75]"
+            className="basis-0 w-full h-full xs:h-auto md:w-100% md:h-[405px] inline-block rounded-xl border border-[#155e75]"
             key={index}
             src={img.src}
           />

@@ -57,10 +57,18 @@ const OrderTabs = () => {
             <table className="min-w-full bg-white border-collapse border border-[#e5e7eb]">
               <thead>
                 <tr className="bg-onSecondary/50">
-                  <th className="border border-secondary/40 px-4 py-2">ID</th>
-                  <th className="border border-primary/40 px-4 py-2">STATUS</th>
-                  <th className="border border-primary/40 px-4 py-2">DATE</th>
-                  <th className="border border-primary/40 px-4 py-2">TOTAL</th>
+                  <th className="border border-secondary/40 px-4 py-2 font-serif">
+                    ID
+                  </th>
+                  <th className="border border-primary/40 px-4 py-2 font-serif">
+                    STATUS
+                  </th>
+                  <th className="border border-primary/40 px-4 py-2 font-serif">
+                    DATE
+                  </th>
+                  <th className="border border-primary/40 px-4 py-2 font-serif">
+                    TOTAL
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -73,18 +81,18 @@ const OrderTabs = () => {
                         : "bg-primary/25 font-sans"
                     }`}
                   >
-                    <td className="border border-primary/40 px-4 py-2">
+                    <td className="border border-primary/40 px-4 py-2 font-serif">
                       {order._id}
                     </td>
-                    <td className="border border-primary/40 px-4 py-2">
+                    <td className="border border-primary/40 px-4 py-2 font-serif">
                       {order.isPaid ? <>Payé</> : <>Impayé</>}
                     </td>
-                    <td className="border border-primary/40 px-4 py-2">
+                    <td className="border border-primary/40 px-4 py-2 font-serif">
                       {order.isPaid
                         ? moment(order.paidAt).calendar()
                         : moment(order.createdAt).calendar()}
                     </td>
-                    <td className="border border-primary/40 px-4 py-2">
+                    <td className="border border-primary/40 px-4 py-2 font-serif">
                       {order.totalPrice}
                     </td>
                   </tr>

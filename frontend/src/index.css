@@ -29,12 +29,7 @@ body {
   p {
     @apply text-onSurface text-base font-normal font-['Roboto'] leading-normal tracking-wide;
   }
-  pm {
-    @apply text-onSurface text-sm font-normal font-['Roboto'] leading-tight tracking-tight;
-  }
-  ps {
-    @apply text-onSurface text-xs font-normal font-['Roboto'] leading-none tracking-wide;
-  }
+
   /* a {
     @apply underline text-[#2563eb] hover:text-[#a855f7] transition;
   } */

@@ -55,11 +55,11 @@ const profileTabs = () => {
             <div className="md:grid grid-cols-2 gap-5">
               <div className="flex flex-col md:gap-8">
                 <div className="py-1">
-                  <label className="sr-only" htmlFor="name">
+                  <label className="sr-only " htmlFor="name">
                     Nom
                   </label>
                   <input
-                    className="w-full rounded-md md:rounded-lg cursor-pointer border-primary border md:border-2 hover:bg-primary/5 p-3 text-sm"
+                    className="w-full font-serif rounded-md md:rounded-lg cursor-pointer border-primary border md:border-2 hover:bg-primary/5 p-3 text-sm"
                     placeholder="Nom d'utilisateur"
                     type="text"
                     id="name"
@@ -73,7 +73,7 @@ const profileTabs = () => {
                     Password
                   </label>
                   <input
-                    className="w-full rounded-md md:rounded-lg cursor-pointer border-black border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
+                    className="w-full font-serif rounded-md md:rounded-lg cursor-pointer border-black border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
                     placeholder="Nouveau mot de passe"
                     type="password"
                     id="password"
@@ -89,7 +89,7 @@ const profileTabs = () => {
                     Name
                   </label>
                   <input
-                    className="w-full rounded-md md:rounded-lg cursor-pointer border-onSecondary border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
+                    className="w-full font-serif rounded-md md:rounded-lg cursor-pointer border-onSecondary border md:border-2 hover:bg-primary/10 disabled:bg-error disabled:text-error   p-3 text-sm"
                     placeholder="Email"
                     type="email"
                     id="email"
@@ -103,7 +103,7 @@ const profileTabs = () => {
                     Password2
                   </label>
                   <input
-                    className="w-full rounded-md md:rounded-lg cursor-pointer border-secondary border md:border-2 hover:bg-primary/20 disabled:bg-error disabled:text-error   p-3 text-sm"
+                    className="w-full font-serif rounded-md md:rounded-lg cursor-pointer border-secondary border md:border-2 hover:bg-primary/20 disabled:bg-error disabled:text-error   p-3 text-sm"
                     placeholder="Confirmez nouveau mot de passe"
                     type="password"
                     id="password2"
@@ -120,7 +120,7 @@ const profileTabs = () => {
                 type="submit"
                 className=" flex justify-center items-center btn-primary w-[100%]"
               >
-                <span className="labellg font-medium flex justify-center items-center ">
+                <span className="labellg font-sans font-semibold flex justify-center items-center ">
                   PROFIL UPDATE
                 </span>
               </button>

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import logoMakgraph from "/assets/logo_Makgraph.png";
-import {
-  Person,
-  ShoppingCart,
-  SignIn,
-  SignOut,
-  UserCircle,
-} from "phosphor-react";
+import { ShoppingCart, UserCircle } from "phosphor-react";
 import { NavLink, Link } from "react-router-dom";
 import { navLinks } from "../../constants/index";
 import { useSelector } from "react-redux";
@@ -41,11 +35,6 @@ export default function Header() {
           <div className="md:hidden absolute right-6 top-6">
             <div className="flex md:gap-3">
               {user ? (
-                // <button onClick={onLogout}>
-                //   <div>
-                //     <SignOut size={28} />
-                //   </div>
-                // </button>
                 <div className="">
                   <div className="flex">
                     <Dropdown />
@@ -58,18 +47,10 @@ export default function Header() {
                   </div>
                 </NavLink>
               )}
-              {/* <>
-                <NavLink to={`/Accueil/login`}>
-                  <div>
-                    <UserCircle size={28} />
-                  </div>
-                </NavLink>
-              </> */}
-
-              <Link to="/shop/3/cart">
+              <Link to="/cartScreen">
                 <div className="relative">
                   <div className="bg-error absolute h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[5px] md:-right-2 md:-top-[6px]">
-                    <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                    <span className="text-white font-sans text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
                       {cartItems.length}
                     </span>
                   </div>
@@ -140,8 +121,8 @@ export default function Header() {
                     Panier
                   </h5>
                 </button>
-                <div className="bg-error h-4 w-4 md:h-4 md:w-4 rounded-[50%] -right-1 -top-[2px] md:-right-2 md:-top-[6px]">
-                  <span className="text-white text-[10px] md:text-[11px] md:pb-2 flex justify-center items-center">
+                <div className="bg-error mt-1 h-4 w-4 md:h-4 md:w-4 rounded-[50%] ">
+                  <span className="text-white font-sans text-[10px] md:text-[11px]  flex justify-center items-center">
                     {cartItems.length}
                   </span>
                 </div>
