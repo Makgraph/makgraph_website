@@ -65,39 +65,39 @@ const products = [
     countInStock: 1,
     numReviews: 8,
   },
-  {
-    _id: "7",
-    name: "Maillot 7",
-    price: 33,
-    image: "/assets/white_t-shirt_1.png",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
-    rating: 2.5,
-    countInStock: 1,
-    numReviews: 5,
-  },
-  {
-    _id: "8",
-    name: "Maillot 8",
-    price: 31,
-    image: "/assets/white_t-shirt_3.png",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
-    rating: 1.5,
-    countInStock: 1,
-    numReviews: 3,
-  },
-  {
-    _id: "9",
-    name: "Maillot 9",
-    price: 35,
-    image: "/assets/white_t-shirt_2.png",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
-    rating: 2.5,
-    countInStock: 1,
-    numReviews: 4,
-  },
+  // {
+  //   _id: "7",
+  //   name: "Maillot 7",
+  //   price: 33,
+  //   image: "/assets/white_t-shirt_1.png",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
+  //   rating: 2.5,
+  //   countInStock: 1,
+  //   numReviews: 5,
+  // },
+  // {
+  //   _id: "8",
+  //   name: "Maillot 8",
+  //   price: 31,
+  //   image: "/assets/white_t-shirt_3.png",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
+  //   rating: 1.5,
+  //   countInStock: 1,
+  //   numReviews: 3,
+  // },
+  // {
+  //   _id: "9",
+  //   name: "Maillot 9",
+  //   price: 35,
+  //   image: "/assets/white_t-shirt_2.png",
+  //   description:
+  //     "Lorem ipsum dolor sit amet consectetur. Amet nec dolor est sem.",
+  //   rating: 2.5,
+  //   countInStock: 1,
+  //   numReviews: 4,
+  // },
 ];
 
 export default products;

@@ -104,6 +104,7 @@ const orderScreen = () => {
         ) : (
           <>
             <div className="p-screen pt-4 md:pt-6 md:flex">
+              {/* CLIENT */}
               <div className="md:w-1/3 flex bg-secondary/20 py-4">
                 <div className="w-1/3">
                   <div className="hidden md:flex bg-onSecondary/40 md:ml-4 w-14 h-14 justify-center items-center rounded-full">
@@ -127,6 +128,7 @@ const orderScreen = () => {
                   </p>
                 </div>
               </div>
+              {/* INFO SUR LES COMMANDES */}
               <div className="md:w-1/3 flex bg-secondary/20 py-4">
                 <div className="w-1/3">
                   <div className="hidden md:flex bg-onSecondary/40 md:ml-4 w-14 h-14 justify-center items-center rounded-full">
@@ -162,6 +164,7 @@ const orderScreen = () => {
                   )}
                 </div>
               </div>
+              {/* LIVRAISON */}
               <div className="md:w-1/3 flex bg-secondary/20 py-4">
                 <div className="w-1/3">
                   <div className="hidden md:flex bg-onSecondary/40 md:ml-4 w-14 h-14 justify-center items-center rounded-full">

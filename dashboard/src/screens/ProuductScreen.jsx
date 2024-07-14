@@ -1,19 +1,19 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import Main from "../components/Home/Main";
+import MainProducts from "../components/Products/MainProducts";
 
-const HomeScreen = () => {
+const ProductScreen = () => {
   return (
     <div className="flex">
       <Sidebar />
 
       <main className="w-full">
         <Header />
-        <Main />
+        <MainProducts />
       </main>
     </div>
   );
 };
 
-export default HomeScreen;
+export default ProductScreen;
