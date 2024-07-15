@@ -20,8 +20,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Root from "./routes/root";
 import ErrorPage from "./screens/ErrorPageScreen.jsx";
 import HomeScreen from "./screens/HomeScreen.jsx";
-import ProuductScreen from "./screens/ProuductScreen.jsx";
+import ProuductScreen from "./screens/ProductScreen.jsx";
 import AddProductScreen from "./screens/AddProductScreen.jsx";
+import CategoriesScreen from "./screens/CategoriesScreen.jsx";
+// import OrderDetailScreen from "./screens/OrderDetailScreen.jsx";
+import OrderScreen from "./screens/OrderScreen.jsx";
+import OrderDetailScreen from "./screens/OrderDetailScreen.jsx";
+import UsersScreen from "./screens/UsersScreen.jsx";
+import LoginScreen from "./screens/LoginScreen.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +46,26 @@ const router = createBrowserRouter([
   {
     path: "/addProduct",
     element: <AddProductScreen />,
+  },
+  {
+    path: "/categories",
+    element: <CategoriesScreen />,
+  },
+  {
+    path: "/orders",
+    element: <OrderScreen />,
+  },
+  {
+    path: "/orderDetail",
+    element: <OrderDetailScreen />,
+  },
+  {
+    path: "/users",
+    element: <UsersScreen />,
+  },
+  {
+    path: "/login",
+    element: <LoginScreen />,
   },
 ]);
 

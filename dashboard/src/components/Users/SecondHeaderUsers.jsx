@@ -8,7 +8,7 @@ import {
   chevronDownOutline,
 } from "ionicons/icons";
 
-const SecondHeader = () => {
+const SecondHeaderUsers = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownLastOpen, setDropdownLastOpen] = useState(false);
 
@@ -90,4 +90,4 @@ const SecondHeader = () => {
   );
 };
 
-export default SecondHeader;
+export default SecondHeaderUsers;

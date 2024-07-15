@@ -1,6 +1,7 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
 import { eye } from "ionicons/icons";
+import { Link } from "react-router-dom";
 
 const OrdersTable = () => {
   const orders = [
@@ -58,7 +59,12 @@ const OrdersTable = () => {
                   <td className="py-2 px-6 text-left">{order.status}</td>
                   <td className="py-2 px-6 text-left">{order.date}</td>
                   <td className="py-2 px-6 text-left">
-                    <IonIcon icon={eye} className="h-5 w-5 mr-2 text-primary" />
+                    <Link to="/orderDetail">
+                      <IonIcon
+                        icon={eye}
+                        className="h-5 w-5 mr-2 text-primary"
+                      />
+                    </Link>
                   </td>
                 </tr>
               ))}

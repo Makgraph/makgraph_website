@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-l  shadow-md py-2 sm:py-4 px-4 sm:px-6 sm:gap-20 flex justify-between items-center relative">
+    <header className="z-10 bg-white sm:border-l  shadow-md py-2 sm:py-4 px-4 sm:px-6 sm:gap-20 flex justify-between items-center relative">
       {/* Menu Button - visible only on small screens (md and below) */}
       <button
         onClick={toggleMenu}
@@ -98,7 +98,10 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" className="flex items-center text-black py-2 px-4">
+            <Link
+              to="/orders"
+              className="flex items-center text-black py-2 px-4"
+            >
               <IonIcon
                 icon={listOutline}
                 className="h-5 w-5 mr-2 text-primary"
