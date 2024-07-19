@@ -5,12 +5,6 @@ const Product = require("../models/productsModel.js");
 // @desc Fetch all products
 // @route GET /api/products
 // @access Public
-// const getAllProducts = asyncHandler(async (req, res) => {
-//   const products = await Product.find({});
-
-//   res.json(products);
-// });
-
 const getAllProducts = asyncHandler(async (req, res) => {
   const pageSize = 3; // Nombre de produits par page
   const page = Number(req.query.pageNumber) || 1; // Récupérer le numéro de page
@@ -21,6 +15,18 @@ const getAllProducts = asyncHandler(async (req, res) => {
     .skip(pageSize * (page - 1));
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
+});
+
+// @desc Admin get all prouducts without search and pagination
+// @route GET /api/products/all
+// @access Private
+const getAllProductsAdmin = asyncHandler(async (req, res) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+  const products = await Product.find({}).sort({ _id: -1 });
+  res.json(products);
 });
 
 // @desc Fetch single product
@@ -71,8 +77,118 @@ const ProductReview = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Delete product
+// @route DELETE /api/products/:id
+// @access Admin
+// const ProductDelete = asyncHandler(async (req, res) => {
+//   if (!req.user.isAdmin) {
+//     res.status(401);
+//     throw new Error("Non autorisé en tant qu'administrateur");
+//   }
+
+//   const productId = req.params.id;
+//   console.log("Product ID:", productId);
+
+//   const product = await Product.findById(productId);
+//   console.log("Product found:", product);
+
+//   if (!product) {
+//     res.status(404);
+//     throw new Error("Produit non trouvé");
+//   }
+
+//   await product.remove();
+//   res.json({ message: "Produit supprimé avec succès" });
+// });
+const ProductDelete = asyncHandler(async (req, res) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+
+  const productId = req.params.id;
+
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      res.status(404);
+      throw new Error("Produit non trouvé");
+    }
+
+    await Product.deleteOne({ _id: productId });
+    res.json({ message: "Produit supprimé avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la suppression du produit:", error.message);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression du produit" });
+  }
+});
+
+// @desc Create product
+// @route POST /api/products/create
+// @access Admin
+const createProduct = asyncHandler(async (req, res) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+  const { name, price, description, image, countInStock } = req.body;
+  const productExist = await Product.findOne({ name });
+  if (productExist) {
+    res.status(400);
+    throw new Error("Le nom du produit existe déjà");
+  } else {
+    const product = new Product({
+      name,
+      price,
+      description,
+      image,
+      countInStock,
+      // user: req.user._id,
+    });
+    if (product) {
+      const createdproduct = await product.save();
+      res.status(201).json(createdproduct);
+    } else {
+      res.status(404);
+      throw new Error("Données produit invalides");
+    }
+  }
+});
+
+// @desc Create product
+// @route POST /api/products/create
+// @access Admin
+const editProduct = asyncHandler(async (req, res) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+  const { name, price, description, image, countInStock } = req.body;
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    product.name = name || product.name;
+    product.price = price || product.price;
+    product.description = description || product.description;
+    product.image = image || product.image;
+    product.countInStock = countInStock || product.countInStock;
+
+    const updatedProduct = await product.save();
+    res.json(updatedProduct);
+  } else {
+    res.json(404);
+    throw new Error("Produit non trouvé");
+  }
+});
+
 module.exports = {
   getAllProducts,
   getSingleProduct,
   ProductReview,
+  getAllProductsAdmin,
+  ProductDelete,
+  createProduct,
+  editProduct,
 };

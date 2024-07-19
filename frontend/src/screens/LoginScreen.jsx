@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login, reset, setToken } from "../redux/auth/authSlice";
+import Message from "../components/loadingError/errorMessage";
+import LoadingSpinner from "./../components/loadingError/loading";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -61,6 +63,24 @@ export default function Login() {
       <div className="p-screen md:mt-20 pt-24">
         <div className="px-auto  md:px-[250px] pb-12 ">
           <div className="rounded-lg border border-primary p-8 bg-secondaryContainer shadow-xl ">
+            {isError && (
+              <Message>
+                <div className="p-4">
+                  {/* <Message variant="bg-green-100 text-green-800">
+        C'est un message de succès !
+      </Message> */}
+
+                  <Message variant="bg-[#fee2e2] text-[#991b1b]">
+                    {message}
+                  </Message>
+
+                  {/* <Message>
+        Ceci est un message par défaut avec Tailwind CSS.
+      </Message> */}
+                </div>
+              </Message>
+            )}
+            {isLoading && <LoadingSpinner />}
             <div className="flex flex-col items-center justify-center pb-4">
               <h3 className="font-serif text-primary md:flex hidden">
                 Connectez-vous à votre compte.

@@ -86,9 +86,24 @@ const updateOrder = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Fetch all orders
+// @route GET /api/orders/all
+// @access Admin
+const getAllOrders = asyncHandler(async (req, res) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+  const orders = await Order.find({})
+    .sort({ _id: -1 })
+    .populate("user", "id name email");
+  res.json(orders);
+});
+
 module.exports = {
   orders,
   getOrder,
   updateOrder,
   userOrders,
+  getAllOrders,
 };

@@ -33,4 +33,15 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Middleware pour vérifier si l'utilisateur est administrateur
+// const admin = (req, res, next) => {
+//   if (req.user && req.user.isAdmin) {
+//     next(); // Passe au middleware suivant
+//   } else {
+//     res.status(401);
+//     throw new Error("Non autorisé en tant qu'administrateur");
+//   }
+// };
+
+// module.exports = { protect, admin };
 module.exports = protect;

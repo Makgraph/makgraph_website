@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const API_URL = "/api/users/";
 
 // Fonction pour vérifier si l'utilisateur est connecté
@@ -33,7 +33,21 @@ const login = async (userData) => {
 // Logout user
 const logout = () => {
   localStorage.removeItem("user");
-  document.location.href = "/Accueil/login";
+  document.location.href = "/login";
+};
+
+// Fonction pour récupérer les utilisateurs
+const fetchUsersApi = async (token) => {
+  try {
+    const response = await axios.get("/api/users", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Échec de la récupération des utilisateurs");
+  }
 };
 
 const authService = {
@@ -41,6 +55,7 @@ const authService = {
   register,
   logout,
   login,
+  fetchUsersApi,
 };
 
 export default authService;

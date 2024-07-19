@@ -8,16 +8,34 @@ import {
   trash,
   create,
 } from "ionicons/icons";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../../redux/products/productsSlice";
 
 const Product = (props) => {
   const { product } = props;
+  const dispatch = useDispatch();
+
+  // const deleteHandler = (productId) => {
+  //   if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit?")) {
+  //     dispatch(deleteProduct(productId));
+  //   }
+  // };
+  // const handleDelete = () => {
+  //   if (window.confirm("Are you sure??")) {
+  //     dispatch(deleteProduct(product._id));
+  //   }
+  // };
+  const handleDelete = () => {
+    dispatch(deleteProduct(product._id));
+  };
+
   return (
     // <div className="gap-10 md:gap-28 items-center justify-center grid md:grid-cols-4 grid-cols-2">
 
     <div className="border border-[#d4d6d8] ">
       <div
         // className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer"
-        className="p-6"
+        className="py-2 sm:py-2 px-4 sm:px-6"
         key={product._id}
       >
         <Link to="#">
@@ -40,14 +58,26 @@ const Product = (props) => {
       </div>
 
       <div className="flex justify-center w-full sm:py-2 px-1">
-        <button className="w-full border border-[#22c55e]">
+        <Link
+          to={`/product/${product._id}/edit`}
+          className="flex justify-center items-center w-full"
+        >
+          <button className="w-full border hover:bg-[#22c55e] hover:text-onPrimary border-[#22c55e]">
+            <IonIcon
+              icon={create}
+              className="text-[#22c55e] hover:text-onPrimary h-3 sm:h-4 w-3 sm:w-4"
+            />
+          </button>
+        </Link>
+
+        <button
+          className="w-full border hover:bg-danger hover:text-onPrimary border-danger"
+          onClick={handleDelete}
+        >
           <IonIcon
-            icon={create}
-            className="text-[#22c55e] h-3 sm:h-4 w-3 sm:w-4"
+            icon={trash}
+            className="text-danger hover:text-onPrimary h-3 sm:h-4 w-3 sm:w-4"
           />
-        </button>
-        <button className="w-full border border-danger">
-          <IonIcon icon={trash} className="text-danger h-3 sm:h-4 w-3 sm:w-4" />
         </button>
       </div>
     </div>

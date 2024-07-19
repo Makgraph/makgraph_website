@@ -17,8 +17,11 @@ import {
 import { useState } from "react";
 import "./Header.css"; // Importez votre fichier CSS pour les animations
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/auth/authSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -28,6 +31,10 @@ const Header = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -185,9 +192,13 @@ const Header = () => {
             <button className="block w-full text-left text-sm sm:text-base px-4 py-2 text-[#374151] hover:bg-[#e5e7eb]">
               <IonIcon icon={settingsOutline} className="mr-2" /> Settings
             </button>
-            <button className="block w-full text-left text-sm sm:text-base px-4 py-2 text-[#374151] hover:bg-[#e5e7eb]">
+            <Link
+              to=""
+              onClick={logoutHandler}
+              className="block w-full text-left text-sm sm:text-base px-4 py-2 text-[#374151] hover:bg-[#e5e7eb]"
+            >
               <IonIcon icon={exitOutline} className="mr-2" /> Exit
-            </button>
+            </Link>
           </div>
         )}
       </div>

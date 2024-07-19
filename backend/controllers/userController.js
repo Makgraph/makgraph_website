@@ -122,6 +122,24 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get all users admin
+// @route GET /api/users
+// @access Private
+// console.log("Exporting getAllUserAdmin...");
+// const getAllUserAdmin = asyncHandler(async (req, res) => {
+//   const users = await User.find({});
+//   res.json(users);
+// });
+const getAllUserAdmin = asyncHandler(async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    res.status(401);
+    throw new Error("Non autorisé en tant qu'administrateur");
+  }
+
+  const users = await User.find({});
+  res.json(users);
+});
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -134,4 +152,5 @@ module.exports = {
   loginUser,
   profile,
   updateProfile,
+  getAllUserAdmin,
 };

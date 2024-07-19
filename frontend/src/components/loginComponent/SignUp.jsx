@@ -3,6 +3,7 @@ import Header from "../headerComponent/Header";
 import Footer from "../Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { register, reset } from "../../redux/auth/authSlice";
 

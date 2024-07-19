@@ -2,36 +2,19 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import authReducer from "./auth/authSlice.js";
-import productListReducer from "./products/productsSlice.js";
-import productsReducer from "./products/productSlice.js";
-import productReviewReducer from "./products/productReviewSlice.js";
-import cartReducer from "./Cart/cartSlice.js";
-import ordersReducer from "./order/orderSlice.js";
-import orderDetailsReducer from "./order/orderDetailsSlice.js";
-import orderListReducer from "./order/orderListSlice.js";
+import usersReducer from "./auth/usersSlice.js";
+import productsReducer from "./products/productsSlice.js";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [
-    "auth",
-    "cart",
-    "orderDetails",
-    "orders",
-    "orderList",
-    "productReview",
-  ],
+  whitelist: ["auth", "users", "products"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  productList: productListReducer,
-  products: productsReducer,
-  productReview: productReviewReducer,
-  cart: cartReducer,
-  orders: ordersReducer,
-  orderDetails: orderDetailsReducer,
-  orderList: orderListReducer,
+  users: usersReducer,
+  productsList: productsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

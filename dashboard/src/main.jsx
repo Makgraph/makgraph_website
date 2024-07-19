@@ -1,14 +1,3 @@
-// import React from "react";
-// import ReactDOM from "react-dom/client";
-// import App from "./App.jsx";
-// import "./index.css";
-
-// ReactDOM.createRoot(document.getElementById("root")).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-// main.js
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -23,45 +12,51 @@ import HomeScreen from "./screens/HomeScreen.jsx";
 import ProuductScreen from "./screens/ProductScreen.jsx";
 import AddProductScreen from "./screens/AddProductScreen.jsx";
 import CategoriesScreen from "./screens/CategoriesScreen.jsx";
-// import OrderDetailScreen from "./screens/OrderDetailScreen.jsx";
 import OrderScreen from "./screens/OrderScreen.jsx";
 import OrderDetailScreen from "./screens/OrderDetailScreen.jsx";
 import UsersScreen from "./screens/UsersScreen.jsx";
 import LoginScreen from "./screens/LoginScreen.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
+import ProductEditScreen from "./screens/ProductEditScreen.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/", // Route principale
-    element: <Root />, // Composant à rendre pour "/"
+    // element: <Root />, // Composant à rendre pour "/"
+    element: <PrivateRoute element={<Root />} />, // Composant à rendre pour "/"
     errorElement: <ErrorPage />, // Composant d'erreur pour les erreurs sur "/"
   },
   {
     path: "/Accueil",
-    element: <HomeScreen />,
+    element: <PrivateRoute element={<HomeScreen />} />,
   },
   {
     path: "/products",
-    element: <ProuductScreen />,
+    element: <PrivateRoute element={<ProuductScreen />} />,
+  },
+  {
+    path: "/product/:id/edit",
+    element: <PrivateRoute element={<ProductEditScreen />} />,
   },
   {
     path: "/addProduct",
-    element: <AddProductScreen />,
+    element: <PrivateRoute element={<AddProductScreen />} />,
   },
   {
     path: "/categories",
-    element: <CategoriesScreen />,
+    element: <PrivateRoute element={<CategoriesScreen />} />,
   },
   {
     path: "/orders",
-    element: <OrderScreen />,
+    element: <PrivateRoute element={<OrderScreen />} />,
   },
   {
     path: "/orderDetail",
-    element: <OrderDetailScreen />,
+    element: <PrivateRoute element={<OrderDetailScreen />} />,
   },
   {
     path: "/users",
-    element: <UsersScreen />,
+    element: <PrivateRoute element={<UsersScreen />} />,
   },
   {
     path: "/login",
@@ -72,10 +67,10 @@ const router = createBrowserRouter([
 // Rendu de l'application React avec ReactDOM
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <RouterProvider router={router}>
-      <ToastContainer />
-    </RouterProvider>
-    {/* </Provider> */}
+    <Provider store={store}>
+      <RouterProvider router={router}>
+        <ToastContainer />
+      </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );
