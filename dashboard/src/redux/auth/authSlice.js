@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService.js";
-import { resetOrdersState } from "../order/orderSlice.js";
-import { resetOrderDetail } from "../order/orderDetailsSlice";
+import { resetOrdersState } from "../orders/ordersSlice.js";
+// import { resetOrderDetail } from "../order/orderDetailsSlice";
 
 // Action asynchrone pour vérifier l'authentification
 export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
@@ -60,7 +60,7 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   authService.logout();
   thunkAPI.dispatch(resetOrdersState()); // Réinitialise les orders
-  thunkAPI.dispatch(resetOrderDetail()); // Réinitialise les orderDetails
+  // thunkAPI.dispatch(resetOrderDetail()); // Réinitialise les orderDetails
 });
 
 // User details

@@ -19,9 +19,9 @@ const Api = {
   },
 
   // Fonction pour récupérer les détails d'une commande
-  getOrderDetail: async (id, token) => {
+  getOrderDetail: async (orderId, token) => {
     try {
-      const response = await axios.get(`/api/orders/${id}`, {
+      const response = await axios.get(`/api/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

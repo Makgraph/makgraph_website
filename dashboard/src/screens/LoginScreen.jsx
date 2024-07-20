@@ -9,6 +9,7 @@ import { login, reset, setToken } from "../redux/auth/authSlice";
 import LoadingSpinner from "../components/Loadingerror/loading";
 import ErrorPage from "../components/Loadingerror/ErrorPage";
 import Message from "../components/Loadingerror/errorMessage";
+import { getAllOrders } from "../redux/orders/ordersSlice";
 
 export default function LoginScreen() {
   const [formData, setFormData] = useState({
@@ -38,6 +39,7 @@ export default function LoginScreen() {
       }
       navigate("/"); // Redirigez l'utilisateur après la connexion réussie
       dispatch(reset()); // Réinitialisez l'état de l'authentification
+      dispatch(getAllOrders());
     }
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 

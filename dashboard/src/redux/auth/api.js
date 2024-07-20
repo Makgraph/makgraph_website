@@ -52,18 +52,38 @@ export const api = {
     }
   },
 
-  getOrderDetails: async (orderId, _id, token) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
+  // Fonction pour récupérer les détails d'une commande
+  getOrderDetail: async (id, token) => {
+    console.log(id);
     try {
-      const response = await axios.get(`/api/orders/${orderId}`, config);
+      const response = await axios.get(`/api/orders/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error(
+        error.response.data.error ||
+          "Échec de la récupération des détails de la commande"
+      );
     }
   },
+
+  // getOrderDetails: async (orderId, _id, token) => {
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+
+  //   try {
+  //     const response = await axios.get(`/api/orders/${orderId}`, config);
+  //     return response.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
 };
+
+export default api;

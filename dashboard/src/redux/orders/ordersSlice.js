@@ -1,16 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Api from "./Api";
+import axios from "axios";
 
-// Thunk pour créer une commande en utilisant le token d'authentification
-export const createOrder = createAsyncThunk(
-  "orders/createOrder",
-  async (orderData, thunkAPI) => {
-    const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
+// Action asynchrone pour récupérer les produits
+export const getAllOrders = createAsyncThunk(
+  "orders/getAllOrders",
+  async (_, thunkAPI) => {
+    const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`, // Ajouter le token d'authentification dans l'en-tête
+      },
+    };
+
     try {
-      const response = await Api.createOrder(orderData, token); // Appelez votre fonction API pour créer la commande avec le token
-      return response;
+      const response = await axios.get("/api/orders", config); // Utiliser axios avec l'en-tête d'authentification
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -30,26 +36,19 @@ const ordersSlice = createSlice({
     success: false,
     error: null,
   },
-  reducers: {
-    // resetOrdersState: (state) => {
-    //   state.orders = {};
-    //   state.loading = false;
-    //   state.success = false;
-    //   state.error = null;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(createOrder.pending, (state) => {
+      .addCase(getAllOrders.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(createOrder.fulfilled, (state, action) => {
+      .addCase(getAllOrders.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
         state.orders = action.payload; // Assuming the API returns the created order
       })
-      .addCase(createOrder.rejected, (state, action) => {
+      .addCase(getAllOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Assuming the API returns an error message
       })

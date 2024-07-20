@@ -3,8 +3,11 @@ import Orders from "./Orders";
 import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
 import OrdersTable2 from "./OrdersTable2";
+import LoadingSpinner from "./../../../../frontend/src/components/loadingError/loading";
+import { useSelector } from "react-redux";
 
 const MainOrders = () => {
+  const { orders, loading, error } = useSelector((state) => state.orders);
   return (
     <section className="p-2 sm:p-4 sm:border-l">
       <div>
@@ -48,7 +51,19 @@ const MainOrders = () => {
 
         <div className="overflow-x-auto">
           <div>
-            <OrdersTable2 />
+            {loading ? (
+              <LoadingSpinner />
+            ) : error ? (
+              <Message>
+                <div className=" m-4 p-4">
+                  <Message variant="bg-[#fee2e2] text-[#991b1b]">
+                    {error}
+                  </Message>
+                </div>
+              </Message>
+            ) : (
+              <OrdersTable2 orders={orders} />
+            )}
           </div>
         </div>
       </div>

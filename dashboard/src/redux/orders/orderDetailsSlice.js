@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Api from "./Api";
+import api from "../auth/api";
 
 export const fetchOrderDetails = createAsyncThunk(
   "orders/fetchOrderDetails",
@@ -7,7 +7,7 @@ export const fetchOrderDetails = createAsyncThunk(
     console.log("ID reçu dans fetchOrderDetails:", id);
     const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
     try {
-      const response = await Api.getOrderDetail(id, token); // Utilisez votre fonction API pour obtenir les détails de la commande avec le token
+      const response = await api.getOrderDetail(id, token); // Utilisez votre fonction API pour obtenir les détails de la commande avec le token
       console.log(response);
       return response;
     } catch (error) {

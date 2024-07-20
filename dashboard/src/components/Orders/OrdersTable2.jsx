@@ -2,9 +2,12 @@ import React from "react";
 import { IonIcon } from "@ionic/react";
 import { eye } from "ionicons/icons";
 import { Link } from "react-router-dom";
+import moment from "moment";
+// import { moment } from "moment";
 
-const OrdersTable2 = () => {
-  const orders = [
+const OrdersTable2 = (props) => {
+  const { orders } = props;
+  const orderTab = [
     {
       name: "John Doe",
       email: "john.doe@example.com",
@@ -58,9 +61,9 @@ const OrdersTable2 = () => {
               </tr>
             </thead>
             <tbody className="text-[#4b5563] text-sm font-normal">
-              {orders.map((order, index) => (
+              {orders.map((order) => (
                 <tr
-                  key={index}
+                  key={order._id}
                   className="hover:bg-primary/15 cursor-pointer"
                   //   className={
                   //     index % 2 === 0
@@ -69,15 +72,39 @@ const OrdersTable2 = () => {
                   //   }
                 >
                   <td className="py-2 px-6 text-left font-bold whitespace-nowrap">
-                    {order.name}
+                    {order.user.name}
                   </td>
-                  <td className="py-2 px-6 text-left">{order.email}</td>
-                  <td className="py-2 px-6 text-left">{order.total}</td>
-                  <td className="py-2 px-6 text-left">{order.paid}</td>
-                  <td className="py-2 px-6 text-left">{order.date}</td>
-                  <td className="py-2 px-6 text-left">{order.status}</td>
+                  <td className="py-2 px-6 text-left">{order.user.email}</td>
+                  <td className="py-2 px-6 text-left">{order.totalPrice}</td>
                   <td className="py-2 px-6 text-left">
-                    <Link to="/orderDetail">
+                    {order.isPaid ? (
+                      <div className="bg-[#dcfce7] text-[#16a34a] p-1 rounded-lg font-semibold">
+                        {/* Paid at {moment(order.paidAt).format("MMM Do YY")} */}
+                        Paid at {moment(order.paidAt).format("MMM Do YY")}
+                      </div>
+                    ) : (
+                      <div className="bg-[#fee2e2] text-danger p-1 rounded-lg font-semibold">
+                        Not Paid
+                      </div>
+                    )}
+                  </td>
+                  <td className="py-2 px-6 text-left">
+                    {" "}
+                    {moment(order.ceateAt).format("MMM Do YY")}
+                  </td>
+                  <td className="py-2 px-6 text-left">
+                    {order.isDelivered ? (
+                      <div className="bg-[#16a34a] text-onPrimary p-1 rounded-lg font-semibold">
+                        Delivered
+                      </div>
+                    ) : (
+                      <div className="bg-black text-onPrimary p-1 rounded-lg font-semibold">
+                        Not Delivered
+                      </div>
+                    )}
+                  </td>
+                  <td className="py-2 px-6 text-left">
+                    <Link to={`/orderDetail/${order._id}`}>
                       <IonIcon
                         icon={eye}
                         className="h-5 w-5 mr-2 text-primary"
