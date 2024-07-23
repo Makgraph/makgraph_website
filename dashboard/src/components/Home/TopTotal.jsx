@@ -1,23 +1,16 @@
 import React from "react";
-import {
-  searchOutline,
-  basket,
-  personCircleOutline,
-  settingsOutline,
-  exitOutline,
-  chevronDownOutline,
-  homeOutline,
-  addOutline,
-  briefcase,
-  listOutline,
-  peopleOutline,
-  peopleCircleOutline,
-  cashOutline,
-  logoUsd,
-} from "ionicons/icons";
+import { basket, briefcase, logoUsd } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-const TopTotal = () => {
+const TopTotal = (props) => {
+  const { orders, products } = props;
+  let totalSale = 0;
+  if (orders) {
+    orders.map((order) =>
+      order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null
+    );
+  }
+  console.log(products);
   return (
     <div className="py-2 sm:py-4 sm:flex justify-between  sm:gap-4 md:gap-14">
       {/* CLIENT */}
@@ -35,7 +28,9 @@ const TopTotal = () => {
           <div className="sm:pl-2 md:text-base text-sm font-serif">
             <b>Total Sales</b>
           </div>
-          <p className="sm:pl-2 sm:text-sm text-xs font-serif">$ 34.25</p>
+          <p className="sm:pl-2 sm:text-sm text-xs font-serif">
+            $ {totalSale.toFixed(0)}
+          </p>
         </div>
       </div>
       {/* INFO SUR LES COMMANDES */}
@@ -52,7 +47,9 @@ const TopTotal = () => {
           <div className=" sm:pl-2 md:text-base text-sm font-serif">
             <b>Total Orders</b>
           </div>
-          <div className="sm:pl-2 sm:text-sm text-xs font-serif">150</div>
+          <div className="sm:pl-2 sm:text-sm text-xs font-serif">
+            {orders ? <>{orders.length}</> : 0}
+          </div>
         </div>
       </div>
       {/* LIVRAISON */}
@@ -66,7 +63,10 @@ const TopTotal = () => {
           <div className="sm:pl-2 md:text-base text-sm font-serif">
             <strong>Total Products</strong>
           </div>
-          <div className="sm:pl-2 sm:text-sm text-xs font-serif">45</div>
+          <div className="sm:pl-2 sm:text-sm text-xs font-serif">
+            {" "}
+            {products ? <>{products.length}</> : 0}
+          </div>
         </div>
       </div>
     </div>

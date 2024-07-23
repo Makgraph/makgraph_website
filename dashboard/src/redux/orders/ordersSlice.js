@@ -24,14 +24,14 @@ export const getAllOrders = createAsyncThunk(
 export const resetOrdersState = createAsyncThunk(
   "orders/resetOrdersState",
   async (_, thunkAPI) => {
-    return { orders: {}, loading: false, success: false, error: null };
+    return { orders: [], loading: false, success: false, error: null };
   }
 );
 
 const ordersSlice = createSlice({
   name: "orders",
   initialState: {
-    orders: {},
+    orders: [],
     loading: false,
     success: false,
     error: null,
@@ -47,6 +47,7 @@ const ordersSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.orders = action.payload; // Assuming the API returns the created order
+        console.log(action.payload);
       })
       .addCase(getAllOrders.rejected, (state, action) => {
         state.loading = false;

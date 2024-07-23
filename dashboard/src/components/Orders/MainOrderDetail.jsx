@@ -160,6 +160,7 @@ const MainOrderDetail = (props) => {
           <div className="overflow-x-auto sm:px-4">
             <div>
               <OrdersDetailTable
+                orderId={orderId}
                 orderDetails={orderDetails}
                 loading={loading}
               />

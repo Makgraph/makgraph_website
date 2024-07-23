@@ -70,6 +70,26 @@ export const api = {
     }
   },
 
+  // Fonction pour marquer une commande comme livrée
+  markOrderAsDelivered: async (orderId, token) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/api/orders/${orderId}/delivered`,
+        {},
+        config
+      );
+      return response.data; // Retourne les données mises à jour de la commande
+    } catch (error) {
+      throw new Error(error.response.data.message || error.message);
+    }
+  },
+
   // getOrderDetails: async (orderId, _id, token) => {
   //   const config = {
   //     headers: {

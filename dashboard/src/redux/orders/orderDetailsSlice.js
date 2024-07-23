@@ -8,7 +8,6 @@ export const fetchOrderDetails = createAsyncThunk(
     const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
     try {
       const response = await api.getOrderDetail(id, token); // Utilisez votre fonction API pour obtenir les détails de la commande avec le token
-      console.log(response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -27,7 +26,7 @@ const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
     orderDetails: {},
-    loading: true,
+    loading: false,
     success: false,
     error: null,
   },
@@ -41,17 +40,13 @@ const orderDetailsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchOrderDetails.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchOrderDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true; // Assuming you might want to set success to true
-        // Handle adding order details to state if needed
-        // state.orderDetails = state.orderDetails.concat(action.payload);
-        // console.log(action.payload);
+        state.success = true;
         state.orderDetails = action.payload;
       })
       .addCase(fetchOrderDetails.rejected, (state, action) => {

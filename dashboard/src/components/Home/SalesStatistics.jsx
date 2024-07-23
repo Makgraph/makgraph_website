@@ -8,7 +8,14 @@ const AppStat = () => (
         <h1 className="text-lg font-semibold font-serif mb-4">
           Sale Statistics
         </h1>
-        <BarChartComponent />
+        {/* <BarChartComponent /> */}
+        <iframe
+          className="w-full h-[300px] rounded-lg"
+          src="https://charts.mongodb.com/charts-makgraph-website-xtqmyns/embed/charts?id=669d316a-4335-4682-8ba8-f79d457ddacf&maxDataAge=3600&theme=light&autoRefresh=true"
+          title="Embedded MongoDB Chart"
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
       </div>
     </div>
   </div>

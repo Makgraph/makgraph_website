@@ -90,7 +90,7 @@ const OrdersTable2 = (props) => {
                   </td>
                   <td className="py-2 px-6 text-left">
                     {" "}
-                    {moment(order.ceateAt).format("MMM Do YY")}
+                    {moment(order.ceatedAt).format("MMM Do YY")}
                   </td>
                   <td className="py-2 px-6 text-left">
                     {order.isDelivered ? (
