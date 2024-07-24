@@ -4,9 +4,9 @@ import axios from "axios";
 // Action asynchrone pour marquer une commande comme livrée
 export const orderDelivered = createAsyncThunk(
   "orderDelivered/orderDelivered",
-  async (orderId, thunkAPI) => {
+  async (orderDetails, thunkAPI) => {
     const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
-    console.log(orderId);
+    console.log(orderDetails);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`, // Ajouter le token d'authentification dans l'en-tête
@@ -15,7 +15,7 @@ export const orderDelivered = createAsyncThunk(
 
     try {
       const response = await axios.put(
-        `/api/orders/${orderId}/delivered`,
+        `/api/orders/${orderDetails._id}/delivered`,
         {},
         config
       ); // Marquer la commande comme livrée
@@ -45,9 +45,7 @@ const orderDeliveredSlice = createSlice({
       .addCase(orderDelivered.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        // Mettre à jour l'état pour refléter que la commande a été livrée
-        state.deliveryStatus[action.payload._id] = true;
-        console.log(state.deliveryStatus[action.payload._id]);
+        state.deliveryStatus = action.payload;
       })
       .addCase(orderDelivered.rejected, (state, action) => {
         state.loading = false;

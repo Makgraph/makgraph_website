@@ -163,6 +163,7 @@ const MainOrderDetail = (props) => {
                 orderId={orderId}
                 orderDetails={orderDetails}
                 loading={loading}
+                // success={success}
               />
             </div>
           </div>

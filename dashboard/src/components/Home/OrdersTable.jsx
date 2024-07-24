@@ -57,7 +57,7 @@ const OrdersTable = () => {
                 </tr>
               </thead>
               <tbody className="text-[#4b5563] text-sm font-light">
-                {orders.slice(0, 13).map((order, index) => (
+                {orders.slice(0, 5).map((order, index) => (
                   <tr
                     key={order._id}
                     className={
