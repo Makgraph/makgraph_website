@@ -8,6 +8,7 @@ import LoadingSpinner from "../Loadingerror/loading";
 import Message from "../Loadingerror/errorMessage";
 import moment from "moment";
 import { getOrderDetails } from "../../redux/orders/orderDetailsSlice";
+import { resetDeliveredSuccess } from "../../redux/orders/orderDeliveredSlice";
 
 const MainOrderDetail = (props) => {
   const { orderId } = props;
@@ -16,12 +17,19 @@ const MainOrderDetail = (props) => {
   const { loading, orderItems, shippingAddress, order, error } = useSelector(
     (state) => state.orderDetails
   );
+  const { success } = useSelector((state) => state.orderDelivered);
 
   console.log(order);
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId]);
+
+  useEffect(() => {
+    if (success) {
+      dispatch(resetDeliveredSuccess());
+    }
+  }, [success, dispatch]);
 
   console.log(orderItems);
 

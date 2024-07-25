@@ -35,7 +35,11 @@ const orderDeliveredSlice = createSlice({
     success: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // resetDeliveredSuccess(state) {
+    //   state.success = false;
+    // },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(orderDelivered.pending, (state) => {
@@ -54,5 +58,5 @@ const orderDeliveredSlice = createSlice({
   },
 });
 
-export const {} = orderDeliveredSlice.actions;
+export const { resetDeliveredSuccess } = orderDeliveredSlice.actions;
 export default orderDeliveredSlice.reducer;

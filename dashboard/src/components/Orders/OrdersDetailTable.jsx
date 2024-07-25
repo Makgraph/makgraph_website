@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
-import { IonIcon } from "@ionic/react";
-import { eye } from "ionicons/icons";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { orderDelivered } from "../../redux/orders/orderDeliveredSlice";
 import LoadingSpinner from "../Loadingerror/loading";
 import moment from "moment";
@@ -10,21 +7,38 @@ import moment from "moment";
 const OrdersDetailTable = (props) => {
   const dispatch = useDispatch();
   const { order, loading } = props;
+  const [localOrder, setLocalOrder] = useState(order);
 
-  // Fonction pour calculer le prix total avec des décimales
+  const deliveryStatus = useSelector(
+    (state) => state.orderDelivered.deliveryStatus
+  );
+  const deliveryLoading = useSelector((state) => state.orderDelivered.loading);
+
+  useEffect(() => {
+    if (!loading && deliveryStatus) {
+      setLocalOrder((prevOrder) => ({
+        ...prevOrder,
+        ...deliveryStatus,
+      }));
+    }
+  }, [deliveryStatus, loading]);
+
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
-  // Calcule du prix total des articles uniquement si le chargement n'est pas en cours
+
   let itemsPrice = 0;
   if (!loading) {
     itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+      localOrder.orderItems.reduce(
+        (acc, item) => acc + item.price * item.qty,
+        0
+      )
     );
   }
 
   const deliverHandler = () => {
-    dispatch(orderDelivered(order));
+    dispatch(orderDelivered(localOrder));
   };
 
   return (
@@ -42,7 +56,7 @@ const OrdersDetailTable = (props) => {
                 </tr>
               </thead>
               <tbody className="text-[#4b5563] text-sm font-normal">
-                {order.orderItems.map((item, index) => (
+                {localOrder.orderItems.map((item, index) => (
                   <tr
                     key={index}
                     className="hover:bg-primary/15 cursor-pointer border-b border-[#d4d6d8]"
@@ -88,7 +102,7 @@ const OrdersDetailTable = (props) => {
                         <b>Shipping</b>
                       </td>
                       <td className="py-2 px-4 md:text-base text-sm font-serif">
-                        $ {order.shippingPrice}
+                        $ {localOrder.shippingPrice}
                       </td>
                     </tr>
                     <tr>
@@ -96,7 +110,7 @@ const OrdersDetailTable = (props) => {
                         <b>Total</b>
                       </td>
                       <td className="py-2 px-4 md:text-base text-sm font-serif">
-                        $ {order.totalPrice}
+                        $ {localOrder.totalPrice}
                       </td>
                     </tr>
                     <tr>
@@ -104,7 +118,7 @@ const OrdersDetailTable = (props) => {
                         <b>Status</b>
                       </td>
                       <td className="py-2 px-4 md:text-base text-sm font-serif">
-                        {order.isPaid ? (
+                        {localOrder.isPaid ? (
                           <div className="bg-[#9df7be] text-[#21944b] rounded-lg p-1">
                             Payment done
                           </div>
@@ -123,16 +137,17 @@ const OrdersDetailTable = (props) => {
         </div>
         <div className="md:w-1/4">
           <div className="flex justify-center border border-[#d4d6d8] p-2">
-            {order.isDeleivered ? (
+            {localOrder.isDeleivered ? (
               <button>
                 <span className="font-serif font-medium rounded-sm text-xs sm:text-base flex flex-col justify-center text-onPrimary bg-onSurface py-2 px-6 ">
                   DELIVERED AT
-                  <br />({moment(order.isDeleiveredAt).format("Do MMM YY")})
+                  <br />({moment(localOrder.isDeleiveredAt).format("Do MMM YY")}
+                  )
                 </span>
               </button>
             ) : (
               <>
-                {loading && <LoadingSpinner />}
+                {deliveryLoading && <LoadingSpinner />}
                 <button onClick={deliverHandler}>
                   <span className="font-serif font-medium rounded-sm text-sm sm:text-base text-onPrimary bg-onSurface py-2 px-12 ">
                     Mark as Delivered
