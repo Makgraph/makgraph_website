@@ -10,24 +10,6 @@ import moment from "moment";
 const OrdersTable = () => {
   const { orders, loading, error } = useSelector((state) => state.orders);
   console.log(orders);
-  // const orders1 = [
-  //   {
-  //     user: "John Doe",
-  //     email: "john.doe@example.com",
-  //     price: "$50.00",
-  //     status: "Pending",
-  //     date: "2024-07-13",
-  //     eyeIcon: "eye",
-  //   },
-  //   {
-  //     user: "Jane Smith",
-  //     email: "jane.smith@example.com",
-  //     price: "$75.00",
-  //     status: "Completed",
-  //     date: "2024-07-12",
-  //     eyeIcon: "eye",
-  //   },
-  // ];
 
   return (
     <div className="overflow-x-auto">

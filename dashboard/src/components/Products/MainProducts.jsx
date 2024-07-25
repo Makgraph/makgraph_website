@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import SecondHeader from "./SecondHeader";
-import products from "../../data/products";
 import Product from "./Product";
 import Pagination from "./Pagination";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,16 +7,28 @@ import { fetchProducts } from "../../redux/products/productsSlice";
 import LoadingSpinner from "../Loadingerror/loading";
 import Message from "../Loadingerror/errorMessage";
 import { Link } from "react-router-dom";
+import { resetDeleteSuccess } from "../../redux/products/deleteProductSlice";
 
 const MainProducts = () => {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector(
     (state) => state.productsList
   );
+  const { error: errorDelete, success: successDelete } = useSelector(
+    (state) => state.productDelete
+  );
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
+
+  // Réinitialisation successDelete après traitement
+  useEffect(() => {
+    if (successDelete) {
+      dispatch(resetDeleteSuccess());
+    }
+  }, [successDelete, dispatch]);
+
   return (
     <section className="sm:border-x-[1px] p-2 sm:p-4 border-b-secondary sm:flex sm:flex-col sm:py-4">
       <div className="flex justify-between my-4">
@@ -37,6 +48,15 @@ const MainProducts = () => {
         <SecondHeader />
       </div>
       <div className="w-full justify-between sm:gap-6 md:gap-8 sm:flex">
+        {errorDelete && (
+          <Message>
+            <div className=" m-4 p-4">
+              <Message variant="bg-[#fee2e2] text-[#991b1b]">
+                {errorDelete}
+              </Message>
+            </div>
+          </Message>
+        )}
         {loading ? (
           <div className="flex justify-center items-center">
             <LoadingSpinner />
@@ -44,15 +64,7 @@ const MainProducts = () => {
         ) : error ? (
           <Message>
             <div className=" m-4 p-4">
-              {/* <Message variant="bg-green-100 text-green-800">
-      C'est un message de succès !
-    </Message> */}
-
               <Message variant="bg-[#fee2e2] text-[#991b1b]">{error}</Message>
-
-              {/* <Message>
-      Ceci est un message par défaut avec Tailwind CSS.
-    </Message> */}
             </div>
           </Message>
         ) : (

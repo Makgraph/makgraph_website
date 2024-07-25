@@ -9,35 +9,21 @@ import {
   create,
 } from "ionicons/icons";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../../redux/products/productsSlice";
+import { deleteProduct } from "../../redux/products/deleteProductSlice";
 
 const Product = (props) => {
   const { product } = props;
   const dispatch = useDispatch();
 
-  // const deleteHandler = (productId) => {
-  //   if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit?")) {
-  //     dispatch(deleteProduct(productId));
-  //   }
-  // };
-  // const handleDelete = () => {
-  //   if (window.confirm("Are you sure??")) {
-  //     dispatch(deleteProduct(product._id));
-  //   }
-  // };
-  const handleDelete = () => {
-    dispatch(deleteProduct(product._id));
+  const deleteHandler = (id) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit?")) {
+      dispatch(deleteProduct(id));
+    }
   };
 
   return (
-    // <div className="gap-10 md:gap-28 items-center justify-center grid md:grid-cols-4 grid-cols-2">
-
     <div className="border border-[#d4d6d8] ">
-      <div
-        // className="rounded-lg gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer"
-        className="py-2 sm:py-2 px-4 sm:px-6"
-        key={product._id}
-      >
+      <div className="py-2 sm:py-2 px-4 sm:px-6" key={product._id}>
         <Link to="#">
           <img
             src={product.image}
@@ -72,7 +58,7 @@ const Product = (props) => {
 
         <button
           className="w-full border hover:bg-danger hover:text-onPrimary border-danger"
-          onClick={handleDelete}
+          onClick={() => deleteHandler(product._id)}
         >
           <IonIcon
             icon={trash}

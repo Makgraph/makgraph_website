@@ -71,24 +71,24 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-export const deleteProduct = createAsyncThunk(
-  "products/deleteProduct",
-  async (productId, thunkAPI) => {
-    try {
-      const { token } = thunkAPI.getState().auth;
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+// export const deleteProduct = createAsyncThunk(
+//   "products/deleteProduct",
+//   async (productId, thunkAPI) => {
+//     try {
+//       const { token } = thunkAPI.getState().auth;
+//       const config = {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       };
 
-      const response = await axios.delete(`/api/products/${productId}`, config);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
+//       const response = await axios.delete(`/api/products/${productId}`, config);
+//       return response.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 
 const productsSlice = createSlice({
   name: "products",
@@ -138,6 +138,7 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.products = [];
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
@@ -148,25 +149,24 @@ const productsSlice = createSlice({
         state.error = action.payload
           ? action.payload.message
           : "Erreur lors de la récupération des produits";
-        //   : action.error.message;
-      })
-      .addCase(deleteProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        // Filtrer les produits pour supprimer celui qui correspond à l'ID supprimé
-        state.products = state.products.filter(
-          (product) => product._id !== action.payload._id
-        );
-      })
-      .addCase(deleteProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload
-          ? action.payload.message
-          : "Erreur lors de la suppression du produit";
       });
+    // .addCase(deleteProduct.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // })
+    // .addCase(deleteProduct.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   // Filtrer les produits pour supprimer celui qui correspond à l'ID supprimé
+    //   state.products = state.products.filter(
+    //     (product) => product._id !== action.payload._id
+    //   );
+    // })
+    // .addCase(deleteProduct.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.payload
+    //     ? action.payload.message
+    //     : "Erreur lors de la suppression du produit";
+    // });
   },
 });
 

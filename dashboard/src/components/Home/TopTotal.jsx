@@ -64,7 +64,6 @@ const TopTotal = (props) => {
             <strong>Total Products</strong>
           </div>
           <div className="sm:pl-2 sm:text-sm text-xs font-serif">
-            {" "}
             {products ? <>{products.length}</> : 0}
           </div>
         </div>

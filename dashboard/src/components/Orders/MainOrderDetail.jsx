@@ -1,26 +1,29 @@
 import React, { useEffect } from "react";
-import Orders from "./Orders";
 import { IonIcon } from "@ionic/react";
 import { print, calendar, location, person, car } from "ionicons/icons";
-import OrdersTable2 from "./OrdersTable2";
 import { Link } from "react-router-dom";
 import OrdersDetailTable from "./OrdersDetailTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrderDetails } from "../../redux/orders/orderDetailsSlice";
 import LoadingSpinner from "../Loadingerror/loading";
 import Message from "../Loadingerror/errorMessage";
 import moment from "moment";
+import { getOrderDetails } from "../../redux/orders/orderDetailsSlice";
 
 const MainOrderDetail = (props) => {
   const { orderId } = props;
   const dispatch = useDispatch();
-  const { orderDetails, loading, error } = useSelector(
+
+  const { loading, orderItems, shippingAddress, order, error } = useSelector(
     (state) => state.orderDetails
   );
 
+  console.log(order);
+
   useEffect(() => {
-    dispatch(fetchOrderDetails(orderId));
+    dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId]);
+
+  console.log(orderItems);
 
   return (
     <section className="p-2 sm:p-4 sm:border-l">
@@ -53,12 +56,12 @@ const MainOrderDetail = (props) => {
                     className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary"
                   />
                   <p className="text-sm sm:text-base font-serif font-semibold text-white">
-                    {moment(orderDetails.createAt).format("llll")}
+                    {moment(order.createAt).format("llll")}
                   </p>
                 </div>
 
                 <p className="text-xs sm:text-xs font-sans text-white">
-                  Order ID: {orderDetails._id}
+                  Order ID: {order._id}
                 </p>
               </div>
               <div className="flex justify-between my-1 sm:my-2 ">
@@ -99,12 +102,12 @@ const MainOrderDetail = (props) => {
                   <b>Client</b>
                 </div>
                 <p className="md:text-sm text-xs font-serif">
-                  {orderDetails.user.name}
+                  {order.user.name}
                 </p>
                 <p className="md:text-sm text-xs font-serif">
                   {
-                    <a href={`mailto:${orderDetails.user.email}`}>
-                      {orderDetails.user.email}
+                    <a href={`mailto:${order.user.email}`}>
+                      {order.user.email}
                     </a>
                   }
                 </p>
@@ -125,10 +128,10 @@ const MainOrderDetail = (props) => {
                   <b>Informations sur la commande</b>
                 </div>
                 <div className="md:text-sm text-xs font-serif">
-                  Shipping: {orderDetails.shippingAddress.country}
+                  Shipping: {order.shippingAddress.country}
                 </div>
                 <div className="md:text-sm text-xs font-serif">
-                  Mode de paiement: {orderDetails.paymentMethod}
+                  Mode de paiement: {order.paymentMethod}
                 </div>
               </div>
             </div>
@@ -147,11 +150,11 @@ const MainOrderDetail = (props) => {
                   <strong>Livrer à</strong>
                 </div>
                 <div className="md:text-sm text-xs font-serif">
-                  Adresse: {orderDetails.shippingAddress.city}
+                  Adresse: {order.shippingAddress.city}
                   <br />
-                  {orderDetails.shippingAddress.address}
+                  {order.shippingAddress.address}
                   <br />
-                  {orderDetails.shippingAddress.postalCode}
+                  {order.shippingAddress.postalCode}
                 </div>
               </div>
             </div>
@@ -159,12 +162,7 @@ const MainOrderDetail = (props) => {
 
           <div className="overflow-x-auto sm:px-4">
             <div>
-              <OrdersDetailTable
-                orderId={orderId}
-                orderDetails={orderDetails}
-                loading={loading}
-                // success={success}
-              />
+              <OrdersDetailTable order={order} loading={loading} />
             </div>
           </div>
         </div>

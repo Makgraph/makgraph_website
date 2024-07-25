@@ -1,66 +1,60 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../auth/api";
+import axios from "axios";
+import { logout } from "../auth/authSlice"; // Assurez-vous d'importer correctement la fonction logout
 
-export const fetchOrderDetails = createAsyncThunk(
-  "orders/fetchOrderDetails",
-  async (id, thunkAPI) => {
-    console.log("ID reçu dans fetchOrderDetails:", id);
-    const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
+// Créez une action asynchrone pour obtenir les détails de la commande
+export const getOrderDetails = createAsyncThunk(
+  "orderDetails/getOrderDetails",
+  async (id, { getState, dispatch, rejectWithValue }) => {
     try {
-      const response = await api.getOrderDetail(id, token); // Utilisez votre fonction API pour obtenir les détails de la commande avec le token
-      return response;
+      const { auth } = getState(); // Accédez à l'état auth
+      const { token } = auth; // Déstructurez le token
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.get(`/api/orders/${id}`, config);
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout()); // Assurez-vous d'avoir accès à dispatch ici
+      }
+      return rejectWithValue(message);
     }
   }
 );
 
-export const resetOrderDetail = createAsyncThunk(
-  "orderDetails/resetOrderDetail",
-  async (_, thunkAPI) => {
-    return { orderDetails: {}, loading: true, success: false, error: null };
-  }
-);
-
+// Créez le slice
 const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
-    orderDetails: {},
-    loading: false,
-    success: false,
+    loading: true,
+    order: {},
     error: null,
   },
-  reducers: {
-    // resetOrderDetail: (state) => {
-    //   state.orderDetails = {}; // Reset orderList to empty array
-    //   state.loading = false;
-    //   state.success = false;
-    //   state.error = null;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrderDetails.pending, (state) => {
+      .addCase(getOrderDetails.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchOrderDetails.fulfilled, (state, action) => {
+      .addCase(getOrderDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
-        state.orderDetails = action.payload;
+        state.order = action.payload;
       })
-      .addCase(fetchOrderDetails.rejected, (state, action) => {
+      .addCase(getOrderDetails.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // Assuming the API returns an error message
-      })
-      .addCase(resetOrderDetail.fulfilled, (state, action) => {
-        state.orderDetails = action.payload.orderDetails;
-        state.loading = action.payload.loading;
-        state.success = action.payload.success;
-        state.error = action.payload.error;
+        state.error = action.payload;
       });
   },
 });
 
-export const {} = orderDetailsSlice.actions;
 export default orderDetailsSlice.reducer;

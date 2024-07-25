@@ -7,6 +7,7 @@ import productsReducer from "./products/productsSlice.js";
 import ordersReducer from "./orders/ordersSlice.js";
 import orderDetailsReducer from "./orders/orderDetailsSlice.js";
 import orderDileveredReducer from "./orders/orderDeliveredSlice.js";
+import productDeleteReducer from "./products/deleteProductSlice.js";
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const persistConfig = {
     "orders",
     "orderDetails",
     "orderDelivered",
+    " productDelete",
   ],
 };
 
@@ -28,6 +30,7 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
   orderDetails: orderDetailsReducer,
   orderDelivered: orderDileveredReducer,
+  productDelete: productDeleteReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

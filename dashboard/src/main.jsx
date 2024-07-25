@@ -22,9 +22,8 @@ import ProductEditScreen from "./screens/ProductEditScreen.jsx";
 const router = createBrowserRouter([
   {
     path: "/", // Route principale
-    // element: <Root />, // Composant à rendre pour "/"
-    element: <PrivateRoute element={<Root />} />, // Composant à rendre pour "/"
-    errorElement: <ErrorPage />, // Composant d'erreur pour les erreurs sur "/"
+    element: <PrivateRoute element={<Root />} />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/Accueil",

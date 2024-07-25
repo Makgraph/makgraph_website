@@ -5,6 +5,7 @@ import productsReducer from "./products/productsSlice.js";
 import ordersReducer from "./orders/ordersSlice.js";
 import orderDetailsReducer from "./orders/orderDetailsSlice.js";
 import orderDileveredReducer from "./orders/orderDeliveredSlice.js";
+import productDeleteReducer from "./products/deleteProductSlice.js";
 
 import { saveState, loadState } from "./localStorage.js";
 
@@ -18,6 +19,7 @@ export const store = configureStore({
     orders: ordersReducer,
     orderDetails: orderDetailsReducer,
     orderDelivered: orderDileveredReducer,
+    productDelete: productDeleteReducer,
   },
   preloadedState: persistedState, // Utilise l'état initial chargé depuis localStorage
 });
