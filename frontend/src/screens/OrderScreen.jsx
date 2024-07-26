@@ -29,17 +29,18 @@ const orderScreen = () => {
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay } = useSelector((state) => state.orderPay);
   const { success: successPay } = useSelector((state) => state.orderPay);
+  const { orderItems, shippingAddress, order } = useSelector(
+    (state) => state.orderDetails
+  );
 
+  console.log(order);
   console.log(orderDetails);
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
-  // console.log(orderDetails);
+  console.log(orderDetails);
   const itemsPrice = addDecimals(
-    orderDetails.orderItems.reduce(
-      (acc, item) => acc + item.price * item.qty,
-      0
-    )
+    order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
 
   useEffect(() => {
@@ -119,11 +120,11 @@ const orderScreen = () => {
                     <b>Client</b>
                   </div>
                   <p className="md:text-sm text-xs font-serif">
-                    {orderDetails.user.name}
+                    {order.user.name}
                   </p>
                   <p className="md:text-sm text-xs font-serif">
-                    <a href={`mailto:${orderDetails.user.email}`}>
-                      {orderDetails.user.email}
+                    <a href={`mailto:${order.user.email}`}>
+                      {order.user.email}
                     </a>
                   </p>
                 </div>
@@ -143,16 +144,16 @@ const orderScreen = () => {
                     <b>Informations sur la commande</b>
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Shipping: {orderDetails.shippingAddress.country}
+                    Shipping: {order.shippingAddress.country}
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Mode de paiement: {orderDetails.paymentMethod}
+                    Mode de paiement: {order.paymentMethod}
                   </div>
 
-                  {orderDetails.isPaid ? (
+                  {order.isPaid ? (
                     <div className="bg-[#2563eb] mt-1 p-2">
                       <p className="text-onPrimary md:text-sm text-xs flex justify-center">
-                        Payé {moment(orderDetails.paidAt).calendar()}
+                        Payé {moment(order.paidAt).calendar()}
                       </p>
                     </div>
                   ) : (
@@ -179,14 +180,14 @@ const orderScreen = () => {
                     <strong>Livrer à</strong>
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Adresse: {orderDetails.shippingAddress.city},{" "}
-                    {orderDetails.shippingAddress.address},
-                    {orderDetails.shippingAddress.postalCode}
+                    Adresse: {order.shippingAddress.city},{" "}
+                    {order.shippingAddress.address},
+                    {order.shippingAddress.postalCode}
                   </div>
-                  {orderDetails.isDelivered ? (
+                  {order.isDelivered ? (
                     <div className="bg-[#2563eb] mt-1 p-2">
                       <p className="text-onPrimary md:text-sm text-xs font-serif flex justify-center">
-                        Délivré le {moment(orderDetails.deliveredAt).calendar()}
+                        Délivré le {moment(order.deliveredAt).calendar()}
                       </p>
                     </div>
                   ) : (
@@ -202,7 +203,7 @@ const orderScreen = () => {
             <div className="p-screen md:py-6 md:flex">
               <div className="md:w-3/4">
                 <div className="md:pr-8">
-                  {orderDetails.orderItems.length === 0 ? (
+                  {order.orderItems.length === 0 ? (
                     <div className="m-20">
                       <h1 className="text-[18px] md:text-[32px]">
                         Votre Panier est vide !
@@ -211,7 +212,7 @@ const orderScreen = () => {
                   ) : (
                     <>
                       <ul className="w-[100%]">
-                        {orderDetails.orderItems.map((item, index) => (
+                        {order.orderItems.map((item, index) => (
                           <div
                             className=" w-[100%]  h-[100%] md:h-[100px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] md:rounded-[10px] rounded-[5px] md:px-5 px-2 py-1 md:py-0 my-2"
                             key={index}
@@ -275,7 +276,7 @@ const orderScreen = () => {
                           <b>Shipping</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {orderDetails.shippingPrice}
+                          $ {order.shippingPrice}
                         </td>
                       </tr>
                       <tr>
@@ -283,7 +284,7 @@ const orderScreen = () => {
                           <b>Taxe</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {orderDetails.taxPrice}
+                          $ {order.taxPrice}
                         </td>
                       </tr>
                       <tr>
@@ -291,12 +292,12 @@ const orderScreen = () => {
                           <b>Total</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {orderDetails.totalPrice}
+                          $ {order.totalPrice}
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  {!orderDetails.isPaid && (
+                  {!order.isPaid && (
                     <div className="">
                       {loadingPay && (
                         <div className="pt-10">
@@ -309,7 +310,7 @@ const orderScreen = () => {
                         </div>
                       ) : (
                         <PayPalButton
-                          amount={orderDetails.totalPrice}
+                          amount={order.totalPrice}
                           onSuccess={successPaymentHandler}
                         />
                       )}

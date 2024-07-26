@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { logout } from "../auth/authSlice"; // Assurez-vous d'importer correctement la fonction logout
+import { logout } from "../auth/authSlice";
 
-// Créez une action asynchrone pour obtenir les détails de la commande
+// Création d'une action asynchrone pour obtenir les détails de la commande
 export const getOrderDetails = createAsyncThunk(
   "orderDetails/getOrderDetails",
   async (id, { getState, dispatch, rejectWithValue }) => {
     try {
-      const { auth } = getState(); // Accédez à l'état auth
-      const { token } = auth; // Déstructurez le token
+      const { auth } = getState(); // Acces à l'état auth
+      const { token } = auth; // Déstructuration le token
 
       const config = {
         headers: {
@@ -24,14 +24,13 @@ export const getOrderDetails = createAsyncThunk(
           ? error.response.data.message
           : error.message;
       if (message === "Not authorized, token failed") {
-        dispatch(logout()); // Assurez-vous d'avoir accès à dispatch ici
+        dispatch(logout());
       }
       return rejectWithValue(message);
     }
   }
 );
 
-// Créez le slice
 const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
