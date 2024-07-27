@@ -93,7 +93,7 @@ const MainProducts = (props) => {
           </>
         )}
       </div>
-      <div className="flex justify-center sm:justify-end ">
+      <div className="flex justify-center  sm:justify-end ">
         <Pagination
           pages={pages}
           page={page}
