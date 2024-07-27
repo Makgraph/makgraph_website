@@ -35,7 +35,7 @@ const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
     loading: true,
-    order: {},
+    order: [],
     error: null,
   },
   reducers: {},

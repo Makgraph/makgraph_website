@@ -9,7 +9,9 @@ import Message from "../Loadingerror/errorMessage";
 import { Link } from "react-router-dom";
 import { resetDeleteSuccess } from "../../redux/products/deleteProductSlice";
 
-const MainProducts = () => {
+const MainProducts = (props) => {
+  const { keyword } = props;
+
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector(
     (state) => state.productsList
@@ -19,8 +21,8 @@ const MainProducts = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch, successDelete]);
+    dispatch(fetchProducts(keyword));
+  }, [dispatch, keyword]);
 
   // Réinitialisation successDelete après traitement
   useEffect(() => {

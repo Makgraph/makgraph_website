@@ -5,7 +5,6 @@ import AppStatProducts from "./ProductStatistics";
 import OrdersTable from "./OrdersTable";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/productsSlice";
-// import { orderDelivered } from "./../../redux/orders/ordersSlice";
 
 const Main = () => {
   const { orders, loading, error } = useSelector((state) => state.orders);

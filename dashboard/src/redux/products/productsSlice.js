@@ -54,7 +54,7 @@ export const editProduct = createAsyncThunk(
 // Action asynchrone pour récupérer les produits
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (_, thunkAPI) => {
+  async (keyword = "", thunkAPI) => {
     const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
     const config = {
       headers: {
@@ -63,7 +63,11 @@ export const fetchProducts = createAsyncThunk(
     };
 
     try {
-      const response = await axios.get("/api/products/all", config); // Utiliser axios avec l'en-tête d'authentification
+      const response = await axios.get(
+        // `/api/products/all?keyword=${keyword}`,
+        `/api/products/all?keyword=${encodeURIComponent(keyword)}`,
+        config
+      ); // Utiliser axios avec l'en-tête d'authentification
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

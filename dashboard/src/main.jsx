@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Root from "./routes/root";
 import ErrorPage from "./screens/ErrorPageScreen.jsx";
 import HomeScreen from "./screens/HomeScreen.jsx";
-import ProuductScreen from "./screens/ProductScreen.jsx";
+import ProductScreen from "./screens/ProductScreen.jsx";
 import AddProductScreen from "./screens/AddProductScreen.jsx";
 import CategoriesScreen from "./screens/CategoriesScreen.jsx";
 import OrderScreen from "./screens/OrderScreen.jsx";
@@ -31,7 +31,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/products",
-    element: <PrivateRoute element={<ProuductScreen />} />,
+    element: <PrivateRoute element={<ProductScreen />} />,
+  },
+  {
+    path: "/search/:keyword",
+    element: <PrivateRoute element={<ProductScreen />} />,
   },
   {
     path: "/product/:id/edit",

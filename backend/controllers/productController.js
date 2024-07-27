@@ -25,7 +25,16 @@ const getAllProductsAdmin = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Non autorisé en tant qu'administrateur");
   }
-  const products = await Product.find({}).sort({ _id: -1 });
+
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const products = await Product.find({ ...keyword }).sort({ _id: -1 });
   res.json(products);
 });
 
