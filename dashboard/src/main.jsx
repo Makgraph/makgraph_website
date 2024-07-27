@@ -38,6 +38,14 @@ const router = createBrowserRouter([
     element: <PrivateRoute element={<ProductScreen />} />,
   },
   {
+    path: "/page/:pageNumber",
+    element: <PrivateRoute element={<ProductScreen />} />,
+  },
+  {
+    path: "/search/:keyword/page/:pageNumber",
+    element: <PrivateRoute element={<ProductScreen />} />,
+  },
+  {
     path: "/product/:id/edit",
     element: <PrivateRoute element={<ProductEditScreen />} />,
   },

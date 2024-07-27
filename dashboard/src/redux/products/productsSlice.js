@@ -54,7 +54,8 @@ export const editProduct = createAsyncThunk(
 // Action asynchrone pour récupérer les produits
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (keyword = "", thunkAPI) => {
+  async ({ keyword = "", pageNumber = "" }, thunkAPI) => {
+    // Déstructuration de l'objet avec pageNumber par défaut
     const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
     const config = {
       headers: {
@@ -64,8 +65,7 @@ export const fetchProducts = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        // `/api/products/all?keyword=${keyword}`,
-        `/api/products/all?keyword=${encodeURIComponent(keyword)}`,
+        `/api/products/all?keyword=${keyword}&pageNumber=${pageNumber}`,
         config
       ); // Utiliser axios avec l'en-tête d'authentification
       return response.data;
@@ -112,7 +112,9 @@ const productsSlice = createSlice({
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products.push(action.payload); // Ajouter le nouveau produit à la liste existante
+        state.products = action.payload.products || []; // Assure-toi que products est un tableau
+        state.page = action.payload.page || 1;
+        state.pages = action.payload.pages || 1;
         toast.success("Produit ajouté avec succès");
       })
       .addCase(createProduct.rejected, (state, action) => {
@@ -127,7 +129,6 @@ const productsSlice = createSlice({
       })
       .addCase(editProduct.fulfilled, (state, action) => {
         state.loading = false;
-        // Remplacer le produit existant par le produit mis à jour dans la liste des produits
         state.products = state.products.map((product) =>
           product._id === action.payload._id ? action.payload : product
         );
@@ -142,11 +143,15 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.products = [];
+        state.products = []; // Réinitialise les produits à un tableau vide
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.products = Array.isArray(action.payload.products)
+          ? action.payload.products
+          : []; // Assure-toi que products est un tableau
+        state.page = action.payload.page || 1;
+        state.pages = action.payload.pages || 1;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
@@ -154,23 +159,6 @@ const productsSlice = createSlice({
           ? action.payload.message
           : "Erreur lors de la récupération des produits";
       });
-    // .addCase(deleteProduct.pending, (state) => {
-    //   state.loading = true;
-    //   state.error = null;
-    // })
-    // .addCase(deleteProduct.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   // Filtrer les produits pour supprimer celui qui correspond à l'ID supprimé
-    //   state.products = state.products.filter(
-    //     (product) => product._id !== action.payload._id
-    //   );
-    // })
-    // .addCase(deleteProduct.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload
-    //     ? action.payload.message
-    //     : "Erreur lors de la suppression du produit";
-    // });
   },
 });
 

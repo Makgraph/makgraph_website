@@ -10,10 +10,10 @@ import { Link } from "react-router-dom";
 import { resetDeleteSuccess } from "../../redux/products/deleteProductSlice";
 
 const MainProducts = (props) => {
-  const { keyword } = props;
-
+  const { keyword, pageNumber } = props;
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector(
+
+  const { products, loading, error, page, pages } = useSelector(
     (state) => state.productsList
   );
   const { error: errorDelete, success: successDelete } = useSelector(
@@ -21,8 +21,21 @@ const MainProducts = (props) => {
   );
 
   useEffect(() => {
-    dispatch(fetchProducts(keyword));
-  }, [dispatch, keyword]);
+    dispatch(fetchProducts({ keyword, pageNumber }));
+  }, [dispatch, keyword, pageNumber]);
+
+  // Fonctions pour naviguer entre les pages
+  const handlePrevPage = () => {
+    if (page > 1) {
+      dispatch(fetchProducts({ keyword, pageNumber: page - 1 }));
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < pages) {
+      dispatch(fetchProducts({ keyword, pageNumber: page + 1 }));
+    }
+  };
 
   // Réinitialisation successDelete après traitement
   useEffect(() => {
@@ -81,7 +94,11 @@ const MainProducts = (props) => {
         )}
       </div>
       <div className="flex justify-center sm:justify-end ">
-        <Pagination />
+        <Pagination
+          pages={pages}
+          page={page}
+          keyword={keyword ? keyword : ""}
+        />
       </div>
     </section>
   );

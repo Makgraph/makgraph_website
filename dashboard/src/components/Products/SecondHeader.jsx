@@ -9,7 +9,7 @@ const SecondHeader = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownLastOpen, setDropdownLastOpen] = useState(false);
-  console.log(keyword);
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };

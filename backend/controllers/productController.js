@@ -20,12 +20,55 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @desc Admin get all prouducts without search and pagination
 // @route GET /api/products/all
 // @access Private
+// const getAllProductsAdmin = asyncHandler(async (req, res) => {
+//   if (!req.user.isAdmin) {
+//     res.status(401);
+//     throw new Error("Non autorisé en tant qu'administrateur");
+//   }
+
+//   const keyword = req.query.keyword
+//     ? {
+//         name: {
+//           $regex: req.query.keyword,
+//           $options: "i",
+//         },
+//       }
+//     : {};
+
+//   const products = await Product.find({ ...keyword }).sort({ _id: -1 });
+//   res.json(products);
+// });
+// const getAllProductsAdmin = asyncHandler(async (req, res) => {
+//   if (!req.user.isAdmin) {
+//     res.status(401);
+//     throw new Error("Non autorisé en tant qu'administrateur");
+//   }
+
+//   const pageSize = 4;
+//   const page = Number(req.query.pageNumber) || 1;
+//   const keyword = req.query.keyword
+//     ? {
+//         name: {
+//           $regex: req.query.keyword,
+//           $options: "i",
+//         },
+//       }
+//     : {};
+//   const count = await Product.countDocuments({}).sort({ _id: -1 });
+//   const products = await Product.find({ ...keyword })
+//     .sort({ _id: -1 })
+//     .limit(pageSize)
+//     .skip(pageSize * (page - 1));
+//   res.json({ products, page, pages: Math.ceil(count / pageSize) });
+// });
 const getAllProductsAdmin = asyncHandler(async (req, res) => {
   if (!req.user.isAdmin) {
     res.status(401);
     throw new Error("Non autorisé en tant qu'administrateur");
   }
 
+  const pageSize = 4;
+  const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? {
         name: {
@@ -34,8 +77,22 @@ const getAllProductsAdmin = asyncHandler(async (req, res) => {
         },
       }
     : {};
-  const products = await Product.find({ ...keyword }).sort({ _id: -1 });
-  res.json(products);
+
+  // Compter les documents correspondant au mot-clé
+  const count = await Product.countDocuments(keyword);
+
+  // Récupérer les produits correspondant au mot-clé avec pagination
+  const products = await Product.find(keyword)
+    .sort({ _id: -1 })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({
+    products,
+    page,
+    pages: Math.ceil(count / pageSize),
+    count, // Fournir également le nombre total de produits correspondant au mot-clé
+  });
 });
 
 // @desc Fetch single product

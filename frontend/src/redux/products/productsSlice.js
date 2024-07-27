@@ -50,6 +50,8 @@ export const clearProducts = () => (dispatch) => {
 
 const initialState = {
   products: [],
+  page: 1,
+  pages: 1,
   loading: false,
   error: null,
 };
