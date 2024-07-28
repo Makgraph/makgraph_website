@@ -1,6 +1,6 @@
 import axios from "axios";
 // Utiliser la variable d'environnement pour définir l'URL de base
-const baseUrl = process.env.VITE_API_URL;
+const baseUrl = import.meta.env.VITE_API_URL;
 const API_URL = `${baseUrl}/api/users/`;
 
 // const API_URL = "/api/users/";
