@@ -434,11 +434,11 @@ const OrderScreen = () => {
                     <b>Client</b>
                   </div>
                   <p className="md:text-sm text-xs font-serif">
-                    {orders.user.name}
+                    {orders.orderItem.name}
                   </p>
                   <p className="md:text-sm text-xs font-serif">
-                    <a href={`mailto:${orders.user.email}`}>
-                      {orders.user.email}
+                    <a href={`mailto:${orders.orderItem.email}`}>
+                      {orders.orderItem.email}
                     </a>
                   </p>
                 </div>

@@ -21,7 +21,7 @@ const GalleryScreen = () => {
 
   const { products, loading, error, page, pages } =
     useSelector(selectProductList);
-
+  console.log(products);
   const isInitialMount = useRef(true);
 
   useEffect(() => {
