@@ -437,8 +437,8 @@ const OrderScreen = () => {
                     {orders.user.name}
                   </p>
                   <p className="md:text-sm text-xs font-serif">
-                    <a href={`mailto:${order.user.email}`}>
-                      {order.user.email}
+                    <a href={`mailto:${orders.user.email}`}>
+                      {orders.user.email}
                     </a>
                   </p>
                 </div>
@@ -458,16 +458,16 @@ const OrderScreen = () => {
                     <b>Informations sur la commande</b>
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Shipping: {order.shippingAddress.country}
+                    Shipping: {orders.shippingAddress.country}
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Mode de paiement: {order.paymentMethod}
+                    Mode de paiement: {orders.paymentMethod}
                   </div>
 
-                  {order.isPaid ? (
+                  {orders.isPaid ? (
                     <div className="bg-[#2563eb] mt-1 p-2">
                       <p className="text-onPrimary md:text-sm text-xs flex justify-center">
-                        Payé {moment(order.paidAt).calendar()}
+                        Payé {moment(orders.paidAt).calendar()}
                       </p>
                     </div>
                   ) : (
@@ -494,14 +494,14 @@ const OrderScreen = () => {
                     <strong>Livrer à</strong>
                   </div>
                   <div className="md:text-sm text-xs font-serif">
-                    Adresse: {order.shippingAddress.city},{" "}
-                    {order.shippingAddress.address},
-                    {order.shippingAddress.postalCode}
+                    Adresse: {orders.shippingAddress.city},{" "}
+                    {orders.shippingAddress.address},
+                    {orders.shippingAddress.postalCode}
                   </div>
-                  {order.isDelivered ? (
+                  {orders.isDelivered ? (
                     <div className="bg-[#2563eb] mt-1 p-2">
                       <p className="text-onPrimary md:text-sm text-xs font-serif flex justify-center">
-                        Délivré le {moment(order.deliveredAt).calendar()}
+                        Délivré le {moment(orders.deliveredAt).calendar()}
                       </p>
                     </div>
                   ) : (
@@ -517,7 +517,7 @@ const OrderScreen = () => {
             <div className="p-screen md:py-6 md:flex">
               <div className="md:w-3/4">
                 <div className="md:pr-8">
-                  {order.orderItems.length === 0 ? (
+                  {orders.orderItems.length === 0 ? (
                     <div className="m-20">
                       <h1 className="text-[18px] md:text-[32px]">
                         Votre Panier est vide !
