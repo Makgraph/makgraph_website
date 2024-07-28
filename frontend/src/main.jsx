@@ -27,6 +27,10 @@ import SignUp from "./components/loginComponent/SignUp.jsx";
 import ProfileTabs from "./components/profileComponents/ProfileTabs.jsx";
 import OrderTabs from "./components/profileComponents/OrderTabs.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+// Utilisez import.meta.env pour accéder aux variables d'environnement
+const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
 
 const router = createBrowserRouter([
   {
@@ -115,12 +119,23 @@ const router = createBrowserRouter([
 ]);
 
 // Rendu de l'application React avec ReactDOM
+// ReactDOM.createRoot(document.getElementById("root")).render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       <RouterProvider router={router}>
+//         <ToastContainer />
+//       </RouterProvider>
+//     </Provider>
+//   </React.StrictMode>
+// );
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router}>
-        <ToastContainer />
-      </RouterProvider>
+      <PayPalScriptProvider options={{ "client-id": clientId }}>
+        <RouterProvider router={router}>
+          <ToastContainer />
+        </RouterProvider>
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );

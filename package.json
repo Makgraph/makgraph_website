@@ -8,7 +8,7 @@
     "server": "nodemon backend/server.js",
     "client": "npm run dev --prefix frontend",
     "dashboard": "npm run dev --prefix dashboard",
-     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run dashboard\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run dashboard\""
   },
   "author": "Milien Makenson",
   "license": "ISC",
@@ -25,8 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.6.2",
     "mongoose": "^8.4.0",
-    "npm": "^10.8.0",
-    "react-paypal-button-v2": "^2.6.3"
+    "npm": "^10.8.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
