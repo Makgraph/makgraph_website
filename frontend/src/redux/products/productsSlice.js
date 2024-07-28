@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Fetching products
 
@@ -28,7 +29,7 @@ export const fetchProducts = createAsyncThunk(
   async (pageNumber, thunkAPI) => {
     try {
       const response = await axios.get(
-        `/api/products?pageNumber=${pageNumber}`
+        `${baseUrl}/api/products?pageNumber=${pageNumber}`
       );
       return response.data;
     } catch (error) {

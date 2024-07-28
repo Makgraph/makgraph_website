@@ -1,4 +1,6 @@
 import axios from "axios";
+// Charger l'URL de base depuis les variables d'environnement
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export const api = {
   getUserDetails: async (_id, token) => {
@@ -9,7 +11,7 @@ export const api = {
     };
 
     try {
-      const response = await axios.get(`/api/users/profile`, config);
+      const response = await axios.get(`${baseUrl}/api/users/profile`, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -25,7 +27,7 @@ export const api = {
 
     try {
       const response = await axios.put(
-        `/api/users/profile`,
+        `${baseUrl}/api/users/profile`,
         updatedProfileData,
         config
       );
@@ -37,7 +39,7 @@ export const api = {
   // Function to create an order via API
   createOrderAPI: async (orderData) => {
     try {
-      const response = await axios.post("/api/orders", orderData, {
+      const response = await axios.post(`${baseUrl}/api/orders`, orderData, {
         headers: {
           "Content-Type": "application/json",
           // Add any other headers your API requires
@@ -60,7 +62,10 @@ export const api = {
     };
 
     try {
-      const response = await axios.get(`/api/orders/${orderId}`, config);
+      const response = await axios.get(
+        `${baseUrl}/api/orders/${orderId}`,
+        config
+      );
       return response.data;
     } catch (error) {
       throw error;

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { logout } from "../auth/authSlice";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Création d'une action asynchrone pour obtenir les détails de la commande
 export const fetchOrderDetails = createAsyncThunk(
@@ -16,7 +17,7 @@ export const fetchOrderDetails = createAsyncThunk(
         },
       };
 
-      const response = await axios.get(`/api/orders/${id}`, config);
+      const response = await axios.get(`${baseUrl}/api/orders/${id}`, config);
       return response.data;
     } catch (error) {
       const message =

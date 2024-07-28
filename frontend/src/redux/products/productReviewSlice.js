@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Async thunk for creating product review
 export const createProductReview = createAsyncThunk(
@@ -15,7 +16,7 @@ export const createProductReview = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `/api/products/${productId}/review`,
+        `${baseUrl}/api/products/${productId}/review`,
         review,
         config
       );

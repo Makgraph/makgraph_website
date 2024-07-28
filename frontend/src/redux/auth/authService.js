@@ -1,6 +1,9 @@
 import axios from "axios";
+// Utiliser la variable d'environnement pour définir l'URL de base
+const baseUrl = process.env.VITE_API_URL;
+const API_URL = `${baseUrl}/api/users/`;
 
-const API_URL = "/api/users/";
+// const API_URL = "/api/users/";
 
 // Fonction pour vérifier si l'utilisateur est connecté
 const isLoggedIn = () => {
