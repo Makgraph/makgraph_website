@@ -526,7 +526,7 @@ const OrderScreen = () => {
                   ) : (
                     <>
                       <ul className="w-[100%]">
-                        {order.orderItems.map((item, index) => (
+                        {orders.sordersItems.map((item, index) => (
                           <div
                             className="w-[100%] h-[100%] md:h-[100px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] md:rounded-[10px] rounded-[5px] md:px-5 px-2 py-1 md:py-0 my-2"
                             key={index}
@@ -590,7 +590,7 @@ const OrderScreen = () => {
                           <b>Shipping</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {order.shippingPrice}
+                          $ {orders.shippingPrice}
                         </td>
                       </tr>
                       <tr>
@@ -598,7 +598,7 @@ const OrderScreen = () => {
                           <b>Taxe</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {order.taxPrice}
+                          $ {orders.taxPrice}
                         </td>
                       </tr>
                       <tr>
@@ -606,12 +606,12 @@ const OrderScreen = () => {
                           <b>Total</b>
                         </td>
                         <td className="py-2 px-4 md:text-base text-sm font-serif">
-                          $ {order.totalPrice}
+                          $ {orders.totalPrice}
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  {!order.isPaid && (
+                  {!orders.isPaid && (
                     <div className="">
                       {loadingPay && (
                         <div className="pt-10">
