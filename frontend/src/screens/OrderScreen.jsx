@@ -526,7 +526,7 @@ const OrderScreen = () => {
                   ) : (
                     <>
                       <ul className="w-[100%]">
-                        {orders.ordersItems.map((item, index) => (
+                        {orders.orderItems.map((item, index) => (
                           <div
                             className="w-[100%] h-[100%] md:h-[100px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] md:rounded-[10px] rounded-[5px] md:px-5 px-2 py-1 md:py-0 my-2"
                             key={index}
