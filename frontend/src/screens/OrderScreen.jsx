@@ -364,7 +364,7 @@ const OrderScreen = () => {
   const itemsPrice = addDecimals(
     orders.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
-
+  console.log(object);
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -434,7 +434,7 @@ const OrderScreen = () => {
                     <b>Client</b>
                   </div>
                   <p className="md:text-sm text-xs font-serif">
-                    {order.user.name}
+                    {orders.user.name}
                   </p>
                   <p className="md:text-sm text-xs font-serif">
                     <a href={`mailto:${order.user.email}`}>
