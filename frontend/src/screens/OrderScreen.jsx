@@ -364,7 +364,7 @@ const OrderScreen = () => {
   const itemsPrice = addDecimals(
     orders.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
-  console.log(object);
+  console.log(orders);
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
