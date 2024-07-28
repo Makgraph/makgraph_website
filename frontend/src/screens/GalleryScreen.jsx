@@ -17,38 +17,20 @@ const GalleryScreen = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const pageNumber = searchParams.get("pageNumber") || 1;
-  const logTimeout = useRef(null);
 
   const { products, loading, error, page, pages } =
     useSelector(selectProductList);
   console.log(products);
-  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    if (!isInitialMount.current) {
-      // Fetch products when `pageNumber` changes
-      dispatch(fetchProducts(pageNumber));
-    } else {
-      isInitialMount.current = false;
-    }
+    // Fetch products when component mounts or pageNumber changes
+    dispatch(fetchProducts(pageNumber));
 
+    // Clear products on component unmount
     return () => {
-      // Clear products when component unmounts or before fetching new products
       dispatch(clearProducts());
     };
   }, [dispatch, pageNumber]);
-
-  useEffect(() => {
-    if (!isInitialMount.current) {
-      // Log products after a delay, adjust timeout as needed
-      if (logTimeout.current) {
-        clearTimeout(logTimeout.current);
-      }
-      logTimeout.current = setTimeout(() => {
-        // console.log(products);
-      }, 500);
-    }
-  }, [dispatch, products]);
 
   if (error) {
     return (
