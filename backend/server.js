@@ -22,6 +22,31 @@ app.use(cors());
 //   res.json(products);
 // });
 
+// Liste des domaines autorisés, vous pouvez ajouter plus de domaines si nécessaire
+const allowedOrigins = [
+  "https://makgraph-website-frontend.vercel.app", // Remplacez par l'URL de votre frontend Vercel
+  "https://https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr", // Autres domaines autorisés
+];
+
+// Configurer CORS
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Autoriser les requêtes sans origine (pour les tests locaux)
+      if (!origin) return callback(null, true);
+
+      // Vérifier si l'origine est dans la liste des origines autorisées
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error("Not allowed by CORS"), false);
+      }
+
+      return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
