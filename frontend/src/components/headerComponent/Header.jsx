@@ -6,6 +6,7 @@ import { navLinks } from "../../constants/index";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../redux/Cart/cartSlice";
 import Dropdown from "../dropdownMenu/dropdown";
+import SecondHeader from "./SecondHeader";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function Header() {
           <div>
             <Link to="/">
               <img
-                className="flex w-20 h-16 md:w-28 md:h-20"
+                className="flex w-20 h-16 md:w-40 md:h-20"
                 src={logoMakgraph}
               />
             </Link>
@@ -61,32 +62,35 @@ export default function Header() {
             </div>
           </div>
 
-          <ul
-            className={`md:flex md:items-center md:pb-0 pb-12 absolute bg-surfaceContainer  md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all md:transition-none duration-500 ease-in ${
-              open ? "top-[81px] opacity-100" : "top-[-490px]"
-            } md:opacity-100 opacity-0`}
-          >
-            {navLinks.map((navLinks) => (
-              <li
-                key={navLinks.id}
-                className="w-full md:w-[70px] text-[14px] font-serif h-5 justify-center items-center flex md:my-0 my-7 md:bg-surfaceContainer hover:bg-primary/10 duration-300"
-              >
-                <NavLink
-                  to={`/${navLinks.title}`}
-                  className={({ isActive }) => {
-                    return isActive ? " text-primary" : "";
-                  }}
+          <div className="w-full flex flex-col justify-center items-center">
+            <SecondHeader />
+            <ul
+              className={`md:flex md:items-center md:py-2 pb-12 absolute bg-surfaceContainer  md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:px-0 pl-6 transition-all md:transition-none duration-500 ease-in ${
+                open ? "top-[81px] opacity-100" : "top-[-490px]"
+              } md:opacity-100 opacity-0`}
+            >
+              {navLinks.map((navLinks) => (
+                <li
+                  key={navLinks.id}
+                  className="w-full md:w-[62px] text-[13px] font-serif h-5 justify-center items-center flex md:my-0 my-7 md:bg-surfaceContainer hover:bg-primary/10 duration-300"
                 >
-                  {navLinks.title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+                  <NavLink
+                    to={`/${navLinks.title}`}
+                    className={({ isActive }) => {
+                      return isActive ? " text-primary" : "";
+                    }}
+                  >
+                    {navLinks.title}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="h-6 items-center md:flex hidden gap-2">
             <div>
               {user ? (
-                <div className="flex justify-center items-center h-screen">
+                <div className="flex justify-center items-center w-32 h-screen">
                   <Dropdown />
                 </div>
               ) : (
@@ -96,10 +100,10 @@ export default function Header() {
                       return isActive ? " text-primary" : "";
                     }}
                   >
-                    <div className="relative flex   bg-onSecondaryContainer/5 p-1">
+                    <div className="relative flex w-32 bg-onSecondaryContainer/5 p-1">
                       <UserCircle size={28} />
                       <button className="focus:bg-secondaryContainer">
-                        <span className="text-[14px] font-serif px-1transition hover:text-primary duration-300">
+                        <span className="text-[14px] font-serif px-transition hover:text-primary duration-300">
                           Se Connecter
                         </span>
                       </button>

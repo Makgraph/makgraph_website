@@ -6,6 +6,7 @@ export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
+    console.log(token);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`, // Ajouter le token d'authentification dans l'en-tête

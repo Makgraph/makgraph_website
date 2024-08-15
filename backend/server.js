@@ -25,7 +25,7 @@ app.use(cors());
 // Liste des domaines autorisés, vous pouvez ajouter plus de domaines si nécessaire
 const allowedOrigins = [
   "https://makgraph-website-frontend.vercel.app", // Remplacez par l'URL de votre frontend Vercel
-  "https://https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr", // Autres domaines autorisés
+  "https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr", // Autres domaines autorisés
 ];
 
 // Configurer CORS

@@ -9,10 +9,10 @@ const About = () => {
       <Header />
       <div className="p-screen py-8 md:pt-16">
         <div className="grid grid-cols-1 md:gap-2 md:grid-cols-2">
-          <div className="w-auto h-auto pt-20 flex justify-center md:justify-center items-center ">
-            <div>
+          <div className="w-auto h-auto pt-20 flex justify-center md:justify-center items-center sm:items-start ">
+            <div className="md:pt-20">
               <img
-                className=" flex w-[116px] h-[90px] md:min-w-[287px] md:min-h-[222px]"
+                className=" flex  w-[116px] h-[90px] md:min-w-[287px] md:min-h-[222px]"
                 src={logoMakgraph}
               />
             </div>

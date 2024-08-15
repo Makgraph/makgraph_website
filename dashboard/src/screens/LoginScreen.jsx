@@ -112,6 +112,7 @@ export default function LoginScreen() {
                   name="email"
                   value={email}
                   onChange={onChange}
+                  required
                 />
               </div>
               <div>
@@ -126,6 +127,7 @@ export default function LoginScreen() {
                   name="password"
                   value={password}
                   onChange={onChange}
+                  required
                 />
               </div>
               {/* <div className=" md:flex hidden justify-center p-4">
