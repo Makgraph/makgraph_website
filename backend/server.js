@@ -15,6 +15,19 @@ connectDB();
 const app = express();
 app.use(cors());
 
+const path = require("path");
+
+// Servir les fichiers statiques du frontend
+app.use(express.static(path.join(__dirname, "frontend/build")));
+
+// Pour le dashboard si c'est dans un répertoire distinct
+app.use("/dashboard", express.static(path.join(__dirname, "dashboard/build")));
+
+// Toute autre route pour le frontend
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+
 // const jwt = require("jsonwebtoken");
 
 // const secret = process.env.JWT_SECRET;
@@ -59,6 +72,7 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5176",
   "https://makgraph-website-frontend.vercel.app",
+  "https://ton-site-vercel-app.vercel.app/dashboard",
 ];
 
 // Configurer CORS
