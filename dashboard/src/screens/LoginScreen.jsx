@@ -69,7 +69,7 @@ export default function LoginScreen() {
             {isLoading && <LoadingSpinner />}
             <div className="flex flex-col items-center justify-center pb-4">
               <p className="font-serif text-xl sm:text-2xl text-primary">
-                Sign In
+                Login
               </p>
             </div>
             <form onSubmit={onSubmit} action="#" className="space-y-4">
