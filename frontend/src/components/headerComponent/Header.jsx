@@ -28,7 +28,7 @@ export default function Header(props) {
           <div>
             <Link to="/">
               <img
-                className="ml-36 sm:ml-10 w-16 h-12 sm:w-20 sm:h-14 md:ml-0 md:flex md:w-40 md:h-20"
+                className="ml-40 sm:ml-10 w-16 h-12 sm:w-20 sm:h-14 md:ml-0 md:flex md:w-40 md:h-20"
                 src="/assets/logo_Makgraph.png"
                 alt="Logo"
               />
