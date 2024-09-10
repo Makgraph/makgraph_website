@@ -13,13 +13,12 @@ import {
   peopleOutline,
   peopleCircleOutline,
   cashOutline,
-  refreshOutline,
 } from "ionicons/icons";
 import { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout, refreshToken } from "../redux/auth/authSlice";
+import { logout } from "../redux/auth/authSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,16 +35,6 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-  };
-
-  const refreshTokenHandler = async () => {
-    try {
-      await dispatch(refreshToken()).unwrap();
-      alert("Token rafraîchi avec succès");
-    } catch (error) {
-      console.error("Erreur lors du rafraîchissement du token:", error);
-      alert("Échec du rafraîchissement du token");
-    }
   };
 
   return (
@@ -193,13 +182,6 @@ const Header = () => {
         </button>
         {dropdownOpen && (
           <div className="absolute top-full right-0 w-36 sm:w-48 bg-white rounded-md shadow-lg py-4 sm:py-1 z-10">
-            <button
-              className="block w-full text-left text-sm sm:text-base px-4 py-2 text-[#374151] hover:bg-[#e5e7eb]"
-              onClick={refreshTokenHandler}
-            >
-              <IonIcon icon={refreshOutline} className="mr-2" /> Rafraîchir
-              Token
-            </button>
             <button className="block w-full text-left text-sm sm:text-base px-4 py-2 text-[#374151] hover:bg-[#e5e7eb]">
               <IonIcon icon={personCircleOutline} className="mr-2" /> Mon Profil
             </button>
