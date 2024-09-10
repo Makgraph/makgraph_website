@@ -89,10 +89,6 @@ const SingleProduct = () => {
     setQuantity(parseInt(e.target.value, 10));
   };
 
-  const handleSizeChange = (e) => {
-    setSelectedSize(e.target.value);
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
     const userAlreadyReviewed = productDetails.reviews.some(
@@ -156,18 +152,7 @@ const SingleProduct = () => {
                   <div className="">
                     <h6 className="font-serif text-[14px]">Tailles</h6>
                   </div>
-                  <select
-                    className="font-serif bg-[#cbd5e1] p-1 border border-primary w-full"
-                    value={selectedSize}
-                    onChange={handleSizeChange}
-                  >
-                    <option value="">Choisissez une taille</option>
-                    {productDetails.sizes.map((size) => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
+
                   <b>{productDetails.sizes}</b>
                 </div>
                 <div className="font-serif flex border-y-0 justify-between p-2 border-[1px] border-primary w-[70%]">
@@ -228,7 +213,7 @@ const SingleProduct = () => {
           </div>
 
           {/* Ajout des avis */}
-          <div className="my-8">
+          {/* <div className="my-8">
             <h2 className="font-serif">Avis</h2>
             <div className="mt-4">
               {productDetails.reviews.length === 0 && (
@@ -290,6 +275,98 @@ const SingleProduct = () => {
             ) : (
               <p>Veuillez vous connecter pour écrire un avis.</p>
             )}
+          </div> */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 md:my-6 ">
+            <div className="">
+              <h5 className="font-serif mb-4">COMMENTAIRES</h5>
+              {productDetails.reviews.length === 0 && (
+                <div className="bg-tertiary p-3 ">Pas de commentaire</div>
+              )}
+              {productDetails.reviews.map((review) => (
+                <div key={review._id} className="my-6 p-2 bg-[#cbd5e1]">
+                  <div className="flex flex-col px-2 py-4">
+                    <strong className="font-serif py-1">{review.name}</strong>
+                    <Rating value={review.rating} />
+                    <span className="font-serif pt-4">
+                      {moment(review.createdAt).calendar()}
+                    </span>
+                  </div>
+
+                  <div className="font-serif bg-tertiary px-3 py-2 pb-10 ">
+                    {review.comment}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h5 className="font-serif mb-4">ÉCRIRE UN AVIS CLIENT</h5>
+              <div>{loadingCreateReview && <LoadingSpinner />}</div>
+
+              {user ? (
+                <>
+                  <form onSubmit={submitHandler}>
+                    <div>
+                      {errorCreateReview && (
+                        <div className="font-serif bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                          {errorCreateReview}
+                        </div>
+                      )}
+
+                      {productDetails.reviews.some(
+                        (review) => review.user === user._id
+                      ) && (
+                        <div className="font-serif bg-[#fef9c3] border border-[#facc15] text-[#a16207] px-4 py-3 rounded relative mb-4">
+                          Vous avez déjà évalué ce produit.
+                        </div>
+                      )}
+
+                      <strong>Notation</strong>
+                      <select
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        className="font-serif bg-[#cbd5e1] w-full p-2 mb-3 rounded"
+                      >
+                        <option value="">Sélectionner...</option>
+                        <option value="1">1 - Faible</option>
+                        <option value="2">2 - Équitable</option>
+                        <option value="3">3 - Bon</option>
+                        <option value="4">4 - Très Bon</option>
+                        <option value="5">5 - Excellent</option>
+                      </select>
+                    </div>
+                    <div className="">
+                      <strong>Commentaire</strong>
+                      <textarea
+                        rows="3"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        className="font-serif bg-[#cbd5e1] w-full p-2 mb-3 rounded text-primary"
+                      ></textarea>
+                    </div>
+                    <div className="">
+                      <button
+                        disabled={loadingCreateReview}
+                        type="submit"
+                        className="font-sans font-semibold bg-primary text-white w-full p-3 hover:bg-[#22c55e] "
+                      >
+                        Envoyer
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="font-serif bg-[#fee2e2] border border-[#f87171] text-[#b91c1c] px-4 py-3 rounded relative mt-4">
+                  Veuillez vous{" "}
+                  <Link
+                    to="/Accueil/login"
+                    className="font-serif text-[#3b82f6]"
+                  >
+                    connecter
+                  </Link>{" "}
+                  pour écrire un commentaire.p
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
