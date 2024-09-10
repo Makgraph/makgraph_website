@@ -4,6 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice.js";
 import productListReducer from "./products/productsSlice.js";
 import productsReducer from "./products/productSlice.js";
+import categoriesReducer from "./categories/categoriesSlice.js";
 import productReviewReducer from "./products/productReviewSlice.js";
 import cartReducer from "./Cart/cartSlice.js";
 import ordersReducer from "./order/orderSlice.js";
@@ -18,6 +19,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     productList: productListReducer,
+    categories: categoriesReducer,
     products: productsReducer,
     productReview: productReviewReducer,
     cart: cartReducer,

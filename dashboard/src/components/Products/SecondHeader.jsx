@@ -3,8 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { searchOutline, chevronDownOutline } from "ionicons/icons";
 import { useNavigate } from "react-router-dom";
 
-const SecondHeader = () => {
-  const [keyword, setKeyword] = useState("");
+const SecondHeader = ({ keyword, setKeyword }) => {
   const navigate = useNavigate();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -20,7 +19,7 @@ const SecondHeader = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search/${encodeURIComponent(keyword)}`);
+      navigate(`/products/search/${encodeURIComponent(keyword)}`);
     }
   };
 
@@ -40,7 +39,7 @@ const SecondHeader = () => {
             className="bg-[#e5e7eb] w-full text-sm sm:text-base text-[#1f2937] rounded-sm py-2 pl-10 md:pr-4 outline-none border border-[#d1d5db] focus:border-[#9ca3af] focus:bg-white focus:ring-2 focus:ring-[#d1d5db] focus:ring-opacity-50"
             onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
-            aria-label="Rechercher"
+            aria-label="Rechercher un nom"
           />
         </div>
         {/* Styled Search Button */}

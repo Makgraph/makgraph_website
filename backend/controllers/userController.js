@@ -3,8 +3,14 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 
 const User = require("../models/usersModel");
-// const { password } = require("pg/lib/defaults");
 
+// Generate JWT
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "90d",
+  });
+};
+console.log(process.env.JWT_SECRET);
 // @desc Register new user
 // @route POST /api/users
 // @access Public
@@ -33,16 +39,19 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    token: generateToken(user._id),
   });
 
   if (user) {
+    const token = generateToken(user._id);
+    user.token = token;
+    await user.save(); // Save the token
+
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: token,
     });
   } else {
     res.status(400);
@@ -53,26 +62,46 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc Authenticate a user
 // @route POST /api/users/login
 // @access Public
-const loginUser = asyncHandler(async (req, res) => {
+// Utilisation de generateToken
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
-  // Check for user email
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    const accessToken = generateToken(user._id);
+
     res.json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
       createdAt: user.createdAt,
-      token: generateToken(user._id),
+      token: accessToken,
     });
   } else {
-    res.status(400);
-    throw new Error("Password ou email invalides");
+    res.status(400).json({ message: "Invalid email or password" });
   }
-});
+};
+// const loginUser = asyncHandler(async (req, res) => {
+//   const { email, password } = req.body;
+
+//   // Check for user email
+//   const user = await User.findOne({ email });
+
+//   if (user && (await bcrypt.compare(password, user.password))) {
+//     res.json({
+//       _id: user.id,
+//       name: user.name,
+//       email: user.email,
+//       isAdmin: user.isAdmin,
+//       createdAt: user.createdAt,
+//       token: generateToken(user._id),
+//     });
+//   } else {
+//     res.status(400);
+//     throw new Error("Password ou email invalides");
+//   }
+// });
 
 // @desc Get user data
 // @route POST /api/users/profile
@@ -98,23 +127,21 @@ const updateProfile = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
 
-    // if (req.body.password) {
-    //   user.password = req.body.password;
-    // }
     if (req.body.password) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       user.password = hashedPassword;
     }
 
     const updatedUser = await user.save();
+    const token = generateToken(updatedUser._id);
+
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      password: updatedUser.password,
       isAdmin: updatedUser.isAdmin,
       createdAt: updatedUser.createdAt,
-      token: generateToken(updatedUser._id),
+      token: token,
     });
   } else {
     res.status(404);
@@ -139,13 +166,6 @@ const getAllUserAdmin = asyncHandler(async (req, res, next) => {
   const users = await User.find({});
   res.json(users);
 });
-
-// Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
-  });
-};
 
 module.exports = {
   registerUser,

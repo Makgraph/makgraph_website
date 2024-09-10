@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
@@ -15,7 +16,7 @@ export const createProduct = createAsyncThunk(
       };
 
       const response = await axios.post(
-        "/api/products/create",
+        `${baseUrl}/api/products/create`,
         productData,
         config
       );
@@ -40,7 +41,7 @@ export const editProduct = createAsyncThunk(
       };
 
       const response = await axios.put(
-        `/api/products/${productId}`,
+        `${baseUrl}/api/products/${productId}`,
         updatedProductData,
         config
       );
@@ -54,7 +55,7 @@ export const editProduct = createAsyncThunk(
 // Action asynchrone pour récupérer les produits
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({ keyword = "", pageNumber = "" }, thunkAPI) => {
+  async ({ keyword = "", pageNumber = 1 }, thunkAPI) => {
     // Déstructuration de l'objet avec pageNumber par défaut
     const { token } = thunkAPI.getState().auth; // Récupérer le token d'authentification depuis le state Redux
     const config = {
@@ -65,9 +66,11 @@ export const fetchProducts = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `/api/products/all?keyword=${keyword}&pageNumber=${pageNumber}`,
+        `${baseUrl}/api/products/all?keyword=${encodeURIComponent(
+          keyword
+        )}&pageNumber=${pageNumber}`,
         config
-      ); // Utiliser axios avec l'en-tête d'authentification
+      );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -100,10 +103,10 @@ const productsSlice = createSlice({
     products: [],
     loading: false,
     error: null,
+    page: 1,
+    pages: 1,
   },
-  reducers: {
-    // reducers synchrones si nécessaire
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createProduct.pending, (state) => {
@@ -149,9 +152,10 @@ const productsSlice = createSlice({
         state.loading = false;
         state.products = Array.isArray(action.payload.products)
           ? action.payload.products
-          : []; // Assure-toi que products est un tableau
+          : [];
         state.page = action.payload.page || 1;
         state.pages = action.payload.pages || 1;
+        console.log(action.payload.products);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;

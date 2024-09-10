@@ -45,6 +45,18 @@ const ProfileScreen = () => {
                   <div className="font-serif">
                     rejoint {moment(user.createdAt).format("LL")}
                   </div>
+                  <div className="font-serif">
+                    {user.isAdmin && (
+                      <a
+                        href="http://localhost:5176"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:text-blue-700 font-bold text-md"
+                      >
+                        Go to dashboard
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="mt-4 w-[100%] flex flex-col justify-center items-center">

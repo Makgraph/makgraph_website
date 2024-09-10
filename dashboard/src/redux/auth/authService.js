@@ -1,6 +1,25 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 const API_URL = "/api/users/";
+// const API_URLL = "/api/auth/refresh-token";
+
+const refreshToken = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  if (!refreshToken) {
+    throw new Error("Refresh token manquant");
+  }
+
+  try {
+    const response = await axios.post(API_URL + "refresh-token", {
+      refreshToken,
+    });
+    return response.data.token;
+  } catch (error) {
+    console.error("Erreur lors du rafraîchissement du token:", error.message);
+    throw error;
+  }
+};
 
 // Fonction pour vérifier si l'utilisateur est connecté
 const isLoggedIn = () => {
@@ -51,6 +70,7 @@ const fetchUsersApi = async (token) => {
 };
 
 const authService = {
+  refreshToken,
   isLoggedIn,
   register,
   logout,

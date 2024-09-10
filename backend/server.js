@@ -4,6 +4,8 @@ const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const cors = require("cors");
+const refreshTokenRoutes = require("./routes/refreshTokenRoutes");
+// const authRoutes = require("./routes/authRoutes");
 // const products = require("./data/products");
 // const ImportData = require("./Seed");
 
@@ -12,6 +14,30 @@ dotenv;
 connectDB();
 const app = express();
 app.use(cors());
+
+// const jwt = require("jsonwebtoken");
+
+// const secret = process.env.JWT_SECRET;
+// if (!secret) {
+//   console.error(
+//     "La clé secrète JWT n'est pas définie dans les variables d'environnement."
+//   );
+//   process.exit(1);
+// }
+
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3RVc2VySWQiLCJpYXQiOjE3MjU1NjA2MTUsImV4cCI6MTcyODE1MjYxNX0.SfrWoGCKeh3sbDVgvfKEFKqWWLqZhl1VkM1FA6LhT8U";
+
+// try {
+//   const decoded = jwt.verify(token, secret);
+//   console.log("Decoded Token:", decoded);
+// } catch (error) {
+//   console.error("Token verification failed:", error);
+// }
+
+// Afficher les variables d'environnement pour déboguer
+// console.log("JWT_SECRET:", process.env.JWT_SECRET);
+// console.log("JWT_REFRESH_SECRET:", process.env.JWT_REFRESH_SECRET);
 
 // app.use("/api/import", ImportData);
 
@@ -23,9 +49,16 @@ app.use(cors());
 // });
 
 // Liste des domaines autorisés, vous pouvez ajouter plus de domaines si nécessaire
+// const allowedOrigins = [
+//   "https://makgraph-website-frontend.vercel.app", // Remplacez par l'URL de votre frontend Vercel
+//   "https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr", // Autres domaines autorisés
+//   "http://localhost:5173",
+//   "http://localhost:5174",
+// ];
 const allowedOrigins = [
-  "https://makgraph-website-frontend.vercel.app", // Remplacez par l'URL de votre frontend Vercel
-  "https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr", // Autres domaines autorisés
+  "http://localhost:5174",
+  "http://localhost:5176",
+  "https://makgraph-website-frontend.vercel.app",
 ];
 
 // Configurer CORS
@@ -51,9 +84,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // app.use("/api/makgraph", require("./routes/makgraphRoutes"));
+// app.use("/api/auth", refreshTokenRoutes);
+// app.use("/api/auth", authRoutes);
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
-app.use("/api/orders", require("./routes/orderRoutes"));
+app.use("/api/items", require("./routes/itemsRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes.js"));
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });

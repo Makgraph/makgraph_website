@@ -63,8 +63,8 @@ const CartScreen = () => {
   return (
     <>
       <Header />
-      <div className="pt-20 md:pt-28  mx-7 md:mx-6 lg:mx-[156px] xl:px-[200px]  border-primary/20 flex flex-col justify-center items-center">
-        <div className="absolute top-[88px] md:top-[119px] left-8 md:left-44  cursor-pointer">
+      <div className="pt-20 md:pt-32  mx-7 md:mx-6 lg:mx-[156px] xl:px-[200px]  border-primary/20 flex flex-col justify-center items-center">
+        <div className="absolute top-[88px] md:top-[135px] left-8 md:left-44  cursor-pointer">
           <Link to="/shop">
             <IonIcon
               icon={arrowBack}
@@ -83,7 +83,7 @@ const CartScreen = () => {
           <>
             <div className="bg-primary/70 py-1 mt-2 md:mt-0 w-full">
               <div className="font-normal font-serif text-onPrimary flex justify-center text-[10px] md:text-[20px]">
-                Total produit dans le panier ({cartItems.length})
+                Nombre de type de produit dans le panier ({cartItems.length})
               </div>
             </div>
             <ul className="w-[100%]">

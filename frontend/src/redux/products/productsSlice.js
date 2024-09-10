@@ -4,32 +4,23 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 // Fetching products
 
-// export const fetchProducts = createAsyncThunk(
-//   "products/fetchProducts",
-//   async (_, thunkAPI) => {
-//     try {
-//       // const response = await axios.get("/api/products");
-//       const response = await axios.get(
-//         `/api/products?pageNumber=${pageNumber}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (pageNumber, thunkAPI) => {
+  async (
+    { keyword = "", pageNumber = 1, sizes = [], colors = [] },
+    thunkAPI
+  ) => {
     try {
       const response = await axios.get(
-        `${baseUrl}/api/products?pageNumber=${pageNumber}`
+        // `${baseUrl}/api/products?pageNumber=${pageNumber}`
+        // `${baseUrl}/api/products?keyword=${encodeURIComponent(
+        //   keyword
+        // )}&pageNumber=${pageNumber}`
+        `${baseUrl}/api/products?keyword=${encodeURIComponent(
+          keyword
+        )}&pageNumber=${pageNumber}&sizes=${sizes.join(
+          ","
+        )}&colors=${colors.join(",")}`
       );
       return response.data;
     } catch (error) {
@@ -51,10 +42,12 @@ export const clearProducts = () => (dispatch) => {
 
 const initialState = {
   products: [],
-  page: 1,
-  pages: 1,
   loading: false,
   error: null,
+  page: 1,
+  pages: 1,
+  sizes: [],
+  colors: [],
 };
 
 export const productSlice = createSlice({
@@ -65,6 +58,8 @@ export const productSlice = createSlice({
       state.products = [];
       state.loading = false;
       state.error = null;
+      state.sizes = [];
+      state.colors = [];
     },
   },
   extraReducers: (builder) => {
@@ -77,13 +72,19 @@ export const productSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        // Add any fetched products to the array
-        // state.products = state.products.concat(action.payload);
-        // state.products = [...state.products, ...action.payload];
-        state.error = null;
-        state.products = action.payload.products;
-        state.page = action.payload.page;
-        state.pages = action.payload.pages;
+        state.products = Array.isArray(action.payload.products)
+          ? action.payload.products
+          : [];
+        state.page = action.payload.page || 1;
+        state.pages = action.payload.pages || 1;
+        state.sizes = action.payload.sizes || [];
+        state.colors = action.payload.colors || [];
+
+        // state.loading = false;
+        // state.error = null;
+        // state.products = action.payload.products;
+        // state.page = action.payload.page;
+        // state.pages = action.payload.pages;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
@@ -94,5 +95,7 @@ export const productSlice = createSlice({
 });
 
 export const selectProductList = (state) => state.productList;
+export const selectSizes = (state) => state.productList.sizes;
+export const selectColors = (state) => state.productList.colors;
 
 export default productSlice.reducer;

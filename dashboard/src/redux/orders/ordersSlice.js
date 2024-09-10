@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Action asynchrone pour récupérer les produits
 export const getAllOrders = createAsyncThunk(
@@ -14,7 +15,7 @@ export const getAllOrders = createAsyncThunk(
     };
 
     try {
-      const response = await axios.get("/api/orders", config); // Utiliser axios avec l'en-tête d'authentification
+      const response = await axios.get(`${baseUrl}/api/orders`, config); // Utiliser axios avec l'en-tête d'authentification
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

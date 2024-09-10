@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import blueTshirt from "/assets/blue_t-shirt_1.jpg";
+import BlacTshirt from "/assets/Black_tshirt_JGC.png";
 import black_Tshirt_2 from "/assets/black_t-shirt_2.png";
-import whiteTshirt from "/assets/white_t-shirt_2.png";
+import GrayTshirt from "/assets/Gray_tshirt_JGC.png";
 
 // const colors = ["#0088FE", "#00C49F", "#FFBB28"];
 const colors = [
-  { src: blueTshirt },
+  { src: BlacTshirt },
   { src: black_Tshirt_2 },
-  { src: whiteTshirt },
+  { src: GrayTshirt },
 ];
 const delay = 2500;
 // const colors = [
 //   <img src={black_Tshirt_2} />,
-//   <img src={blueTshirt} />,
-//   <img src={whiteTshirt} />,
+//   <img src={BlacTshirt} />,
+//   <img src={GrayTshirt} />,
 // ];
 function Slideshow() {
   const [index, setIndex] = useState(0);
@@ -48,7 +48,7 @@ function Slideshow() {
       >
         {colors.map((img, index) => (
           <img
-            className="basis-0 w-full h-full xs:h-auto md:w-100% md:h-[405px] inline-block rounded-xl border border-[#155e75]"
+            className="basis-0 w-full h-full xs:h-auto md:w-100% md:h-[405px] inline-block rounded-xl "
             key={index}
             src={img.src}
           />

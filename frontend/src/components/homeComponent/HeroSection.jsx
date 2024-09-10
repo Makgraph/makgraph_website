@@ -74,7 +74,7 @@ const HeroSection = () => {
           <div>
             <Link href="#gallerie" className="labelmd ">
               <div className="animate-slideInLeftSlow4">
-                <Link to="/Gallerie/2" className="cursor-pointer">
+                <Link to="/galerie" className="cursor-pointer">
                   <button className="btn-icon animate-scalebtn">
                     Voir plus de modele
                     <span className="shrink-0 h-9 rounded-full border border-current bg-white p-2 text-primary group-active:text-primary">
@@ -101,7 +101,7 @@ const HeroSection = () => {
         </div>
 
         <div className="h-auto w-auto col-span-2 md:col-auto">
-          <div className="grid grid-cols-1 md:max-h-[520px] w-auto pt-12 md:bg-cover md:bg-center md:flex justify-center md:py-10 md:px-4 sm:py-2">
+          <div className="grid grid-cols-1 md:max-h-[520px] w-auto pt-12 sm:pt-12 md:bg-cover md:bg-center md:flex justify-center md:py-10 md:px-4 sm:py-2">
             <Slideshow />
           </div>
         </div>

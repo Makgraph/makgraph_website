@@ -49,11 +49,12 @@ const Dropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="md:bg-[#d3e2f7] text-[#374151] font-semibold md:py-1 px-2 rounded-1 inline-flex items-center"
+        className="md:bg-[#d3e2f7] text-[#374151] font-semibold md:py-[5.5px] px-2 rounded-1 inline-flex items-center"
       >
         <div className="md:flex hidden">
-          <h5 className="text-primary font-serif text-[14px] font-normal">
-            Hi, {user.name}
+          <h5 className="text-primary flex font-serif text-[14px] font-normal">
+            <div className="pr-1">Hi,</div>
+            <div> {user.name}</div>
           </h5>
         </div>
         <div className="md:hidden">

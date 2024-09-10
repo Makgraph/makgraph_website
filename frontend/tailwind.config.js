@@ -12,38 +12,36 @@ export default {
       lg: "1280px",
       xl: "1440px",
     },
-    colors: {
-      danger: {
-        DEFAULT: "#e3342f",
-        light: "#f56565",
-        dark: "#c51e1a",
-      },
-      primary: "#216487",
-      onPrimary: "#FFFFFF",
-      secondary: "#565584",
-      onSecondary: "#3ab7bf",
-      tertiary: "#ecebff",
-      onTertiary: "#78dcca",
-      onSurface: "#181C1F",
-      surfaceContainer: "#F0F4F8",
-      secondaryContainer: "#D2E5F4",
-      onSecondaryContainer: "#0B1D28",
-      outline: "#71787E",
-      error: "#BA1A1A",
-      white: "#ffffff",
-      black: "#000000",
-    },
-    // spacing: {
-    //   1: "4px",
-    //   2: "8px",
-    //   3: "12px",
-    //   4: "16px",
-    //   5: "20px",
-    //   6: "24px",
-    //   7: "28px",
-    //   8: "32px",
-    // },
     extend: {
+      scale: {
+        110: "1.10", // 10% agrandissement
+        115: "1.15", // 15% agrandissement
+        120: "1.20", // 20% agrandissement
+        125: "1.25", // 25% agrandissement
+        // Ajoutez d'autres valeurs si nécessaire
+      },
+      colors: {
+        danger: {
+          DEFAULT: "#e3342f",
+          light: "#f56565",
+          dark: "#c51e1a",
+        },
+        primary: "#216487",
+        onPrimary: "#FFFFFF",
+        secondary: "#565584",
+        onSecondary: "#3ab7bf",
+        tertiary: "#ecebff",
+        onTertiary: "#78dcca",
+        onSurface: "#181C1F",
+        surfaceContainer: "#F0F4F8",
+        secondaryContainer: "#D2E5F4",
+        onSecondaryContainer: "#0B1D28",
+        outline: "#71787E",
+        error: "#BA1A1A",
+        white: "#ffffff",
+        black: "#000000",
+      },
+
       keyframes: {
         slideInLeft: {
           from: { transform: "translateX(-300px)" },

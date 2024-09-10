@@ -6,8 +6,11 @@ export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async (orderData, thunkAPI) => {
     const { token } = thunkAPI.getState().auth.user; // Obtenez le token d'authentification depuis le state
+    console.log(token);
     try {
       const response = await Api.createOrder(orderData, token); // Appelez votre fonction API pour créer la commande avec le token
+      console.log("API response:", response);
+
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -48,6 +51,7 @@ const ordersSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.orders = action.payload; // Assuming the API returns the created order
+        console.log(action.payload);
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;

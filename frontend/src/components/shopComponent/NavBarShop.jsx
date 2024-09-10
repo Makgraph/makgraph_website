@@ -1,6 +1,6 @@
 import React from "react";
 
-const NavBarShop = (props) => {
+const NavBarShop = () => {
   return (
     <div>
       <div className="w-[100%]  flex justify-center items-center py-2 md:py-5">

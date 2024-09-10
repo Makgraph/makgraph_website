@@ -3,8 +3,6 @@ import axios from "axios";
 const baseUrl = import.meta.env.VITE_API_URL;
 const API_URL = `${baseUrl}/api/users/`;
 
-// const API_URL = "/api/users/";
-
 // Fonction pour vérifier si l'utilisateur est connecté
 const isLoggedIn = () => {
   const user = JSON.parse(localStorage.getItem("user"));

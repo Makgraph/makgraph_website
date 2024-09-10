@@ -4,7 +4,7 @@
 
 body {
   @apply bg-cover bg-no-repeat;
-  background-image: url("../assets/background_web_3.png");
+  background-image: url("/assets/background_web_3.png");
 }
 
 @layer base {
@@ -109,5 +109,3 @@ body {
 .bubble {
   @apply inline-block h-3 w-3 rounded-[50%] cursor-pointer border border-primary my-4 mr-2 ml-0;
 }
-
-/* Text Animation */

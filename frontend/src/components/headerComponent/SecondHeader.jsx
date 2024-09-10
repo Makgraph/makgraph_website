@@ -3,19 +3,50 @@ import { IonIcon } from "@ionic/react";
 import { searchOutline, chevronDownOutline } from "ionicons/icons";
 import { useNavigate } from "react-router-dom";
 
-const SecondHeader = () => {
-  const [keyword, setKeyword] = useState("");
+const SecondHeader = ({ keyword, setKeyword, pageNumber, setPageNumber }) => {
+  // const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      navigate(`/search/${encodeURIComponent(keyword)}`);
+
+    // Trim le mot-clé pour éviter les espaces inutiles
+    const trimmedKeyword = keyword.trim();
+
+    // Vérifie si le mot-clé n'est pas vide
+    if (trimmedKeyword) {
+      // Si pageNumber est défini et valide, l'ajoute à l'URL
+      if (pageNumber && !isNaN(pageNumber)) {
+        navigate(
+          `/shop/search/${encodeURIComponent(
+            trimmedKeyword
+          )}/page/${pageNumber}`
+        );
+      } else {
+        navigate(`/shop/search/${encodeURIComponent(trimmedKeyword)}`);
+      }
     }
   };
 
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   // if (keyword.trim()) {
+  //   //   // navigate(`/shop/search/${encodeURIComponent(keyword)}`);
+  //   //   navigate(
+  //   //     `/shop/search/${encodeURIComponent(keyword)}/page/${pageNumber}`
+  //   //   );
+  //   // }
+  //   if (keyword.trim() && pageNumber) {
+  //     navigate(
+  //       `/shop/search/${encodeURIComponent(keyword)}/page/${pageNumber}`
+  //     );
+  //   } else if (keyword.trim()) {
+  //     navigate(`/shop/search/${encodeURIComponent(keyword)}`);
+  //   }
+  // };
+
   return (
-    <div className="hidden sm:flex justify-center py-4 w-full ">
+    <div className="hidden sm:flex justify-center py-4  sm:w-[70%] md:w-full ">
       {/* Search Bar */}
       <form onSubmit={submitHandler} className="flex w-full mx-10 items-center">
         <div className="relative flex-1">

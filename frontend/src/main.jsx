@@ -85,9 +85,33 @@ const router = createBrowserRouter([
     element: <PrivateRoute element={<OrderScreen />} />,
   },
   {
-    path: "/Galerie",
+    path: "/galerie",
     element: <Gallery />,
+    children: [
+      {
+        path: "page/:pageNumber/category/:category",
+        element: <Gallery />,
+      },
+      {
+        path: "category/:category",
+        element: <Gallery />,
+      },
+      {
+        path: "category/:category",
+        element: <Gallery />,
+      },
+      {
+        path: "page/:pageNumber",
+        element: <Gallery />,
+      },
+
+      {
+        path: "page/:pageNumber",
+        element: <Gallery />,
+      },
+    ],
   },
+
   {
     path: "/cartScreen/:productId?",
     element: <CartScreen />,
@@ -107,11 +131,22 @@ const router = createBrowserRouter([
   {
     path: "/shop",
     element: <ShopScreen />,
+    children: [
+      {
+        path: "search/:keyword/page/:pageNumber",
+        element: <ShopScreen />,
+      },
+      {
+        path: "search/:keyword",
+        element: <ShopScreen />,
+      },
+      {
+        path: "page/:pageNumber",
+        element: <ShopScreen />,
+      },
+    ],
   },
-  {
-    path: "/shop/:pageNumber",
-    element: <ShopScreen />,
-  },
+
   {
     path: "/products/:productId",
     element: <SingleProduct />,

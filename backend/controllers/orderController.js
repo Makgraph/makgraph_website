@@ -4,6 +4,37 @@ const Order = require("../models/orderModel");
 // @desc create order
 // @route POST /api/orders
 // @access Private
+// const orders = asyncHandler(async (req, res) => {
+//   const {
+//     orderItems,
+//     shippingAddress,
+//     paymentMethod,
+//     itemsPrice,
+//     taxPrice,
+//     shippingPrice,
+//     totalPrice,
+//   } = req.body;
+
+//   if (orderItems && orderItems.length === 0) {
+//     res.status(400);
+//     throw new Error("Aucun article en commande");
+//     return;
+//   } else {
+//     const order = new Order({
+//       orderItems,
+//       user: req.user._id,
+//       shippingAddress,
+//       paymentMethod,
+//       itemsPrice,
+//       taxPrice,
+//       shippingPrice,
+//       totalPrice,
+//     });
+//     const createdOrder = await order.save();
+
+//     res.status(201).json(createdOrder);
+//   }
+// });
 const orders = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -15,25 +46,29 @@ const orders = asyncHandler(async (req, res) => {
     totalPrice,
   } = req.body;
 
+  console.log("Request Body:", req.body); // Log des données reçues
+  console.log("User:", req.user); // Log de l'utilisateur authentifié
+
   if (orderItems && orderItems.length === 0) {
     res.status(400);
     throw new Error("Aucun article en commande");
-    return;
-  } else {
-    const order = new Order({
-      orderItems,
-      user: req.user._id,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-    });
-    const createdOrder = await order.save();
-
-    res.status(201).json(createdOrder);
   }
+
+  const order = new Order({
+    orderItems,
+    user: req.user._id,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  });
+
+  const createdOrder = await order.save();
+
+  console.log("Created Order:", createdOrder); // Log de la commande créée
+  res.status(201).json(createdOrder);
 });
 
 // @desc Fetch user login orders

@@ -1,47 +1,43 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-
 const User = require("../models/usersModel");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
+  // Vérifier la présence du token dans l'en-tête Authorization
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Get token from header
+      // Extraire le token de l'en-tête
       token = req.headers.authorization.split(" ")[1];
 
-      // Verify token
+      // Vérifier le token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Get user from the token
+      // Récupérer l'utilisateur à partir du token
       req.user = await User.findById(decoded.id).select("-password");
+
+      if (!req.user) {
+        res.status(401);
+        throw new Error("Utilisateur non trouvé");
+      }
 
       next();
     } catch (error) {
-      console.log(error);
-      res.status(401);
-      throw new Error("Non autorisé");
+      console.error("Token verification error:", error);
+      if (error.name === "TokenExpiredError") {
+        res
+          .status(401)
+          .json({ message: "Token expiré, veuillez vous reconnecter" });
+      } else {
+        res.status(401).json({ message: "Token invalide ou non autorisé" });
+      }
     }
-  }
-  if (!token) {
-    res.status(401);
-    throw new Error("Non autorisé, pas de token");
+  } else {
+    res.status(401).json({ message: "Pas de token fourni" });
   }
 });
 
-// Middleware pour vérifier si l'utilisateur est administrateur
-// const admin = (req, res, next) => {
-//   if (req.user && req.user.isAdmin) {
-//     next(); // Passe au middleware suivant
-//   } else {
-//     res.status(401);
-//     throw new Error("Non autorisé en tant qu'administrateur");
-//   }
-// };
-
-// module.exports = { protect, admin };
 module.exports = protect;

@@ -12,6 +12,7 @@ const Api = {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("Order created:", response.data);
       return response.data;
     } catch (error) {
       throw new Error(
@@ -20,6 +21,22 @@ const Api = {
     }
   },
 
+  // Fonction pour récupérer les détails d'une commande
+  // getOrderDetail: async (orderId, token) => {
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/api/orders/${orderId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     throw new Error(
+  //       error.response.data.error ||
+  //         "Échec de la récupération des détails de la commande"
+  //     );
+  //   }
+  // },
   // Fonction pour récupérer les détails d'une commande
   getOrderDetail: async (orderId, token) => {
     try {
@@ -31,7 +48,7 @@ const Api = {
       return response.data;
     } catch (error) {
       throw new Error(
-        error.response.data.error ||
+        error.response?.data?.error ||
           "Échec de la récupération des détails de la commande"
       );
     }

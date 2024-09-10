@@ -19,6 +19,8 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     productDetails: null,
+    sizes: [],
+    colors: [],
     loading: false,
     error: null,
   },
@@ -36,6 +38,8 @@ const productsSlice = createSlice({
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.loading = false;
         state.productDetails = action.payload;
+        state.sizes = action.payload.sizes || [];
+        state.colors = action.payload.colors || [];
       })
       .addCase(fetchProductById.rejected, (state, action) => {
         state.loading = false;
@@ -47,6 +51,8 @@ const productsSlice = createSlice({
 export const { clearProductDetails } = productsSlice.actions;
 
 export const selectProductDetails = (state) => state.products.productDetails;
+export const selectSizes = (state) => state.products.sizes;
+export const selectColors = (state) => state.products.colors;
 export const selectLoading = (state) => state.products.loading;
 export const selectError = (state) => state.products.error;
 

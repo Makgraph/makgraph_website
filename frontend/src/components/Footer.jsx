@@ -13,7 +13,7 @@ import paypal from "/assets/paypal.png";
 export default function Footer() {
   return (
     <div className="p-screen py-12">
-      <div className="grid md:grid-cols-2 gap-5 py-8 ">
+      <div className="grid md:grid-cols-2 gap-5 py-8 min-h-[185.83px] ">
         <div className=" gap-3 flex flex-col">
           <h6>
             <b>Entrer en Contact</b>
@@ -55,7 +55,7 @@ export default function Footer() {
           </form>
         </div>
       </div>
-      <div className="flex justify-center py-4 border-t-[1px] border-b-[1px] border-primary/15">
+      <div className="flex justify-center py-4 border-t-[1px] border-b-[1px] border-primary/15 min-h-[53.33px]">
         <IonIcon
           icon={logoFacebook}
           className="text-onSurface px-2 text-lg md:text-xl"
@@ -69,7 +69,7 @@ export default function Footer() {
           className="text-onSurface px-2 text-lg md:text-xl"
         />
       </div>
-      <div className="flex justify-between py-2">
+      <div className="flex justify-between py-2 min-h-[48px]">
         <h6>@ 2024 designed by makgraph</h6>
         <div className="flex gap-4">
           <img src={paypal} alt="moncash" className="w-12 h-8 " />

@@ -10,8 +10,14 @@ import { Link } from "react-router-dom";
 import { resetDeleteSuccess } from "../../redux/products/deleteProductSlice";
 
 const MainProducts = (props) => {
-  const { keyword, pageNumber } = props;
+  const { keyword: initialKeyword, pageNumber } = props;
   const dispatch = useDispatch();
+
+  // État local pour gérer le mot-clé de recherche
+  const [keyword, setKeyword] = useState(initialKeyword || "");
+
+  console.log("Keyword:", keyword);
+  console.log("Page Number:", pageNumber);
 
   const { products, loading, error, page, pages } = useSelector(
     (state) => state.productsList
@@ -60,40 +66,45 @@ const MainProducts = (props) => {
       </div>
 
       <div>
-        <SecondHeader />
+        <SecondHeader keyword={keyword} setKeyword={setKeyword} />
       </div>
+      {errorDelete && (
+        <Message>
+          <div className=" m-4 p-4">
+            <Message variant="bg-[#fee2e2] text-[#991b1b]">
+              {errorDelete}
+            </Message>
+          </div>
+        </Message>
+      )}
       <div className="w-full justify-between sm:gap-6 md:gap-8 sm:flex">
-        {errorDelete && (
-          <Message>
-            <div className=" m-4 p-4">
-              <Message variant="bg-[#fee2e2] text-[#991b1b]">
-                {errorDelete}
-              </Message>
-            </div>
-          </Message>
-        )}
         {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center min-h-[359.13px]">
             <LoadingSpinner />
           </div>
         ) : error ? (
           <Message>
-            <div className=" m-4 p-4">
+            <div className="m-4 p-4">
               <Message variant="bg-[#fee2e2] text-[#991b1b]">{error}</Message>
             </div>
           </Message>
         ) : (
           <>
-            <div className="gap-10 sm:mt-4 items-center justify-center grid md:grid-cols-4 grid-cols-2">
+            <div className="gap-10 sm:mt-4 items-center justify-center grid md:grid-cols-4 grid-cols-2 min-h-[359.13px]">
               {/* Products */}
               {products.map((product) => (
-                <Product product={product} key={product._id} />
+                <Product
+                  product={product}
+                  key={product._id}
+                  sizes={product.sizes}
+                  colors={product.colors}
+                />
               ))}{" "}
             </div>
           </>
         )}
       </div>
-      <div className="flex justify-center  sm:justify-end ">
+      <div className="flex justify-center sm:justify-end ">
         <Pagination
           pages={pages}
           page={page}
