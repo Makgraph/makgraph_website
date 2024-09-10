@@ -1,0 +1,1 @@
+.menu{transition:transform .3s ease,opacity .3s ease;transform:translate(-100%);opacity:0}.menu.open{transform:translate(0);opacity:1}
