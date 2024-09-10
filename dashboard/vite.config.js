@@ -11,6 +11,10 @@ export default defineConfig({
     },
   },
 
+  build: {
+    outDir: "build", // Spécifie le répertoire de sortie
+  },
+
   optimizeDeps: {
     include: ["react-router-dom"],
   },
