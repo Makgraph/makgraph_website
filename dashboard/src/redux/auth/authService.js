@@ -51,7 +51,6 @@ const fetchUsersApi = async (token) => {
 };
 
 const authService = {
-  refreshToken,
   isLoggedIn,
   register,
   logout,

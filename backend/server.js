@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const cors = require("cors");
-const refreshTokenRoutes = require("./routes/refreshTokenRoutes");
+
 // const authRoutes = require("./routes/authRoutes");
 // const products = require("./data/products");
 // const ImportData = require("./Seed");
@@ -87,7 +87,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // app.use("/api/makgraph", require("./routes/makgraphRoutes"));
-// app.use("/api/auth", refreshTokenRoutes);
 // app.use("/api/auth", authRoutes);
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
