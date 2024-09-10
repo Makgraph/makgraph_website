@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_URL;
 import { toast } from "react-toastify";
 
 export const deleteProduct = createAsyncThunk(
@@ -13,7 +14,10 @@ export const deleteProduct = createAsyncThunk(
         },
       };
 
-      const response = await axios.delete(`/api/products/${id}`, config);
+      const response = await axios.delete(
+        `${baseUrl}/api/products/${id}`,
+        config
+      );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

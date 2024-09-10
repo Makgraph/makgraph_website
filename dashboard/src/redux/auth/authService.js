@@ -1,25 +1,6 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
-const API_URL = "/api/users/";
-// const API_URLL = "/api/auth/refresh-token";
-
-const refreshToken = async () => {
-  const refreshToken = localStorage.getItem("refreshToken");
-
-  if (!refreshToken) {
-    throw new Error("Refresh token manquant");
-  }
-
-  try {
-    const response = await axios.post(API_URL + "refresh-token", {
-      refreshToken,
-    });
-    return response.data.token;
-  } catch (error) {
-    console.error("Erreur lors du rafraîchissement du token:", error.message);
-    throw error;
-  }
-};
+const baseUrl = import.meta.env.VITE_API_URL;
+const API_URL = `${baseUrl}/api/users/`;
 
 // Fonction pour vérifier si l'utilisateur est connecté
 const isLoggedIn = () => {
@@ -52,13 +33,13 @@ const login = async (userData) => {
 // Logout user
 const logout = () => {
   localStorage.removeItem("user");
-  document.location.href = "/login";
+  document.location.href = `${baseUrl}/login`;
 };
 
 // Fonction pour récupérer les utilisateurs
 const fetchUsersApi = async (token) => {
   try {
-    const response = await axios.get("/api/users", {
+    const response = await axios.get(`${baseUrl}/api/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

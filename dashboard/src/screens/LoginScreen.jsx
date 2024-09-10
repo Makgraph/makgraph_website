@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login, reset, setToken, refreshToken } from "../redux/auth/authSlice";
+import { login, reset, setToken } from "../redux/auth/authSlice";
 import LoadingSpinner from "../components/Loadingerror/loading";
 import ErrorPage from "../components/Loadingerror/ErrorPage";
 import Message from "../components/Loadingerror/errorMessage";
@@ -20,8 +20,9 @@ export default function LoginScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message, refreshTokenError } =
-    useSelector((state) => state.auth);
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   // Effect pour gérer le résultat de la connexion
   useEffect(() => {
@@ -49,17 +50,6 @@ export default function LoginScreen() {
     e.preventDefault();
     const userData = { email, password };
     dispatch(login(userData));
-  };
-
-  const handleRefreshToken = () => {
-    dispatch(refreshToken())
-      .unwrap()
-      .then((newToken) => {
-        toast.success("Token rafraîchi avec succès");
-      })
-      .catch((error) => {
-        toast.error(`Échec du rafraîchissement du token: ${error}`);
-      });
   };
 
   return (
@@ -120,18 +110,6 @@ export default function LoginScreen() {
                 >
                   <span className="labellg text-base sm:text-lg font-sans font-semibold flex justify-center items-center">
                     Connexion
-                  </span>
-                </button>
-              </div>
-              {/* Ajoutez le bouton de rafraîchissement */}
-              <div className="flex justify-center pt-4">
-                <button
-                  type="button"
-                  onClick={handleRefreshToken}
-                  className="btn-primary sm:w-[45%]"
-                >
-                  <span className="labellg text-base sm:text-lg font-sans font-semibold flex justify-center items-center">
-                    Rafraîchir le Token
                   </span>
                 </button>
               </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-// Charger l'URL de base depuis les variables d'environnement
+// Chargement l'URL de base depuis les variables d'environnement
 const baseUrl = import.meta.env.VITE_API_URL;
 
 export const api = {

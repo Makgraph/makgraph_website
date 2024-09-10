@@ -15,7 +15,6 @@ const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   user: user ? user : null,
   token: localStorage.getItem("token") || null,
-  refreshToken: localStorage.getItem("refreshToken") || null,
   userDetails: null,
   userUpdatedProfile: null,
   isError: false,
@@ -25,23 +24,10 @@ const initialState = {
   message: "",
 };
 
-export const refreshToken = createAsyncThunk(
-  "auth/refreshToken",
-  async (_, thunkAPI) => {
-    try {
-      const newToken = await authService.refreshToken();
-      return newToken;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
     const userData = await authService.login(user);
     thunkAPI.dispatch(setToken(userData.token)); // Dispatch de l'action setToken avec le token reçu
-    localStorage.setItem("refreshToken", userData.refreshToken); // Stockage du refresh token
     return userData;
   } catch (error) {
     const message =
@@ -94,15 +80,6 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(refreshToken.fulfilled, (state, action) => {
-        state.token = action.payload;
-        localStorage.setItem("token", action.payload);
-      })
-      .addCase(refreshToken.rejected, (state) => {
-        state.token = null;
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-      })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
@@ -111,9 +88,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.token = action.payload.token;
-        state.refreshToken = action.payload.refreshToken; // Assurez-vous que cela est défini correctement
         localStorage.setItem("token", action.payload.token);
-        localStorage.setItem("refreshToken", action.payload.refreshToken); // Stockage du refresh token
         state.user = action.payload;
       })
       // .addCase(login.fulfilled, (state, action) => {

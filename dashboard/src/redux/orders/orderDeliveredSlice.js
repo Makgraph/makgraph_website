@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Action asynchrone pour marquer une commande comme livrée
 export const orderDelivered = createAsyncThunk(
@@ -15,7 +16,7 @@ export const orderDelivered = createAsyncThunk(
 
     try {
       const response = await axios.put(
-        `/api/orders/${orderDetails._id}/delivered`,
+        `${baseUrl}/api/orders/${orderDetails._id}/delivered`,
         {},
         config
       ); // Marquer la commande comme livrée
