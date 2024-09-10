@@ -30,13 +30,13 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="rounded-lg md:max-w-[171.2px] gap-2 w-auto h-auto flex flex-col transition hover:transition-[0.3s] hover:ease-in cursor-pointer">
-      {/* <Link to={`/products/${product._id}`}> */}
-      <img
-        src={product.image}
-        className="w-full md:max-w-[171.2px] md:max-h-[212.4px] rounded-lg"
-        alt={product.name}
-      />
-      {/* </Link> */}
+      <Link to={`/products/${product._id}`}>
+        <img
+          src={product.image}
+          className="w-full md:max-w-[171.2px] md:max-h-[212.4px] rounded-lg"
+          alt={product.name}
+        />
+      </Link>
       <div className="text-start w-[100%]">
         <div className="flex justify-between">
           <p className="font-medium font-serif text-xs md:text-normal">
