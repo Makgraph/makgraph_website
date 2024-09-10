@@ -48,8 +48,8 @@ const ProfileScreen = () => {
                   <div className="font-serif">
                     {user.isAdmin && (
                       <a
-                        // href="http://localhost:5176"
-                        href="https://ton-site.vercel.app/dashboard"
+                        // href="http://localhost:5176" // pour development
+                        href="https://makgraph-website-dashboard.vercel.app/" // pour production
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:text-blue-700 font-bold text-md"

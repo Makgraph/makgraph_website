@@ -59,6 +59,9 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5176",
   "https://makgraph-website-frontend.vercel.app",
+  "https://vercel.com/makgraph-e8918845/makgraph-website-frontend/E5aJiqNyyefDEyUSZVuVmN7MN7Hr",
+  "https://makgraph-website-dashboard.vercel.app/",
+  "makgraph-website-dashboard-254owiy73-makgraph-e8918845.vercel.app",
 ];
 
 // Configurer CORS
